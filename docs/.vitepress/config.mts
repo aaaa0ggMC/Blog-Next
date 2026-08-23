@@ -30,9 +30,6 @@ export default defineConfig({
   ],
 
   themeConfig:{
-    footer: {
-      message: "Developed by aaaa0ggmc"
-    },
     search: {
       provider: 'local'
     },

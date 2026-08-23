@@ -30,6 +30,9 @@
           />
         </div>
       </template>
+      <template #layout-bottom>
+        <FooterStats />
+      </template>
     </Layout>
   </div>
   <ImageViewer />
@@ -42,6 +45,7 @@ import { watch, computed } from "vue";
 import { inBrowser, useData, useRouter } from "vitepress";
 import { base } from '../../scripts/Data';
 import ArticleMeta from "../components/ArticleMeta.vue";
+import FooterStats from "../components/FooterStats.vue";
 import HomePage from "./HomePage.vue";
 import ImageViewer from "../components/ImageViewer.vue";
 

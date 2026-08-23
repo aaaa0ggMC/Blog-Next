@@ -1,7 +1,7 @@
 <template>
   <div class="article-meta-bar no-copy no-print" data-copy-ignore="true">
-    <!-- 左侧：字数统计与预计阅读时长 -->
-    <div v-if="shouldShow && wordCount > 0" class="meta-group" title="字数统计与阅读时间估算">
+    <!-- 左侧：字数统计与预计阅读时长与阅读量 -->
+    <div v-if="shouldShow && wordCount > 0" class="meta-group" title="字数统计、阅读时间与访问量">
       <span class="meta-item">
         <svg
           class="meta-icon"
@@ -42,6 +42,26 @@
         </svg>
         <span class="meta-text">约 {{ readTime }} 分钟</span>
       </span>
+
+      <span class="meta-divider" aria-hidden="true"></span>
+
+      <span class="meta-item" title="本文阅读量">
+        <svg
+          class="meta-icon"
+          viewBox="0 0 24 24"
+          width="13"
+          height="13"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        <span class="meta-text">{{ formattedPagePv }} 次阅读</span>
+      </span>
     </div>
     <div v-else class="meta-placeholder"></div>
 
@@ -56,12 +76,27 @@
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import { useRoute, useData } from 'vitepress'
 import CopyPageButton from './CopyPageButton.vue'
+import { useBusuanzi } from '../utils/busuanzi'
 
 const route = useRoute()
 const { page, frontmatter } = useData()
+const { pagePv } = useBusuanzi()
 
 const wordCount = ref(0)
 const readTime = ref(1)
+
+const formattedPagePv = computed(() => {
+  if (pagePv.value === null) return '--'
+  if (pagePv.value >= 10000) {
+    return (pagePv.value / 10000).toFixed(1) + 'w'
+  }
+  if (pagePv.value >= 1000) {
+    return (pagePv.value / 1000).toFixed(1) + 'k'
+  }
+  return pagePv.value.toLocaleString()
+})
+
+
 
 const shouldShow = computed(() => {
   if (frontmatter.value?.readingTime === false) return false
