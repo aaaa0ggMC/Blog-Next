@@ -2,9 +2,11 @@ import { base } from './scripts/Data.ts';
 import { autoSidebar } from './scripts/sidebar.ts';
 import { registerMarkdownContainers } from './scripts/markdownContainers.ts';
 import { vitepressResTransformPlugin } from './scripts/resTransformPlugin.ts';
+import { generateRss } from './scripts/rss.ts';
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
+  buildEnd: generateRss,
   vite: {
     plugins: [vitepressResTransformPlugin()],
   },
@@ -23,6 +25,8 @@ export default defineConfig({
 
   head:[
     ["link",{rel:"icon",href:'/favicon.ico'}],
+    ["link",{rel:"alternate",type:"application/rss+xml",title:"RSS Feed",href:'/feed.rss'}],
+    ["link",{rel:"alternate",type:"application/atom+xml",title:"Atom Feed",href:'/feed.atom'}],
   ],
 
   themeConfig:{
