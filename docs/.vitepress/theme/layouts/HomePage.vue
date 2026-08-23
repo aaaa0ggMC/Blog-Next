@@ -12,11 +12,8 @@
           </svg>
         </a>
         <a :href="rssUrl" class="icon-link rss-link" target="_blank" rel="noopener noreferrer" aria-label="RSS Feed" title="订阅 RSS">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round">
-            <circle cx="5" cy="19" r="1.4" fill="currentColor" stroke="none"/>
-            <path d="M4 14a5 5 0 0 1 5 5"/>
-            <path d="M4 9a10 10 0 0 1 10 10"/>
-            <path d="M4 4a15 15 0 0 1 15 15"/>
+          <svg viewBox="1 1 21 21" width="22" height="22" fill="currentColor">
+            <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z" transform="translate(1, -1)"/>
           </svg>
         </a>
       </div>
