@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vitepress'
+import { ref, onUnmounted, watch } from 'vue'
+import { useRoute } from 'vitepress'
 import { getPagePlainText, getPageMarkdown, preparePrint } from '../../scripts/exporter'
 
 const isCopied = ref(false)
 const copiedFormat = ref<'plain' | 'formatted' | null>(null)
 const isPrinting = ref(false)
-const router = useRouter()
+const route = useRoute()
 
 let copyTimer: number | null = null
 
@@ -68,18 +68,14 @@ const handleRouteChange = () => {
   }
 }
 
-onMounted(() => {
-  if (router.onBeforeRouteChange) {
-    router.onBeforeRouteChange = () => {
-      handleRouteChange()
-    }
-  }
-
-  window.addEventListener('popstate', handleRouteChange)
-})
+watch(
+  () => route.path,
+  () => {
+    handleRouteChange()
+  },
+)
 
 onUnmounted(() => {
-  window.removeEventListener('popstate', handleRouteChange)
   if (copyTimer) {
     clearTimeout(copyTimer)
     copyTimer = null
