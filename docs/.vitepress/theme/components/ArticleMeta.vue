@@ -2,7 +2,7 @@
   <div class="article-meta-bar no-copy no-print" data-copy-ignore="true">
     <!-- 左侧：字数统计与预计阅读时长与阅读量 -->
     <div v-if="shouldShow && wordCount > 0" class="meta-group" title="字数统计、阅读时间与访问量">
-      <span class="meta-item">
+      <span class="meta-item" title="字数统计">
         <svg
           class="meta-icon"
           viewBox="0 0 24 24"
@@ -20,12 +20,12 @@
           <line x1="16" y1="17" x2="8" y2="17" />
           <polyline points="10 9 9 9 8 9" />
         </svg>
-        <span class="meta-text">{{ formattedWordCount }} 字</span>
+        <span class="meta-text">{{ formattedWordCount }}<span class="unit-full"> 字</span></span>
       </span>
 
       <span class="meta-divider" aria-hidden="true"></span>
 
-      <span class="meta-item">
+      <span class="meta-item" title="预计阅读时长">
         <svg
           class="meta-icon"
           viewBox="0 0 24 24"
@@ -40,7 +40,7 @@
           <circle cx="12" cy="12" r="10" />
           <polyline points="12 6 12 12 16 14" />
         </svg>
-        <span class="meta-text">约 {{ readTime }} 分钟</span>
+        <span class="meta-text"><span class="prefix-approx">约 </span>{{ readTime }}<span class="unit-full"> 分钟</span><span class="unit-short">分</span></span>
       </span>
 
       <span class="meta-divider" aria-hidden="true"></span>
@@ -60,7 +60,7 @@
           <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
           <circle cx="12" cy="12" r="3" />
         </svg>
-        <span class="meta-text">{{ formattedPagePv }} 次阅读</span>
+        <span class="meta-text">{{ formattedPagePv }}<span class="unit-full"> 次阅读</span><span class="unit-short">阅读</span></span>
       </span>
     </div>
     <div v-else class="meta-placeholder"></div>
@@ -247,13 +247,59 @@ watch(
   align-items: center;
 }
 
+.unit-short {
+  display: none;
+}
+.unit-full {
+  display: inline;
+}
+.prefix-approx {
+  display: inline;
+}
+
 @media (max-width: 640px) {
   .article-meta-bar {
-    gap: 8px;
+    gap: 6px;
   }
   .meta-group {
     padding: 2px 8px;
     gap: 6px;
+    font-size: 11.5px;
+    height: 28px;
+  }
+  .prefix-approx {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-meta-bar {
+    gap: 4px;
+  }
+  .unit-full {
+    display: none;
+  }
+  .unit-short {
+    display: inline;
+  }
+  .meta-group {
+    padding: 2px 6px;
+    gap: 5px;
+    font-size: 11px;
+  }
+  .meta-item {
+    gap: 3px;
+  }
+}
+
+@media (max-width: 360px) {
+  .unit-short {
+    display: none;
+  }
+  .meta-group {
+    padding: 2px 4px;
+    gap: 3px;
+    font-size: 10.5px;
   }
 }
 </style>
