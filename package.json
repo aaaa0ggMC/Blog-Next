@@ -1,0 +1,59 @@
+{
+  "name": "aaaa0ggmc.github.io",
+  "version": "1.0.0",
+  "description": "A blog website",
+  "keywords": [
+    "Website;Blog;Vitepress"
+  ],
+  "homepage": "https://github.com/aaaa0ggMC/aaaa0ggMc.github.io#readme",
+  "bugs": {
+    "url": "https://github.com/aaaa0ggMC/aaaa0ggMc.github.io/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaaa0ggMC/aaaa0ggMc.github.io.git"
+  },
+  "license": "ISC",
+  "author": "aaaa0ggmc",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "decrypt:hex": "node scripts/decrypt_hex.mjs",
+    "encrypt:hex": "node scripts/encrypt_hex.mjs",
+    "decrypt:base64": "node scripts/decrypt_base64.mjs",
+    "encrypt:base64": "node scripts/encrypt_base64.mjs",
+    "res:upload": "node scripts/res-sync.mjs",
+    "res:dryrun": "node scripts/res-sync.mjs --dry-run",
+    "res:prune": "node scripts/res-sync.mjs --prune",
+    "res:clean": "node scripts/res-sync.mjs --clean",
+    "encrypt:repo": "node scripts/repo-path-transform.mjs encrypt",
+    "decrypt:repo": "node scripts/repo-path-transform.mjs decrypt",
+    "decrypt:path": "node scripts/path-crypto.mjs -d",
+    "encrypt:path": "node scripts/path-crypto.mjs -e",
+    "manifest:dump": "node scripts/path-crypto.mjs --manifest",
+    "precommit": "node scripts/precommit.mjs",
+    "hook:install": "node scripts/install_hook.mjs",
+    "fastpush": "node scripts/fastpush.mjs",
+    "resume:repo": "node scripts/resume-repo.mjs"
+  },
+  "devDependencies": {
+    "crypto-js": "^4.2.0",
+    "jquery": "^3.7.1",
+    "vitepress": "^1.6.3",
+    "vue": "^3.5.13"
+  },
+  "dependencies": {
+    "@giscus/vue": "^3.1.1",
+    "markdown-it-mathjax3": "^4.3.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

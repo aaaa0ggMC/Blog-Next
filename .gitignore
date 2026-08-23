@@ -1,0 +1,13 @@
+node_modules
+node_modules_linux
+node_modules_windows
+dist
+cache
+md_srcs
+.temp
+.DS_Store
+docs/public/pic/
+.env
+.env.local
+.env.*.local
+docs/public/res

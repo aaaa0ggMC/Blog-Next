@@ -1,0 +1,193 @@
+---
+title: 黎明没有来临
+date: 2026-02-11
+category: exploration
+tags: [旅行, 摄影]
+desc: 武功山之行，记录云海、草甸与星空下的徒步。
+highlight: true
+---
+
+# 黎明没有来临
+
+> [!TIP]
+> 这里的大部分照片并不打算删除meta信息
+
+
+> 看到海<br/>就会失去海
+<np>这是我这次旅行前一直持有的想法,看着高德地图照片里的绿油油的绵延不绝的高山草甸,我虽然知道实际上肯定没这么震撼,内心还是无时无刻期待着这次旅行,并享受着这种有的放矢的幻象在脑中不断回放,大脑仿佛水晶球一般预示着接下来旅行的一幕幕.</np>
+<np>在2025年12月17日,这个时候我还在大学里准备期末周,我的好友S<ec fallback="">nSZ/mv65BsaDvxEBqoWH2UGeb/rhC+wKAdbNR3o6q55t52n9lkPotS+NevRy+i62XuHHeUFomw==</ec>便邀请我和另一位好友L<ec fallback="">RVzBu8VxS0PdobMNRa3CrBS46gDn4gnWHwLmlEGiGSrVwD7kZZC4sCRe4IAYYc9bqXdj19Ppbw==</ec>在寒假时前往武功山,并在寒假过了50%即将过年时计划正式启动,挑选了2月8号到2月10号三天从家乡<ec fallback="">EoXaNPCYcHTZ8Y2k9G/xZBl5phdcx49lUMDVjdrlMk4dy7QFcImAHBXNF6atqhR2rrc=</ec>到江西萍乡再回来,这场说走就走的旅行也算是拉开序幕了.
+</np>
+<div style="text-align: center;">
+    <Img content="/dDyudXA27XBZ0XY1ho_cuMHSrmsdW1GnLu8YgjBdfJtFkYYIakY9.jpg" width="300" height="200" fit="cover" objectPosition="50% 85%" />
+</div>
+<np>不过我们都是第一次旅行,因此还没到萍乡就出了一个比较重要的问题差点让旅程泡汤了......在2月6号时,我看了看自己12306弹出的行程,直接被吓了一大跳--2月8号9点钟的高铁,你逗我吗?</np>
+<np>这时你可能会疑惑,九点钟高铁不是很正常吗?但是,这建立在高铁站就在你的城市的基础上,我们县城距离最近的高铁站<ec fallback="">k3lEbk2wEx+HQza8rNCcPJlpNDAtLAiyy0EMQfZpp6wy1EZkVC/t68Y2RFcXzi19R9dluXs=</ec><ec fallback="很远">NxwPzx4C3RFH2CDuRU5fmb3dQrBBYGfiJhKYlgiBjL4qZaUS/uqvIA+m1Dbg0J2Une6PkXi/KXA=</ec>,虽然做车理论上2小时内能够赶到,但是我们坐的是大巴.这大巴是什么存在呢?速度慢就算了,还跟个公交车一样在路上走走停停,3小时内能赶到就算不错了.于是我提醒了S改签,也算是挽救了这次旅途的胎死腹中.</np>
+<np>旅行的日子很快就来了,但是那天晚上我听小说还是不知不觉听到了凌晨三点半,然后身体竟然也能在7点半就起来,只是脑袋有一点晕,感觉自己被蒙在一张鼓里面,外面的一切刺激都显得有点"绵长",不过这个感觉并不是很强烈.我整理了一下东西,吃早餐,打开电脑和AI炫耀自己搓了几天做出来的在某一方面拳打nlohmann/json的小玩意来满足我的虚荣感......很快10点20到了,我揣着自己的背包便前往了县城的汽车总站.</np>
+<div style="text-align: center;">
+    <Img content="/AcKFHTzFLQs405i42nLwooRrPni_mzURjtO7SzIK9s1JYk6ipziVROuMWHTa.jpg" width="300" height="200" fit="cover" objectPosition="50% 63.2%" />
+</div>
+<np>11点,大巴出发.</np>
+<np>破旧的大巴在破旧的马路上散着步,我又开始了自己每次坐车都会有的烦恼--"万一中途我很想上厕所怎么办?"--然后刷着手机,打着游戏,不时看看高德地图查看距离.S和L看我在玩王者荣耀也把他们手机里百年没更新的王者更新了一下,陪我打了几把.</np>
+<np>14点,大巴到达.</np>
+<np>但是并不是达到高铁站,而是把我们丢在了十字路口自己继续慢悠悠地前往汽车总站.好在发车时间为16点,因此一点都不急,有的是时间等待.</np>
+<np>我们等待的士,等待高铁站,等待高铁准时进站,等待自己到达长沙南,等待高铁继续开往萍乡......</np>
+<np>就像夏虫等待着秋天到来时死亡,我也等待着武功山的美景来临时那种真切却又像是幻想破灭的感觉.这种感觉用一句话形容便是《看海》中的:"看到海,便失去海."我享受自己期待时的无穷想象,也享受期待被戳破时那种特殊的遗憾,因此我并不会再等待两年,而是和我的这两位朋友甚至对武功山都没什么了解就开启了这场一点都没有规划的旅途.</np>
+<np>晚上七点半,我们到达了萍乡,吃了吃所谓的"萍乡特色小炒肉",尽管这个特色是营销的.说实话,也不知道是不是我们省份离萍乡很近也沾上了这个特色,我是真的没尝出来这个炒肉有什么特别的,甚至在我们家的炒肉中算垃圾的了.</np>
+<div style="text-align: center;">
+    <Img content="/LrmMVKsqzIDdxK2YzzPQtjnGitjiWsJ-8XYhofw69sTl-2v69xP3YP7J6g.jpg" />
+</div>
+<np>吃饱后我们跟着一个缠着我们很久的一个看起来还算可信的司机上了他的车,接受了他40r/人的"好意"被送到了武功山售票处附近.(后面发现他很有可能是看我们比较单纯所以坑了我们每个人10块,不过送确实送到了理论最近.)</np>
+<np>到了武功山后,L拉着我们激情拍摄,拍完后我们原本想找个地方休息,但是发现基本上没什么店面了,于是S便提出要不夜爬吧.我对夜爬也没怎么抵触,因为在我的预期中夜爬和白天爬也没什么区别,无非只是走一条条山路啥的.我们清点了一下装备:</np>
+
+- 每人份的压缩饼干,德芙巧克力+雨衣+鞋套
+- 2元的竹竿子
+- 还算丰富的水
+- 电量还算充足的手机
+- 两个充电包
+- L买的一袋暖宝宝
+
+<np>东西还算丰富,于是我们买了票后前往了检票处.</np>
+<np>不过实际的爬山还是把我的固有印象给冲破了,我以为爬山是走那种有安全措施的山路,结果发现到目前为止竟然只是走完楼梯走平地,像是一群教徒走上千万人为的阶梯去顶峰朝圣那样.不过这个检票口竟然也挺高,我光到检票口这个地方就有点气喘吁吁了,背后冒起了一层虚汗.</np>
+<div style="text-align: center;">
+    <Img content="/O7fxlL-MiBZVVywMDqIyg3SftK70Q4ybdDZeAfWMP3mCtcKQWA.jpg" />
+</div>
+<np>此时无论是L明面上说出来的"有点不想去了"还是我内心打的退堂鼓都让我们在思考要不要继续爬山,不过本着万恶之源"来都来了"的心理,我们还是准备夜爬这山,原因有三:</np>
+
+1. 这山的夜爬者不算少,路上走几分钟就能看到一个人在前面休息或者从左侧的下行通道虚弱地下山
+2. 这山目前为止基本上都是走楼梯,实在看不出有什么独特的挑战性
+3. 我们目前还是很乐观的
+
+<np>但是我们又是很菜的,基本上中途的每个休息点我们都去坐了会儿,我的心率在这爬山的途中更是常年保持在150+,时不时突破我的身高让我有点害怕.在路上,我给L拍了张他要求的阴暗的爬行:</np>
+
+<div style="text-align: center;">
+    <Img content="/0UnKUIS1-iKwp_dK5TN1OQav_96kro40OtBGS3PAHZaJMzezNRvHR-dHahUH1g.jpg" width="600" height="400" fit="cover" objectPosition="50% 15%" />
+</div>
+
+<np>
+我们最终夜爬的路径是大众化的路径:
+</np>
+<np>
+石鼓寺——尽心桥——龙潭——尽心瀑——飚水瀑布——猴谷——好汉坡——吊马桩——金顶
+</np>
+
+<np>不过爬的时候我们并不知道终点在何方,只是一味地随着路上零星却又不少的驴友随着阶梯走着.一级级台阶占据着我们的视网膜,我们也不知道什么时候是个头,慢慢爬着.压在我们身上的时间和我们一样疲惫,等我们到了龙潭,才发现时间已经偷偷睡了半个多小时了.当时我还以为我们的目的地应该是紫极宫,于是我便顿时兴高采烈地告诉自己路程已经过了一半了,想来爬个武功山难度也没多大.可当十二点半左右我们到达飙水瀑布和猴谷之间的一条分叉路时我们才发现前往紫极宫的路在晚上是封锁的,因此我们只好继续往上走,深入猴谷,征服好汉坡.</np>
+<np>猴谷里面并没有猴子,只有一盏盏黑暗中隐隐绰绰的路灯.我们和远处路灯遥望,终点在向我们招手.</np>
+<np>而到了好汉坡,也无非是枯燥的爬梯,据说好汉坡是最困难的爬坡之一,可是在这个夜晚我们都没意识到自己在征服好汉坡,反而稀里糊涂地就走完好汉坡了.</np>
+<np>三小时多重复的行走，我们终于到达了吊马桩，这是这条路线上距离金顶位置最好的一处地点，刚到那儿，我们便发现许多人已经聚拢在吊马桩的各处了,吊马桩的店铺内站着,坐着,躺着无数人,有的人在吃东西,有的人裹着保温毯,空气里弥漫着一股说不上难闻但是绝对算得上窒息的味道,如同被抽走大部分氧气的空气.我们不得不在店外坐着,可是吊马桩的风让我们始终坐立难安,景区像是故意想让你吹风,并没有在左右两侧的凉亭搞个掩体啥的挡风,只是在左右凉亭各提供了一个单纯看起来暖暖的小太阳.一群人在风中哆嗦着,笑着......</np>
+<np>到了黎明,4小时后,寒冷将不再,初升的太阳将携着云海包裹我们,这将是对征服者的奖励.</np>
+<np>风实在是凌冽,我不禁想找到除了商店外能呆的地方,恰好我想上厕所了,于是我灵机一动:"厕所不是有'掩体'吗,那我去厕所里面呆着不就可以避风了?"不过到了厕所门口我才发现我的脑子属实是被风吹得愚钝了:</np>
+
+1. 我怎么这么久才想到这个方案?
+2. 我怎么想不到别人早就想到了?
+
+<np>不知道为什么,看到那一幕的时候我感受到的是完完全全的震惊,让我整个人石化了几秒,我看到温馨的气氛与肮脏的场景诡异地融合在了一起,这种感觉属实是诡异以至于我现在形容的时候我拿不出任何词来形容只能想出"温馨"和"肮脏"这两个概念来近似我感受到的不可名状的诡异感觉:</np>
+
+<np>人们部分身体靠着墙角,横七竖八地被自然摆在地板上,有的人抱着自己的书包眯眼睡觉,有的人和对面也半躺着的人打着扑克,还有的人则站在一旁吃着泡面,吃完了则把水倒进门板已经裂了的一个隔间的坑位里,坑位的瓷砖上是黄黄的油渍,也有可能是尿渍.我并没有闻到泡面的香味,我闻到的是如同商店内那种窒息却又完全不同于商店的气味,这让我这个经历了满头大汗到浑身哆嗦的人都觉得不如到外面冻着,尽管厕所地面大部分区域并不是很脏.</np>
+
+<np>我开了两把王者荣耀打发时间,准备和朋友们在4点钟起身前往金顶--想睡觉,但睡不着.</np>
+
+<np>刚走上前往金顶的第一个斜坡,风就迫不及待地鼓着,把我吹到道路右侧.我抓紧一个个小石柱与石柱之间的铁链,如同攀登项目里抓着绳索往上爬的挑战者.原本我以为到了高山草甸地区就是平缓的坡,美丽的景,惬意的人,可是一级级台阶还是那么难爬,反而还多了永不停息的风,比好汉坡还要难爬千百万倍.</np>
+
+<np>我的身体在机械的走动中冒出似有若无的汗珠,又被风吹起源源不断地带走着热量,而身体似乎产热增强导致没被风吹倒的地方莫名燥热从而又出了汗......我感觉衣服似乎成了我的累赘,盛着不少水,好重好重,但是我知道自己不能脱衣服,反而要把自己裹起来,至于对付这恶性循环,我能额外做的便是不断进食了.我的嘴巴在旅途中基本没停过,要么含着啃下来的一块压缩饼干,要么含着一片德芙巧克力.
+我吃了完整的压缩饼干，吃了一个多的德芙，吃了L花巨资买的15块钱的垃圾卤鸡腿，吃了自己身上带的一包鱼排(没吃多少，主要是想通过辣椒促进产热，没想到汗也促进了)，肚子似乎能装下无穷无尽的事物。但是我并没有喝多少水,我在整个行程中只喝了4次水,到了高山处更是一次没喝,我不知道自己为什么出这么多汗还感觉不到明显的口渴,但是我能感受到自己必须不断吃东西.</np>
+
+<np>
+在第一个斜坡的坡顶,我看见了山下一条条亮着微弱黄光的路--那时我们来时的路,此时却显得如此遥远,越遥远的地方的黄色越是黯淡.
+同样遥远的,是此时看都看不到的金顶,眼前也只有逐渐黯淡的黄色.
+</np>
+
+<np>
+我们的到来被逐渐抹去,我们的终点却又遥不可及.
+</np>
+
+<np>
+但是我们还能怎么办?退缩?回到吊马桩继续受冻?不行,这样的话沉没成本太高了,于是我们咬紧牙关,一级一级,如同其他地方那样麻木.我也不知道是不是自己思绪已经被风刮走了,时间在这一小段旅途被不断拉长,痛苦也是.
+</np>
+
+> 原谅我这里卡住了一直写不下去,因此下面的内容都是粗稿中的内容
+
+<np>
+到了双乳峰左右时，风力达到了令人望而生畏的地步了。狂风在此时感觉真的具象化为了一只巨手，掰扯着我的手机，甚至掰扯着我自己，试图把我推出正轨。
+</np>
+
+<np>
+到达万宝柜时我们总算遇到了爬山的第一个下坡路，L提醒我们注意失温。此时我整个人有点轻飘飘的感觉，只要我一段时间没有行动，困意和寒意便会慢慢袭来，这时候我内心便涌现出了无数往坏处想的想法——我怎么突然感觉自己脖子暖暖的？我是不是失温了？我是不是要死了？
+</np>
+
+<np>
+我把自己捂得更紧，继续走着，我出发前还在文艺地想着“看到海，便会失去海”，而此时，我脑中的想法便是“黎明即将来临，坚持便是胜利”。于是在路途上我们又是重复地行走、休息......
+</np>
+
+<np>
+也许是我们彻底麻木了，慢慢地慢慢地，我们到达了金顶，看到了那个巨大的石碑，上面刻着“武功山”。
+</np>
+
+<np>
+狂风并不会因为我们的到达而留给我们时间获得成就感，我们被风吹得抱头鼠窜，找了个勉强被风的地方趴了下来，试图等待黎明......
+</np>
+
+<np>
+我好冷，我也好困，于是我都不知道怎么回事，我就睡着了。醒来的时候是5点40左右，此时我大概睡了15min。此时L说自己受不了这寒风了，于是拉着我与S准备下山。
+</np>
+
+<np>
+我自然是答应了，因为我感觉自己现在真的离死不远了。可是真的好遗憾好遗憾，离那日出就剩1h了，我们却离开了，于是当日出时，我们已经回到了吊马桩，就像我们那一晚都在吊马桩度过了一样。
+</np>
+
+<np>
+离别前我拍了张照片，证明自己爬过。照片里的人如同流浪汉般瘫软在地面，心里和我们最开始一样期待着日出。
+</np>
+
+
+<div style="text-align: center;">
+    <Img content="/PbWfamf2-1Ns4x47bX10YD4iMzwLIB3d-xqfJ_eCiDE5.jpg" width="600" height="400" fit="cover" objectPosition="50% 45%" />
+</div>
+
+<np>
+吊马桩处能看到天空被初升的太阳映红，不过这个简直不算稀奇，没什么特别的。我们决定沿着原路返回。期间园区开始营业，我们听到了“因风力超出安全范围，金顶索道停运”，我们才知道我们的运气或许有点差劲，遇到了异常狂风时刻。
+</np>
+
+<np>
+9点多，我们总算是沿着原路下了山，准备到润达找个酒店然后吃海底捞。一个揽客司机只要30/人，我们发现似乎比高德打车还便宜于是接受了。车上我睡了一个小时，醒来后和这两人开始找酒店。
+</np>
+
+<np>
+然后入住，补觉。
+</np>
+
+<np>
+我们没看见云海，没看见日出。
+</np>
+
+<np>
+这场旅行于我们甚至都没有回甘，而是从头到尾的苦痛。
+</np>
+
+<np>
+那我说这个旅行绝佳不就是纯纯的抖M了吗？
+</np>
+
+<np>
+或许吧，绝佳是因为我永远都不会忘记那快要死的感觉，那头晕乎乎的感觉，那觉得自己不得不走不然就要死在山里的感觉。
+</np>
+
+<np>
+武功山内的商品贵得离谱，但是这种感觉得价格却是0元。
+</np>
+
+<p class='leave'>
+    Cheers!
+    <br />
+    粗稿 2026/02/10
+    <br />
+    (半)定稿 2026/04/20
+</p>
+
+
+
+## 粗稿
+::: details <ec fallback="粗稿-解密失败,别打开霍霍眼睛了">JU6kx222q6vSdDIaIDTn6qaEiuPg9CBrscT9WNZWfn538QF7vKYZVg4YeAIJOchE7uI=</ec>
+<p>
+<ec>4uLmfP48jVAoop3dl5ZdJcN7/rjojxZKL2zvUd7yU2Z+02AVcbctm1iL9aqH19Oc6kxobwj3vMzdUCh2n8m8/0Jwc/3FQPoP2w/2oDZ9f7b5DGSjpOayMZl28G4sf2dEaz/x4ofBE3FW8cRPmobWyLoiLkAnB6NgAQE9hDi6Jr5Bx0r3GTdlvcGHs0upffGzr1mpiyg0b4hea9G9aX8ojESwckBXMaXfLr4ieLoFxlrhYNNoWBgmVosgAADAYIezkk1a8Mv+sJDt5Zouj8+TSRMEq7vxD8MpxShv/yJP2hzs9XTauuCm0GmGdEk9i65auYiCEYiIlUaoNRPpMC5uaRPpfX9r/x0x2494nyG1/RnDuvh+KzW2sYMQVXrQaok1N/xxMx0vwyvygHAJG9HiM1X8B1I6ziNW3GvLux17AtFXTZ+w1qcrR0K/zUK8t9DVtNT8hCTvmTa6QctzQFQ5gDc8gWU0ufhNWZ/+AWZZuIVSlmrspvM4tZZax3h4RDtidmfincEyU+f5etivaBnY9IwtEYnTGFcUpVAhl/zsqN2PC8creMMTs2xqvnGOeg19SC/7uE+Wv2LBWoh8GTMmoJrmwsQcnw7+RpFCYS5jxYczcTSL5pOQ6DAQciXV65uy8DuYPvHPfHub9UTF+NgZgDzjDdfXwAN/M7LTjUZzk85uUVV7ORzRHPZsiOEjQneWA6HSzzt+37I98bv0hIzPjcoIZ+30OvGUG218BAL2SFcZii2ktNU1YirydF9qF1YS+9LqEH8x996pA5pe7TbJe38U8ajBS9ZAS0DT2zRXmftU1y01UzPuesm8MGgwOVsKDdD9zi7CtaOyzta3uc8FwR7oc7d53mSmUKnpXS5abnc5PT26zmSW8TxMf+/N8jTBgJmD5gNFUKkmRM+RFeYMtWomNedu1axRUryUp1f0Rx+4Ca+DK+YxPNkTEIEKYhCrEBLnW2zA9aNnVHyLSK6l2LI3ImjNx58kSbtHyIKbn/woyBGnYT8LKYl8tfNNo80tIjH5v4ENdF6hXf0GG8Vr1QOHpNjtZY0sO9Z/dEWYr0iwoCdk4Xrx617GmEIxTRrl8zSvEx3v9eSZYkAz2IfhMyURzDPXa29CdC49BNFnK1bcw06sYcV6rNKlouYR1QFjvU1w7sQCiXXXwdiegT9lCmtCRoAdn1u4ZTJweV7VmPXK65xDdAAITie1s7hlqK+SBGKTHu9ltlLgLPsMqBwj5v3cmeeTjzXlKgVqFrQ1ahKz2rettFaF/PLaKSoabinztHh6hBOvIvTAouVcPtEyQNJNkFDLrsvAalRhRsnnIu37QMpGUjxL79mPUIO1LhhYWuWWzryHV8v36VTb1REtlQ4y3angzop7QAMKLuUrhQsuOXHGVI3/C99M4VUpH7X4SI4K60erd6QNA7f70uknc5eF4r6M78WFd/yjXRMAROR/OGHUEqQh7QnOevhES2LQxSQ0AluG59WPBN2KeBNan5qzq3ZhPDo5kd8HQqRJJ3WjbBuBBy1enQdh24ttoWGPEDyfQO0ZZjJAoUCxcwROL/prPJ7INjXpuOcZOsbSUPAEyFzKWlfN1m9qE9h5qetE/+dpf+WzCvQPNDvbFDYpU2G0VD5PLsIPMKW3ydYK1ta6x+Lf+dwUt4pdtFGkdZR5QEzF91w+/j7sQdg5iCH8nI/wxlfzIIZZlFWkWtY2PYdWwqonbBqPnWmO1bE7v8Db1gtTrc/elC78qCypEzZ8FnSSyZ7CKHADJNr3Ie7Ix7a5f2/CLGEqpzRiJgAAsnMr8RwY3XnU6p8N08whVGiG2G1L4FbOyXucry7W2eVwYq1Ys0MM3c8G3MCYcWgq1yg48GhbG7R3woWu8kQfO/MYXPyYBaFp0hUq05D1ai+j+BT/OafhIQrKJnRlioV9YQqwMcLfuswk1lL/zbTJwAyLLzvh+XMXU6z3kk9TEUQ/yh4fvgxj6j4LTbDokdrPY7BfiMKehk/k/4ejuYFlbPiSCfNfcPY3bcLUTU20c18vpDqJrgtFkKag9dLGdNrqsVQ4Qc1XqzRzP1EEqHhPZsTyf3e3sHYawhgWz34zMtXcwULDC2uYeS6JcNPv/qmLtAHmgoh/RLrg/Xgy0lhxieuHxgnS32Gx0sc2huN4OUnvpV9LF9hrdR4BRodecZ+ONJh8BlevCwf2KVCVN0OHWAfcc72GHnHZ8D0BQbd8htbVRoM6C0jQ0RaYMAzAa/6BEGBKAgslOpnA2F0u7dGJpKzrQOa97TEC4AlfRlu1KYX1HZe1K8pttt5Z9cVDcCDmmjpKu3WPmmJRRZUaGf+hjX92GUYZVOPj34Ea/t6E87eSlJj3QN77Bf/mCvdtpwF9F4H+xYBDjlKBIaZH4tVhX7Y5ZtJbwYhhJI5zWmHB1jE1C2R5674jUiSnPrMQndm95+8di7mpkz/LLYGGyExvMhnhv5AoNGyRdS2bXer7K5K4PnjgQJjqHQ1ZFjRjkPv8jvyQvob5uvihJnDaMspmF8VquziP9zi28GPPXVag90Rca2ITKwi6PMxPYE3NyH977fXmMyH9VaBdjHCJj5ieLJhpabrdcvUIebFCoPBx6fDd2BqTYtcqRwGOPJ0jhAVagtJlC+KgnnETnlTz2AKXNvPJvt456WfTkaCJH3yDadibZaY7TVtA4hcpweqHjFLPVnVNlyv9qkOJUgkTNFCeb8K4eI751vvlp1Vt895w17ZwAD4knWd7MQaaIP2K5UxcRSfd/8mL7zCENVktsEzARO3vwaJFD20p/rKHt8TwA8GbC/Yk+P+O3CFjQhaJaruOAxXe+RZb3zrpT5Ra87CO5XiJsVnFPxYR0Tw8vq8vBrAqpkG8I2sw7TCejwvrnDPFITo+g1He6GKvQnbEhbevCW/cWyBu3Yk5uvaok57Mb6ejVzPzXyl0rOFM1k7WRYMr5N6W5dXju9gbMKLJdwpLijU0VxbHVu9ujopCBeK3qLXF7V+Btd8wUYopo8mJRG3BryaIyLKdJbRqezWgjxF9iWgdFFW/KPOVjyOynSBsY9frfVxUAYwSex9ecKJZB7frhdoD6ThgKnZXsPHsJwDhaLFFv02rOOdsuenP4QEBTqQJGaWkLtQ/psTQ/2bNHWmu0o2ZQeFnNxCa6Mj/t87iu5uqT1/xG9tIWZqhtbUD6fWVGdm1MM4f2fMcLjh1uQQEgDX/LLSYeHu4QQSaophcUF7/ZotGrxBT7JFKCUGbFComBWIH6gs/wbrbz7nLi8a2wG7iqqG2+xQoC2LgxSNDS5LPW5DB0QnD/87uPMMmV8lzlELbbYT5125vvrVOyh7OBogj/q9XP79OhP0Xpzjqop8+2nRU823UQAnrEhdp63M6f4xVM9kCOZQFc4D2nA5rHPP701MCitzowG0yeoY5B4KUHOzG80MxHCXkloe2p0bA8kLOAz/tBloq0T68mbP6B5qvnlXtbd5GtvQUoH8gA+oRCZU+srkXnUP+LcByR359Y0Xu+5lTcPCqOC+EMyWWi4CLlSDzqvMXAeP8w0qjbHMSJRnHqOMEHfMEIDfiTjCUL+ZQK+7wExrTLzXCYLpE3NdQGcym/oheCrcD0J+jDLvEAaI4Ltnu7WxmU62i6ADM3IsXXcqmAS8Gl81MvNAVWP+z6OfdinXWfmYTUV5JVxOylU/cN5ih6K6EGBsODsU6XvVXGjOBHUs3hRwkhimXIn1FDyXuQPe6U1/Ul7q+t8BiNjrSwDiM5fgf4shnLpYDg0vrQPTJ3oh2Gd07QADNefEpyzQlkJHBpl7BlD7WBFIdpcMS0qpeMwDlEXuwgrjqLGs69a5NmsaW7wclDFiGqN/VMBZlVdjE/QHpHoqqvGeKPjMl++vI9p6ibsxME7Q3I/b+DVuzMXvy/8eVBLOvOdk9E+O29Kl5OaaYGKA7vJUnEsW0Od38tBVp5MgD90OwpIAq1eoDi9Vp2UI8a/y7iL7w9F6W91xcf2GE3pOdpHigHX+/ujC2BY6aMh52tFFseDBxx+YcVbyPHU7/kjcDKdJH5DLomtBysE7ulmhK3lJoAMXaaJexd+7F4XK4MwK0RcJgbvuErAF1i2SCoNP6gu6hz2mNVOjXp0MHrbyHB53/DFx9I6WuVRPdGn8BQzHKOG1pw9Z5rKFCX97a2FxkTQ9YqSJBic6hzwaTwNv9GJjJCamcxNUxHuSteIzU4WN9LfhKkyfGeUYlBqIZoMio2n/Yl203R5bqgPMa2T6Ecb0uKeGey58r7MXyjPICHT4o2pz4ahgzIe55VILZZWJODzyVt0OH/oWu74pRBzAeSvz2neODDHo7AE7/+AbfOr7ZU3i0cOwOKf/29rvptIV1L0O+PatIIDcSGQwWz7BT5iyGco+ya2o2kfmOKNSZPK6e1OvbdhAp/59E+E5euptJrcS58QZU1sN0QU+sq0UgS8nMTj8u4CLW02LXdUIXbJIYW9k4fhGvX6z/6nj8rkWQZUmepgbIfEyZbiIt6hpCM4X9aUP20cLlIiC+8duIVOeFazL3A7XmMgua6x4r1zznWG8c3iqAFA7MMqNAWtRds2yHTojH7EUlMmqeMtXGOedxmkuuwNDZ2fvj/9VGGRuT7KGkOBm7raXg+Gkgbhi/fKyloEeS0ss5+CFtZk19x9sDz7Y8kd6IvwnXtfQujc6obFjmaaXxrol3fXje39XyzSgb/fwnMmcYZtwJFU2O3ROC+nOujwqV3kku1KJR6oBk7iRhk1/dT0rrD+KoZthYNeD/eIC+/O8ttZa/f5g1aYlbdJpOoKQryEeibeHm+kEAhoQLt+GFHWSNkac/xO4UjbkTVByO9TUq9KoNfUYhaTs3W1KwfpWRGYDueJ1BxAy5uGbyDaefWdORxwvbZj9AThRw0DRmCbDG9SSMATRqAZsYKzk0vqfzdSeh09OO1wjnrwBOuRiRnTqKhR7896HLIIAccqwokn9varkTwAvID9yc4aAINGSoh3jJb/0w+JSLaGxOnoa6wFrHj7RauZQRivIAiVOyy+1jXQbSCNnvEcCj4sJnBT5+1JUDKeLOIdRRVaZAtTH5bC7XtmpdquH/jAyQkVwEBhVZKBHV7OIM1EDLyv7strCGnI61b6LPSBYiJMesCmP03O0GaHNs87f12wtEksJhefA4qWchWJJWsk6H2shRcYwD1GIFfDPaV17cMzD6dLqhdWF12qS1Vfh95v8u/mPhbK2d0mB3fRinu5GcsrKfqIXNdQa77nLb1ZQMcQV9sYZ9daonz77yG+Q/qD6aRCpthHn2gOwibAbPtwnRmmnrvnNLLcIhJ2ysfcpn3hIXBHvvqrXb3x271E5ehiZaOGoj1kgMwLtwAfnL5fZs+JzSCUa6gG9yAJNJxkrLJ2GlU9oLJ7Suz+Ro7Lq3zBrYgM4OhVtpyGqhgN7GEbgNGsQwbDBShoExeuO77G+xvquci2/bYB9GVDNc18IwcCYDb8A+thXeWog05nVrpd66fSdI+eT9u1IjJo9Z/NlZhYFSLAxAtCz2l2lwrChrHQmGaXiJUjkhrrFQIbXEQaQocPxCEr/UcoWpa/fDr1odgz+PjqzMAp9fAVnn57w9ubtngOXL2R/PV1TEOTDX1wUg+4sCP2hqXn/3lA6OOahFIrwFciXwUy+aDFovSvOh5kz4dfMCAh+9Nv+UA5wjoUOG6Sr2CbpxXysMhLz3SgmUq9ykjA5aLnuy6ZTrTAcug70Or1FMjtFecxCLMe2RlXAzRccMVHH2L9PyFSszl8QD+HJ/yQwl83X1KnUibx/0Aj1YoQmfSso3WNu7+eTLqmm76nerPSkIj+U/7mKqr26EQHq/yf+nWIOC1ju0NHJO8sp9XtmCQJDrYiTh3D7viABA119qXi8GFtnBWlXNdW2s/+4L3DiM90MZrQ0OZD3op/yv21lBxLA6cgZF1RUJ1tIhXAlZ0yhmGgEGB8G/TN3hej6DM6Nk9RpmC/L1sxfQhl8H52uASFG8WRgJFcG5+NDzQEH4sSOWtgYj6vw/GURpAlEdKMow3jU4o1pbDDF5wq0ZIWinZH+/VNk9EHpeBOPWHKY/n6i07IsDY+olcrnKEuWC5FPdAETVBcMZ3btIYI6yTwmDsta3wLtR8HdPrtSHrdJy/yTCEK9uoIlNSfP2PMMxVGLXe/VIHnd7AzduO1QmcNKHOnaFIGEYVc2VTFpvtX7U7BpP+vfgcwloG4MC298vce2L3wOU4QgWXcU/ZoKbCZmiKiJtnR3R6NKkJ/1T3iOQEbtbHqMjH+ykDcUNfePN1VuMb6kkEOJ4vOLxd6nIKcuEwNVMmptuI1SAtKjwfkzqGGhGGAmrO7aDJx1odYWu7AhRIZJk46nIK0QjsQGccx9Hc3I3F37KD4ntR3SW+RpD65vawGTc5H700Eboterwef0UYhvhdvNcQ+csxS7N1MM0EnmD/TrXOxM9xOql4XMIVQ24FFcRN4bqBlHyFJbFK/WXbXbFMASQYISPB1grTjU6qPt4gm1nmYg3Oap8I5TkujkQXskf2GDuqPYA4hyNBIw9VG7qqOLgpuF083tC7JqW0iQIptR2DFxKGkV7QAuZfKlr1jzbK2H7nH92H+OgwGybyOAceL6x9+AV1+OXI8QxblaTQltuyc12DdSC96RM6rj0gev9MIEpLBE7+TGA4fUaCL3ghlAFSWN2UrBD8TEr5OgyVkok5miMCNRqFAoGzpYZZ9j5K8EIv2H5DMYKKepfZHiIhqDHSfDmRKXc6cJWEpXtgrn1Ik1Mil5qcbUSytfbdMpi+rvcZ8HgE1ZAitiCC9v7Z7dFo+qG5ovBDWGWpfN4tg2W2qAVq+51TqNSiUbMmj7M1bQ48PhT7P0WkJwO7vBpRKNTD7duOXvOkn9bn5y7SMHsZJfFtkzXznbsOZL4L2K4/O9HNb6504j07EllYifxYv0jSH9mGpjA6NJFOKhV39uFDibhri4DBqAuLhR5ZolSESsyyVN5srKVoBOZTqTsTVEtk5Yhe8BaCSbFS5cWfzSag9Bq2NDgdD81DiXsqiQuZ+t1xnrS3KptHN3K00Jv62S2VGVxjGzaRucvbAGrDVCrmq5Lrt/McyURp4+jqK5ULSqvNXtGLNRUABJniDzjgBvg682O/XNS8O1zIE+lAMIkacjJit2dBZTL9UDI0FtIC34zZ42lZpUYQb5BetXHindxZOcc4x7Hmuje+oCWHy2I3MKwF3DSs5XWlgaclSelHnOIW9H9X8Veyu2qxMRlA20P44dDrdUza5Vd6W5Cd3YxyJRX5zFCqwdo74kg7kobOyeAUTbAAXxcoJMbJ84w6hh89BATIs9+yJkPtpX8c7RXYRRm88ID1o5z8O9X7iu0uBh24p/tdQKBluN0AfhowvGbjxx6I3/R5HvG/q/tcoJspHNenK5wTW+Z+yo9DvQpj4klCiXfYc5BZOo1ov2U9iP64dOZsbxRi/LKP2PAmexMEz+OLRjsZTsvun5+Gt7paWJR2/qBsxtpYXsVCPtlRdYxJQy2lvnDCxJET3EEi1yzlK8G+nyVD9O0rPMxdXCdDloZYxbVG/GjVISohp9mSECEgHF+1ACA5LAabM92O4UtV8Gna5VS5/7KcDjJohI6aDnZSzScso0806DA9YBJl5Ao+mb6PPC+jO9Ar2fhfkRfsLdKSC8ubSF830uB1gxnr2hquX9jfadA+caAvDdGmNjuc1Hcx+/vIQ+aWW4dR196pCqQeY4tLcFaeJ4pBMaynKRFgzb70T+4fZg+1j+0M8k2d4S2WpYtexCEEVt0GaWWV1HfMqIX5scj3gwwNn3R8vd41PbxTOGnvZjEXIK6Rh+5xHlYjh4uiVkhoZ35Uda8ziVruK6zpFbMwh8dAp1/QUj706QCyI1Nn8qVLVCtYiVwcVEJZXvwri4oOp7Rpvuvi1RnI5TiyD4Yk5aV/nVjhltP943DZqjF1XYTblaiFR/JImJRqYDXcI/zPq8MJe7sCDliuJYAsB1pMjEPZsSrylaM0kwVNgNyKuILOBfdjdIKq/DtFqSt/WQAPIMv/8ArnpHRmVbnScf0FfDoNaitqiACvWS5GqqkOnP9TQi1DG62KELOPPKUS1DpLLkLS7EI4++0r3Tta7dsFxSYLzsX2gmFT+kdLCPhf4nIrHIzoNE4h6v9HkBmYtz2UzBJneinny08oeMihdOjyE+rKxeCZSqlr8MQt2ND9d5W0/QCXsL2oc8qIY86SH0OwR6He9/V0ZqeS/6O4YKifUAGTMxML2Pt754fMwe1185hOouNU+EYPVxYYSXAgrMGyfAydxenRloy0d73vPMN1EnLkkYht2ibJLsBC9QMzUKWwGcSQrujdxzy5qCHTBHu+hTP/dCWCsIsI1Rw9q2GWalVfvV7KCAsTSqSWRaKJEWOWl0UoqPW1IH9jPAQKNzjgWTea8RTApSc5Rdx+Z8f/E/uLU/KYTYIvG0Y2CycCZlXxEsQWnH7rWoNUEl8BYqzTpdad4I1D4sQRY/1J88xRGVgAyav4OMxAii7czIqvtivMs4Q1ED1MEiSX5SbOKx/RCa91DvawceHMadkw1EXhHwElF8v4tfFXNR6Vs2Qs99trBwn3R4klGJecfUPnA1pOAVvl/0QFCioSfYoBZx99lq0v73keO5qJUHsrqN1SadGHm9PgK7nkKR20MQRkmmUlDTz8KIaQGdnOfY54diOJedVitJ8i2x8LiNpaMDyM1pRItaL56cYWi+wCyeNMsKvfe4NOiysCoRCYus2GZx320xjNgq4YBaBQUzYIuEtNdx/Wt4cPNB9or+D9obpGd00TZp8Jc8DY7ajg6kyPif7Cd6VtHkD4eDYDBOKJrRZrwQG75sV4KDu+7BbTCp9NyLt81Ld3EUWYDOtArJrNojEcUmlzljyDEbnkl5Iaj5/e8jSW0kli8IL2lS8EZ1v/UEwpJsM9/fd6GJ/g7ZKYRab/llUxiITLvNHtSuaDTMWbwkHHIaG4+tbNMrdylHRO4f67kh2b+LDuISCjbIf3o3NlbJNAQJ+El7F1CwC0LKCxlsqyN5jxKbLX/w+Fu5m6Dy2Fk0Zb3co1Zs1yyjlLlY9zMTawzbfRycob1SxC8/PJm1HNwG9nA9f1iCrAWQiaHnxFG+ylZL450wT5hZVaw6vntgUyeNeFgG9lkt2iilv4dIr2oCvdjZ81TwiLGR92S9FT2MtCBp8MY4dN8M9p5T1i7o8PM5PCFwqvzi4B2Wfnzj/6IhjGFsB/0nCSJcgZGs+vGX2lNoQbkiOBCasDVnCqUiN4+bnGbs7et6jBDrjvZrO+BRslqpEoIG4dxYaPfCkobTGDdciOArzcwaIGrNrDr2BevVs0A9Ea+y9CzUIwxxsn4Z4ECoSdBoCvaurUN6mOAkOUOecY2uD3fBpMkLmcvUtFBzukXBaRbBk67pVjtd9uLhNZcfkKXguMgMSQpG3TgvbpKZcgqwY5phrj4YKzjxST8Xan1p7USFM/SZcl3Y//cbfZ7Zk4dvYRBwSGXAr8OJ5l09rytBxMdzLvW4ioPHWHSd7A9kX6U3KIADvC9I3HgqZbxwOpNcmQA0qUEzxuqMOGT3Cpl6aUpK41ZoFQiTx+IObTg3XMi/hwsSiSXIUYG7GpiX7QODCUahONqnnsFfV1a1BT4iPBIV/XkR1k4yZYZCSTSinoReiGS9K1HrlmOUja8AfwC3run/pSFiLpffghEo6retqhh+pzacI2eew3Rgls2fEz6npr5GdfyJnVSQE6VLIygT5zZv+6ji31SQsQDzhqPVAUYVZOsPkUoTqQpWuLmj2VcTqWo3CDoNiDG0fefqQjcCo2LbtKrq84L8VTidJaI8wtcZLYv8xBKva2FTUDcbrxuxr6f39/QQCrlgdgIiakF+gYrkohLelb7WmG47wYaGl2uLx10XUQBdZfts0KnwnGVmr3PW4HLu0Ok4A9lTEK9fUQX5dD0Mqfmf1Xzr8UKePMRIeJyRfE1lmfFUbAtDjWctYBRImmx2+Ne+G3t6HTOAPe0aOpxZi0PQlKfwo5SZlobO6/OGDkzZEzKYwn3PN9kgsExrl6UUjn5qt2NcGctLye5jo24fjtlP/Dnlf9z8u5B3EuBCDcAnB8yUGFynAksfijZohEovycdrakq9VSZEdsBM9YfanfnyL5c9ljd41qAjLzjBnDblPnbd2+uU5TCrZ4ysR2D3xP40GMmZecVCdkPkkmYbGIUFJKvr+KqTOYqOMNPDoSrXUf3pfps1qiTmFSRDCbLkMzrjg2lVurp6rgnJWalzRI+FCTLFcfGAvtjc568F5ns8dnCqQq2ElwayHU32mWufHSoMsLi08XPWCxyxxV/dlog8/1lAILjByCYGBRQjFfbpf2kr2v9S+SyDyHXSeqRZT9nUUkFl7/aZtFYfuCC7lkHTjVakg4ZMaG5fgE/dbsjUU6vc0Um/L1l3gjDvgf09ln6f9QDurKd3P7jelRvT6TWVYnRfMRvr4rNSyhuAWfZPnyLuNfZPmBRwPeW0SxuFBMjx6vkD6LXLkWbHxR1DVfjYy9Sft6iLU3tpGNfpClGFT7O2pn0lJYXgpN2ZAzsME7WMffI8DoUZi5vH7u5LltZVGrPfnFlSMBykf8CmjUf9LmNDewdgo1sconvqqCSIckRwwqnutu1ZFen2PxHwOlVzIF64cZGXRW5t6SQg9a6oTh9OCSoqyce6ljSXGgGGbaL8lUMCof8CsjxSlIIYsgfSzO4HVsq/GN1ZtT5g3I9JS/knoSFGZHBGTUPu5CIaYhpmTeV2a74YXyXUAME4lalkKdgvwiUSilxhZrs0mTV5z0M2Tf+QaCyzdiQhnkpf1NlHIgAQheTXZVG00Lf7mW6crWxazpzhlpZfladglxWfAEvlH0t9+hCeFJTSwWZ3S6UX2T0jsjfzE1n/DSrMdWnfkcoCaLrzaqYBIU3kNS5RW8inKrSK3NqoDe1piybOGd3oPKyhalMG3HyyysQrcAJoCI8PP0U/YHvfoa90pV9DYPA4czLpGwQDYRGVp9WPmrfhTC7U=</ec>
+</p>
+:::

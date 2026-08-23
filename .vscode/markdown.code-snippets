@@ -1,0 +1,193 @@
+{
+  "Blog Post Template": {
+    "prefix": ["$post", "$fm", "$article", "post", "fm", "article"],
+    "body": [
+      "---",
+      "title: ${1:文章标题}",
+      "date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "tags: [${2:标签1, 标签2}]",
+      "category: ${3|essays,poems,dreams,c_cpp,linux,programming,gaming_life,exploration,others|}",
+      "desc: ${4:一句话简介}",
+      "highlight: ${5|false,true|}",
+      "---",
+      "",
+      "# $1",
+      "",
+      "$0"
+    ],
+    "description": "插入博客文章完整 Frontmatter 模板（含正文 H1 标题）"
+  },
+  "Blog Note Template": {
+    "prefix": ["$notes", "$note", "notes"],
+    "body": [
+      "---",
+      "title: ${1:随记标题}",
+      "date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "tags: [${2:随记}]",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "插入随记 Frontmatter 模板（卡片盒随记，无需正文 H1 标题）"
+  },
+  "NoteCards Component": {
+    "prefix": ["$notecards", "notecards"],
+    "body": [
+      "<NoteCards />$0"
+    ],
+    "description": "随记卡片盒 3D 舞台组件"
+  },
+  "Normal Key Encrypt Tag (ec)": {
+    "prefix": ["$ec", "ec"],
+    "body": [
+      "<ec>$1</ec>$0"
+    ],
+    "description": "普通密钥加密标签 (BLOG_GPG_KEY)"
+  },
+  "Normal Key Encrypt Tag with Fallback": {
+    "prefix": ["$ec-fb", "$ecfb", "ec-fb", "ecfb"],
+    "body": [
+      "<ec fallback=\"${1:解密失败替代文本}\">${2:自然语言明文}</ec>$0"
+    ],
+    "description": "带 fallback 属性的普通加密标签"
+  },
+  "Private Key Encrypt Tag (ecp)": {
+    "prefix": ["$ecp", "ecp"],
+    "body": [
+      "<ecp>$1</ecp>$0"
+    ],
+    "description": "私密密钥加密标签 (BLOG_SEC_KEY)"
+  },
+  "Teacher Key Encrypt Tag (tc)": {
+    "prefix": ["$tc", "tc"],
+    "body": [
+      "<tc>$1</tc>$0"
+    ],
+    "description": "教师密钥加密标签 (BLOG_TEACHER_KEY)"
+  },
+  "Blog Adaptive Image (Img)": {
+    "prefix": ["$img", "$bimg", "img", "bimg"],
+    "body": [
+      "<Img content=\"/imgs/${1:image_name.png}\" alt=\"${2:描述}\" />$0"
+    ],
+    "description": "博客公开图片组件"
+  },
+  "Encrypted Blog Image (Img encrypt)": {
+    "prefix": ["$eimg", "$img-enc", "eimg", "img-enc"],
+    "body": [
+      "<Img encrypt content=\"/imgs/${1:secret_image.png}\" title=\"${2:描述}\" />$0"
+    ],
+    "description": "博客加密图片组件（在 git commit 时由 pre-commit 自动加密）"
+  },
+  "Card Component": {
+    "prefix": ["$card", "card"],
+    "body": [
+      "<Card href=\"${1:/path}\" tag=\"${2:分类}\" desc=\"${3:描述}\">${4:标题}</Card>$0"
+    ],
+    "description": "博客卡片组件"
+  },
+  "CardList Component": {
+    "prefix": ["$cardlist", "cardlist"],
+    "body": [
+      "<CardList>",
+      "  <Card href=\"${1:/path}\" tag=\"${2:分类}\" desc=\"${3:描述}\">${4:标题}</Card>",
+      "</CardList>$0"
+    ],
+    "description": "博客卡片列表容器"
+  },
+  "Category Timeline (FrontmatterExpansion)": {
+    "prefix": ["$expansion", "$category-timeline", "expansion", "category-timeline"],
+    "body": [
+      "<FrontmatterExpansion category=\"${1|essays,poems,dreams,c_cpp,linux,programming,gaming_life,exploration,others|}\" />$0"
+    ],
+    "description": "指定 Category 的自动时间轴聚合组件"
+  },
+  "Timeline Container (Timeline)": {
+    "prefix": ["$timeline", "$tl", "timeline", "tl"],
+    "body": [
+      "<Timeline>",
+      "  <TimelineItem",
+      "    date=\"${1:${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DATE}}\"",
+      "    href=\"${2:/path/to/post}\"",
+      "    tag=\"${3:标签}\"",
+      "    desc=\"${4:描述}\"",
+      "  >",
+      "    ${5:节点标题}",
+      "  </TimelineItem>$0",
+      "</Timeline>"
+    ],
+    "description": "博客时间轴容器与节点组件"
+  },
+  "Timeline Item (TimelineItem)": {
+    "prefix": ["$timeline-item", "$tli", "timeline-item", "tli"],
+    "body": [
+      "<TimelineItem",
+      "  date=\"${1:${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DATE}}\"",
+      "  href=\"${2:/path/to/post}\"",
+      "  tag=\"${3:标签}\"",
+      "  desc=\"${4:描述}\"",
+      ">",
+      "  ${5:节点标题}",
+      "</TimelineItem>$0"
+    ],
+    "description": "单个时间轴节点组件"
+  },
+  "Timeline Year Node": {
+    "prefix": ["$timeline-year", "$tly", "timeline-year"],
+    "body": [
+      "<TimelineItem year=\"${1:${CURRENT_YEAR}}\" />$0"
+    ],
+    "description": "时间轴年份分隔节点组件"
+  },
+  "Archive Component (FrontmatterExpansion)": {
+    "prefix": ["$archive", "$expansion-archive", "archive", "expansion-archive"],
+    "body": [
+      "<FrontmatterExpansion mode=\"archive\" />$0"
+    ],
+    "description": "全站多维归档与搜索筛选组件"
+  },
+  "FriendLinks Component": {
+    "prefix": ["$friendlinks", "$friends", "friendlinks", "friends"],
+    "body": [
+      "<FriendLinks />$0"
+    ],
+    "description": "友链网格组件"
+  },
+  "Custom Container: PS Note": {
+    "prefix": ["$ps", "$psnote", "ps"],
+    "body": [
+      "::: ps",
+      "${1:浅灰色小注/随想旁白}",
+      ":::$0"
+    ],
+    "description": "::: ps 浅灰小注容器"
+  },
+  "Custom Container: Leave Sign": {
+    "prefix": ["$leave", "$sign", "leave", "sign"],
+    "body": [
+      "::: leave",
+      "Cheers! <br/>",
+      "${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DATE}",
+      ":::$0"
+    ],
+    "description": "::: leave 右对齐落款容器"
+  },
+  "Custom Container: Indent Paragraph": {
+    "prefix": ["$ins", "ins"],
+    "body": [
+      "::: ins",
+      "${1:段首缩进两字符段落...}",
+      ":::$0"
+    ],
+    "description": "::: ins 首行缩进两字符容器"
+  },
+  "Custom Container: Highlight Content": {
+    "prefix": ["$hl", "hl"],
+    "body": [
+      "::: hl",
+      "${1:重点高亮强调内容...}",
+      ":::$0"
+    ],
+    "description": "::: hl 高亮边框容器"
+  }
+}
