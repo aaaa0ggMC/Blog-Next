@@ -37,7 +37,8 @@
     "precommit": "node scripts/precommit.mjs",
     "hook:install": "node scripts/install_hook.mjs",
     "fastpush": "node scripts/fastpush.mjs",
-    "resume:repo": "node scripts/resume-repo.mjs"
+    "resume:repo": "node scripts/resume-repo.mjs",
+    "para": "node scripts/para.mjs"
   },
   "devDependencies": {
     "crypto-js": "^4.2.0",

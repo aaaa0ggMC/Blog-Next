@@ -11,6 +11,7 @@ desc: 纪梦系列的索引，汇总按年份排列的梦境记录。
 
 <Timeline>
   <TimelineItem year="2026 年" />
+  <TimelineItem date="2026/06/03" href="./escape.md">Escape</TimelineItem>
   <TimelineItem date="2026/04/13" href="./occupied.md">占据</TimelineItem>
   <TimelineItem date="2026/03/27" href="./always_forget.md">总是遗忘</TimelineItem>
   <TimelineItem date="2026/03/21" href="./fragments2.md">碎片化旅行 2</TimelineItem>

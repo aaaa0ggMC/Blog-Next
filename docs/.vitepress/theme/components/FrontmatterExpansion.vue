@@ -51,6 +51,152 @@
         </div>
       </div>
 
+      <!-- 时间段选择 Tabs & 预设 -->
+      <div class="filter-section">
+        <div class="filter-label">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span>时间：</span>
+        </div>
+        <div class="filter-pills">
+          <button
+            class="pill-btn"
+            :class="{ active: selectedDatePreset === 'all' && !customStartDate && !customEndDate }"
+            @click="setDatePreset('all')"
+          >
+            全部时间
+          </button>
+          <button
+            v-for="item in availableYears"
+            :key="item.year"
+            class="pill-btn"
+            :class="{ active: selectedDatePreset === `year-${item.year}` }"
+            @click="setDatePreset(`year-${item.year}`)"
+          >
+            {{ item.year }} 年 ({{ item.count }})
+          </button>
+          <button
+            class="pill-btn"
+            :class="{ active: selectedDatePreset === 'last-3-months' }"
+            @click="setDatePreset('last-3-months')"
+          >
+            近 3 个月
+          </button>
+          <button
+            class="pill-btn"
+            :class="{ active: selectedDatePreset === 'last-6-months' }"
+            @click="setDatePreset('last-6-months')"
+          >
+            近半年
+          </button>
+          <button
+            class="pill-btn"
+            :class="{ active: selectedDatePreset === 'last-1-year' }"
+            @click="setDatePreset('last-1-year')"
+          >
+            近 1 年
+          </button>
+          <button
+            class="pill-btn custom-date-trigger-btn"
+            :class="{ active: selectedDatePreset === 'custom' || showCustomDateInputs || (customStartDate && !selectedDatePreset.startsWith('year-') && !selectedDatePreset.startsWith('last-')) }"
+            @click="toggleCustomDateInputs"
+          >
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="4" y1="21" x2="4" y2="14"/>
+              <line x1="4" y1="10" x2="4" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12" y2="3"/>
+              <line x1="20" y1="21" x2="20" y2="16"/>
+              <line x1="20" y1="12" x2="20" y2="3"/>
+              <line x1="1" y1="14" x2="7" y2="14"/>
+              <line x1="9" y1="8" x2="15" y2="8"/>
+              <line x1="17" y1="16" x2="23" y2="16"/>
+            </svg>
+            <span>自定义区间</span>
+            <span class="dropdown-arrow" :class="{ open: showCustomDateInputs }">▾</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 自定义时间段精确选择面板 (展开或自定义状态下展示) -->
+      <transition name="date-panel-slide">
+        <div v-if="showCustomDateInputs || selectedDatePreset === 'custom'" class="custom-date-panel">
+          <div class="custom-date-header">
+            <span class="custom-date-title">
+              <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              自定义文章发布时间段
+            </span>
+            <button
+              v-if="customStartDate || customEndDate"
+              class="clear-date-link"
+              @click="clearCustomDates"
+              title="清除时间范围"
+            >
+              清空时间条件
+            </button>
+          </div>
+          <div class="custom-date-wrap">
+            <div class="date-picker-field">
+              <label class="field-label">起始日期</label>
+              <div class="date-input-box">
+                <svg class="date-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <input
+                  type="date"
+                  v-model="customStartDate"
+                  class="date-input"
+                  :max="customEndDate || todayStr"
+                  @change="onCustomDateChange"
+                />
+              </div>
+            </div>
+
+            <div class="date-range-divider">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </div>
+
+            <div class="date-picker-field">
+              <label class="field-label">结束日期</label>
+              <div class="date-input-box">
+                <svg class="date-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <input
+                  type="date"
+                  v-model="customEndDate"
+                  class="date-input"
+                  :min="customStartDate"
+                  :max="todayStr"
+                  @change="onCustomDateChange"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="custom-date-summary" v-if="customStartDate || customEndDate">
+            <span>当前限定：</span>
+            <strong class="date-range-badge">{{ customStartDate || '开始不限' }}</strong>
+            <span class="range-arrow">→</span>
+            <strong class="date-range-badge">{{ customEndDate || '至今' }}</strong>
+          </div>
+        </div>
+      </transition>
+
       <!-- 分类选择 Tabs -->
       <div class="filter-section">
         <div class="filter-label">
@@ -103,8 +249,12 @@
       </div>
 
       <!-- 当前筛选状态条 -->
-      <div v-if="selectedCategory || selectedTags.length > 0 || searchQuery" class="active-filter-bar">
+      <div v-if="selectedCategory || selectedTags.length > 0 || searchQuery || activeDateFilterLabel" class="active-filter-bar">
         <span class="filter-status-text">当前筛选条件：</span>
+        <span v-if="activeDateFilterLabel" class="filter-badge">
+          时间: {{ activeDateFilterLabel }}
+          <button class="remove-badge-btn" @click="setDatePreset('all')">✕</button>
+        </span>
         <span v-if="selectedCategory" class="filter-badge">
           分类: {{ getCategoryName(selectedCategory) }}
           <button class="remove-badge-btn" @click="selectedCategory = ''">✕</button>
@@ -221,7 +371,7 @@
         <line x1="12" y1="16" x2="12.01" y2="16"/>
       </svg>
       <p class="empty-text">暂无符合条件的文章</p>
-      <button v-if="selectedCategory || selectedTag || searchQuery" class="reset-btn" @click="resetFilters">
+      <button v-if="selectedCategory || selectedTags.length > 0 || searchQuery || customStartDate || customEndDate" class="reset-btn" @click="resetFilters">
         清除筛选条件
       </button>
     </div>
@@ -270,6 +420,13 @@ const selectedCategory = ref(typeof props.category === 'string' ? props.category
 const selectedTags = ref<string[]>([])
 const searchQuery = ref('')
 const currentPage = ref(1)
+
+// 时间段筛选状态
+type DatePreset = 'all' | 'custom' | `year-${string}` | 'last-3-months' | 'last-6-months' | 'last-1-year'
+const selectedDatePreset = ref<DatePreset>('all')
+const customStartDate = ref('')
+const customEndDate = ref('')
+const showCustomDateInputs = ref(false)
 
 // 解密后的标题缓存映射（url -> { html, plainText }）
 const decryptedTitles = ref<Record<string, { html: string; plainText: string }>>({})
@@ -352,6 +509,122 @@ function getPostTitleHtml(post: PostItem): string {
   return decryptedTitles.value[post.url]?.html || post.title
 }
 
+function formatDateToYMD(d: Date): string {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+const todayStr = computed(() => {
+  return formatDateToYMD(new Date())
+})
+
+function parsePostDate(dateStr?: string): Date | null {
+  if (!dateStr) return null
+  const clean = String(dateStr).replace(/[\/\.]/g, '-').trim()
+  const parts = clean.split('-').map(Number)
+  if (parts.length >= 3 && !isNaN(parts[0]) && !isNaN(parts[1]) && !isNaN(parts[2])) {
+    return new Date(parts[0], parts[1] - 1, parts[2])
+  } else if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+    return new Date(parts[0], parts[1] - 1, 1)
+  } else if (parts.length === 1 && !isNaN(parts[0])) {
+    return new Date(parts[0], 0, 1)
+  }
+  const d = new Date(dateStr)
+  return isNaN(d.getTime()) ? null : d
+}
+
+// 可用年份列表及计数
+const availableYears = computed(() => {
+  const map: Record<string, number> = {}
+  allPosts.forEach((post) => {
+    const y = post.year || (post.date ? post.date.slice(0, 4) : '')
+    if (y && /^\d{4}$/.test(y)) {
+      map[y] = (map[y] || 0) + 1
+    }
+  })
+  return Object.entries(map)
+    .map(([year, count]) => ({ year, count }))
+    .sort((a, b) => b.year.localeCompare(a.year, 'zh-CN', { numeric: true }))
+})
+
+// 时间段预设切换
+function setDatePreset(preset: DatePreset) {
+  selectedDatePreset.value = preset
+  const now = new Date()
+
+  if (preset === 'all') {
+    customStartDate.value = ''
+    customEndDate.value = ''
+    showCustomDateInputs.value = false
+  } else if (preset.startsWith('year-')) {
+    const year = preset.replace('year-', '')
+    customStartDate.value = `${year}-01-01`
+    customEndDate.value = `${year}-12-31`
+    showCustomDateInputs.value = false
+  } else if (preset === 'last-3-months') {
+    const start = new Date(now)
+    start.setMonth(start.getMonth() - 3)
+    customStartDate.value = formatDateToYMD(start)
+    customEndDate.value = formatDateToYMD(now)
+    showCustomDateInputs.value = false
+  } else if (preset === 'last-6-months') {
+    const start = new Date(now)
+    start.setMonth(start.getMonth() - 6)
+    customStartDate.value = formatDateToYMD(start)
+    customEndDate.value = formatDateToYMD(now)
+    showCustomDateInputs.value = false
+  } else if (preset === 'last-1-year') {
+    const start = new Date(now)
+    start.setFullYear(start.getFullYear() - 1)
+    customStartDate.value = formatDateToYMD(start)
+    customEndDate.value = formatDateToYMD(now)
+    showCustomDateInputs.value = false
+  } else if (preset === 'custom') {
+    showCustomDateInputs.value = true
+  }
+}
+
+function toggleCustomDateInputs() {
+  showCustomDateInputs.value = !showCustomDateInputs.value
+  if (showCustomDateInputs.value && selectedDatePreset.value === 'all') {
+    selectedDatePreset.value = 'custom'
+  }
+}
+
+function onCustomDateChange() {
+  selectedDatePreset.value = 'custom'
+  showCustomDateInputs.value = true
+}
+
+function clearCustomDates() {
+  setDatePreset('all')
+}
+
+// 活跃时间筛选标签文案
+const activeDateFilterLabel = computed(() => {
+  if (selectedDatePreset.value === 'all' && !customStartDate.value && !customEndDate.value) {
+    return ''
+  }
+  if (selectedDatePreset.value.startsWith('year-')) {
+    const year = selectedDatePreset.value.replace('year-', '')
+    return `${year} 年`
+  }
+  if (selectedDatePreset.value === 'last-3-months') return '近 3 个月'
+  if (selectedDatePreset.value === 'last-6-months') return '近半年'
+  if (selectedDatePreset.value === 'last-1-year') return '近 1 年'
+
+  if (customStartDate.value && customEndDate.value) {
+    return `${customStartDate.value} ~ ${customEndDate.value}`
+  } else if (customStartDate.value) {
+    return `自 ${customStartDate.value} 起`
+  } else if (customEndDate.value) {
+    return `至 ${customEndDate.value} 止`
+  }
+  return '自定义时间段'
+})
+
 // 可用分类列表及其计数
 const availableCategories = computed(() => {
   const map: Record<string, { id: string; name: string; count: number }> = {}
@@ -388,7 +661,7 @@ const availableTags = computed(() => {
     .sort((a, b) => b.count - a.count)
 })
 
-// 过滤后的文章列表（支持解密后的明文标题搜索！）
+// 过滤后的文章列表（支持解密后的明文标题搜索与时间段过滤！）
 const filteredPosts = computed(() => {
   let list = allPosts
 
@@ -434,7 +707,29 @@ const filteredPosts = computed(() => {
     })
   }
 
-  // 3. 搜索关键词（支持解密后的真实明文搜索）
+  // 4. 时间段筛选 (Date Range Filter)
+  if (customStartDate.value || customEndDate.value) {
+    let startTs = -Infinity
+    if (customStartDate.value) {
+      const s = new Date(customStartDate.value + 'T00:00:00')
+      if (!isNaN(s.getTime())) startTs = s.getTime()
+    }
+
+    let endTs = Infinity
+    if (customEndDate.value) {
+      const e = new Date(customEndDate.value + 'T23:59:59.999')
+      if (!isNaN(e.getTime())) endTs = e.getTime()
+    }
+
+    list = list.filter((p) => {
+      const pd = parsePostDate(p.date)
+      if (!pd) return true
+      const ts = pd.getTime()
+      return ts >= startTs && ts <= endTs
+    })
+  }
+
+  // 5. 搜索关键词（支持解密后的真实明文搜索）
   if (searchQuery.value.trim()) {
     const q = searchQuery.value.trim().toLowerCase()
     list = list.filter((p) => {
@@ -644,6 +939,10 @@ function resetFilters() {
   selectedCategory.value = props.category || ''
   selectedTags.value = []
   searchQuery.value = ''
+  selectedDatePreset.value = 'all'
+  customStartDate.value = ''
+  customEndDate.value = ''
+  showCustomDateInputs.value = false
   currentPage.value = 1
 }
 
@@ -681,7 +980,7 @@ onUnmounted(() => {
 })
 
 watch(
-  [selectedCategory, selectedTags, searchQuery],
+  [selectedCategory, selectedTags, searchQuery, customStartDate, customEndDate],
   () => {
     currentPage.value = 1
     triggerDecrypt()
@@ -897,6 +1196,165 @@ watch(
   background: var(--vp-c-brand);
   border-color: var(--vp-c-brand);
   color: #fff;
+}
+
+.pill-btn.custom-date-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dropdown-arrow {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* 自定义时间段面板 */
+.custom-date-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--vp-c-bg-elv);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.custom-date-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.custom-date-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+}
+
+.clear-date-link {
+  background: transparent;
+  border: none;
+  font-size: 11px;
+  color: var(--vp-c-text-3);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.clear-date-link:hover {
+  color: #ff4d4f;
+  text-decoration: underline;
+}
+
+.custom-date-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.date-picker-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 160px;
+}
+
+.field-label {
+  font-size: 11px;
+  color: var(--vp-c-text-3);
+  font-weight: 500;
+}
+
+.date-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-icon {
+  position: absolute;
+  left: 10px;
+  color: var(--vp-c-text-3);
+  pointer-events: none;
+}
+
+.date-input {
+  width: 100%;
+  height: 34px;
+  padding: 0 10px 0 32px;
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font-size: 12px;
+  font-family: var(--vp-font-family-mono);
+  color-scheme: light dark;
+  outline: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.date-input:focus {
+  border-color: var(--vp-c-brand);
+  box-shadow: 0 0 0 2px rgba(var(--vp-c-brand-rgb, 100, 189, 99), 0.2);
+  background: var(--vp-c-bg);
+}
+
+.date-range-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vp-c-text-3);
+  margin-top: 18px;
+}
+
+.custom-date-summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--vp-c-text-2);
+  padding-top: 8px;
+  border-top: 1px dashed var(--vp-c-divider);
+}
+
+.date-range-badge {
+  font-family: var(--vp-font-family-mono);
+  color: var(--vp-c-brand);
+  background: rgba(var(--vp-c-brand-rgb, 100, 189, 99), 0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.range-arrow {
+  color: var(--vp-c-text-3);
+}
+
+/* 展开过渡动画 */
+.date-panel-slide-enter-active,
+.date-panel-slide-leave-active {
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+.date-panel-slide-enter-from,
+.date-panel-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
 }
 
 .tag-chip {
@@ -1250,6 +1708,14 @@ watch(
   .search-bar-row {
     flex-direction: column;
     align-items: stretch;
+  }
+  .custom-date-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .date-range-divider {
+    display: none;
   }
   .timeline-pagination {
     flex-wrap: wrap;
