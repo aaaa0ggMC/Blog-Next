@@ -1,5 +1,5 @@
 <template>
-  <div class="crypto-debugger">
+  <div class="crypto-debugger no-copy no-print" data-copy-ignore="true">
     <!-- 1. 密钥管理中心 -->
     <div class="debug-card key-section">
       <div class="section-header">

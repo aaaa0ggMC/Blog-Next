@@ -1,5 +1,5 @@
 <template>
-  <div class="article-meta-bar">
+  <div class="article-meta-bar no-copy no-print" data-copy-ignore="true">
     <!-- 左侧：字数统计与预计阅读时长 -->
     <div v-if="shouldShow && wordCount > 0" class="meta-group" title="字数统计与阅读时间估算">
       <span class="meta-item">

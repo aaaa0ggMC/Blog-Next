@@ -1,5 +1,5 @@
 <template>
-  <a class="card" :class="{ 'is-highlight': highlight }" :href="normalizedHref">
+  <a ref="cardRef" class="card" :class="{ 'is-highlight': highlight }" :href="normalizedHref">
     <div class="card-header" v-if="date || tag || $slots.header">
       <span v-if="date" class="card-date">{{ date }}</span>
       <span v-if="tag" class="card-tag" :class="{ 'tag-highlight': highlight }">{{ tag }}</span>
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { withBase } from 'vitepress'
 
 const props = defineProps<{
@@ -35,9 +35,38 @@ const props = defineProps<{
   highlight?: boolean
 }>()
 
+const cardRef = ref<HTMLElement | null>(null)
+
 const normalizedHref = computed(() => {
   const cleaned = props.href.replace(/\.md(#.*)?$/, '$1')
   return cleaned.startsWith('/') && !cleaned.startsWith('//') ? withBase(cleaned) : cleaned
+})
+
+onMounted(() => {
+  const el = cardRef.value
+  if (!el) return
+
+  ;(el as any)._toMarkdown = () => {
+    const titleEl = el.querySelector('.card-title')
+    const title = titleEl?.textContent?.trim() || props.href
+    const parts: string[] = []
+    if (props.date) parts.push(`**${props.date}**`)
+    if (props.tag) parts.push(`\`${props.tag}\``)
+    parts.push(`[${title}](${props.href})`)
+    if (props.desc) parts.push(`- ${props.desc}`)
+    return `- ${parts.join(' ')}\n`
+  }
+
+  ;(el as any)._toText = () => {
+    const titleEl = el.querySelector('.card-title')
+    const title = titleEl?.textContent?.trim() || props.href
+    const parts: string[] = []
+    if (props.date) parts.push(props.date)
+    if (props.tag) parts.push(`[${props.tag}]`)
+    parts.push(title)
+    if (props.desc) parts.push(`(${props.desc})`)
+    return `- ${parts.join(' ')}\n`
+  }
 })
 </script>
 

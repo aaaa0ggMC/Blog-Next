@@ -1,5 +1,5 @@
 <template>
-  <div v-if="year" class="timeline-year-node">
+  <div v-if="year" ref="itemRef" class="timeline-year-node">
     <div class="timeline-year-dot"></div>
     <span class="timeline-year-text">{{ year }}</span>
   </div>
@@ -7,6 +7,7 @@
   <component
     :is="href ? 'a' : 'div'"
     v-else
+    ref="itemRef"
     class="timeline-item"
     :class="{ 'is-link': !!href, 'is-highlight': highlight }"
     :href="normalizedHref"
@@ -31,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { withBase } from 'vitepress'
 
 const props = defineProps<{
@@ -43,10 +44,49 @@ const props = defineProps<{
   year?: string
 }>()
 
+const itemRef = ref<HTMLElement | null>(null)
+
 const normalizedHref = computed(() => {
   if (!props.href) return undefined
   const cleaned = props.href.replace(/\.md(#.*)?$/, '$1')
   return cleaned.startsWith('/') && !cleaned.startsWith('//') ? withBase(cleaned) : cleaned
+})
+
+onMounted(() => {
+  const el = itemRef.value
+  if (!el) return
+
+  if (props.year) {
+    ;(el as any)._toMarkdown = () => `\n\n### ${props.year}\n\n`
+    ;(el as any)._toText = () => `\n[${props.year}]\n`
+  } else {
+    ;(el as any)._toMarkdown = () => {
+      const titleEl = el.querySelector('.timeline-title')
+      const title = titleEl?.textContent?.trim() || ''
+      const parts: string[] = []
+
+      if (props.date) parts.push(`**${props.date}**`)
+      if (props.tag) parts.push(`\`${props.tag}\``)
+      if (props.href && title) {
+        parts.push(`[${title}](${props.href})`)
+      } else if (title) {
+        parts.push(title)
+      }
+      if (props.desc) parts.push(`- ${props.desc}`)
+
+      return `- ${parts.join(' ')}\n`
+    }
+    ;(el as any)._toText = () => {
+      const titleEl = el.querySelector('.timeline-title')
+      const title = titleEl?.textContent?.trim() || ''
+      const parts: string[] = []
+      if (props.date) parts.push(props.date)
+      if (props.tag) parts.push(`[${props.tag}]`)
+      if (title) parts.push(title)
+      if (props.desc) parts.push(`(${props.desc})`)
+      return `- ${parts.join(' ')}\n`
+    }
+  }
 })
 </script>
 

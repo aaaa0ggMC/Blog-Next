@@ -155,6 +155,10 @@ async function resolveContent(input: string): Promise<string> {
   return input
 }
 
+const onPrintReady = () => {
+  show()
+}
+
 onMounted(async () => {
   if (typeof window === 'undefined') return
   const path = await resolveContent(raw)
@@ -162,6 +166,19 @@ onMounted(async () => {
 
   const el = box.value
   if (!el) return
+
+  // 挂载 Markdown / 纯文本转换协议
+  ;(el as any)._toMarkdown = () => {
+    const url = target.value || props.content
+    const alt = props.title || 'image'
+    return `\n\n![${alt}](${url})\n\n`
+  }
+  ;(el as any)._toText = () => {
+    return props.title ? `[图片: ${props.title}]` : '[图片]'
+  }
+
+  window.addEventListener('before-blog-print', onPrintReady)
+
   if (typeof IntersectionObserver !== 'undefined') {
     observer = new IntersectionObserver(
       (entries) => {
@@ -186,6 +203,9 @@ function show(): void {
 
 onUnmounted(() => {
   observer?.disconnect()
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('before-blog-print', onPrintReady)
+  }
 })
 
 function onLoad(): void {

@@ -1,7 +1,7 @@
 <template>
   <div ref="rootEl" class="frontmatter-expansion" :class="`mode-${currentMode}`">
     <!-- 1. 全站归档筛选控制面板 (仅在 archive 模式下显示) -->
-    <div v-if="currentMode === 'archive'" class="archive-controls">
+    <div v-if="currentMode === 'archive'" class="archive-controls no-copy no-print" data-copy-ignore="true">
       <!-- 搜索框 -->
       <div class="search-bar-row">
         <div class="search-input-wrap">

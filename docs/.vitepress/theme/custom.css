@@ -1,8 +1,114 @@
 @import '../../public/fonts/canger/canger.css';
 
 @media print {
-  .giscus-content { 
+  @page {
+    margin: 1.5cm 1.2cm;
+    size: auto;
+  }
+
+  /* 隐藏所有非正文与交互元素 */
+  .VPNav,
+  .VPSidebar,
+  .VPFooter,
+  .VPLocalNav,
+  .VPBackToTop,
+  .no-print,
+  .copy-page-button,
+  .article-meta-bar,
+  .crypto-debugger,
+  .archive-controls,
+  .giscus,
+  .giscus-content,
+  .VPBadge,
+  .header-anchor,
+  .edit-link,
+  .last-updated,
+  .vimg-skeleton,
+  .vimg-spinner,
+  .copy-code-button,
+  .line-number {
     display: none !important;
+  }
+
+  /* 重置容器排版与宽度 */
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 14pt !important;
+    line-height: 1.6 !important;
+  }
+
+  .Layout,
+  .VPContent,
+  .VPDoc,
+  .VPDoc .container,
+  .VPDoc:not(.has-sidebar) .container,
+  .VPDoc.has-sidebar .container,
+  .VPDoc .content-container,
+  .vp-doc,
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* 移除代码块与卡片背景色和边框阴影以节约墨水 */
+  .vp-doc [class*='language-'],
+  .vp-doc pre {
+    background-color: #f6f8fa !important;
+    color: #24292e !important;
+    border: 1px solid #e1e4e8 !important;
+    box-shadow: none !important;
+  }
+
+  .card,
+  .timeline-item {
+    box-shadow: none !important;
+    border-color: #ddd !important;
+  }
+
+  /* 分页截断优化 */
+  pre,
+  code,
+  table,
+  tr,
+  img,
+  .vimg-box,
+  .vimg-main,
+  .timeline-item,
+  .timeline-year-node,
+  .card,
+  blockquote {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    color: #000000 !important;
+  }
+
+  /* 图片与链接 */
+  a {
+    color: #0366d6 !important;
+    text-decoration: underline !important;
+  }
+
+  img,
+  .vimg-main {
+    opacity: 1 !important;
+    max-width: 100% !important;
+    height: auto !important;
   }
 }
 
