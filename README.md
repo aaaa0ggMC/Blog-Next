@@ -1,7 +1,9 @@
 # aaaa0ggmc's Blog 🚀
 
 > **记录生活 · 勿忘我 (Forget Me Not)**  
-> 个人现代化静态博客系统，基于 **VitePress**、**Cloudflare R2** 与 **端到端影子加密双仓体系** 构建。
+> 个人现代化静态博客系统，基于 **VitePress**、**Cloudflare R2** 与 **端到端影子加密双仓体系** 构建。  
+> 
+> 🌐 **在线站点**：[https://yslwd.eu.org](https://yslwd.eu.org)
 
 ---
 
