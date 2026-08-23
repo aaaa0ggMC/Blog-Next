@@ -13,10 +13,10 @@
         <div class="giscus-content" style="margin-top: 24px">
           <Giscus
             :key="page.filePath"
-            repo="aaaa0ggMC/Blog"
-            repo-id="R_kgDONx0ynQ"
+            repo="aaaa0ggMC/Blog-Next"
+            repo-id="R_kgDOUBPWzA"
             category="Announcements"
-            category-id="DIC_kwDONx0ync4CmgXp"
+            category-id="DIC_kwDOUBPWzM4DD_vC"
             mapping="specific"
             :term="page.filePath"
             strict="1"

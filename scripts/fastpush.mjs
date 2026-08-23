@@ -146,12 +146,13 @@ export async function fastPush(commitMsg) {
   console.log(`   ✨ 影子区加密完成: ${encryptedFilesCount} 个文件已处理, 共加密 ${totalEncryptedItems} 处敏感字段/路径`);
 
   // 4. 获取远端与分支信息
-  let remote = 'github';
+  let deployRemote = 'blog-next';
   try {
     const remotes = execSync('git remote', { cwd: projectRoot }).toString().trim().split('\n');
-    if (remotes.includes('github')) remote = 'github';
-    else if (remotes.includes('origin')) remote = 'origin';
-    else remote = remotes[0];
+    if (remotes.includes('blog-next')) deployRemote = 'blog-next';
+    else if (remotes.includes('origin')) deployRemote = 'origin';
+    else if (remotes.includes('github')) deployRemote = 'github';
+    else deployRemote = remotes[0];
   } catch {}
 
   const currentBranch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: projectRoot }).toString().trim();
@@ -183,30 +184,46 @@ export async function fastPush(commitMsg) {
 
   // 获取远端 main 的最新 parent commit
   const targetBranch = 'main';
-  let parentHash;
+  let parentHash = null;
   try {
-    parentHash = execSync(`git rev-parse ${remote}/${targetBranch}`, { cwd: projectRoot }).toString().trim();
+    execSync(`git fetch ${deployRemote} ${targetBranch}`, { cwd: projectRoot, stdio: 'ignore' });
+    parentHash = execSync(`git rev-parse ${deployRemote}/${targetBranch}`, { cwd: projectRoot }).toString().trim();
   } catch {
     try {
       parentHash = execSync(`git rev-parse ${targetBranch}`, { cwd: projectRoot }).toString().trim();
     } catch {
-      parentHash = execSync('git rev-parse HEAD', { cwd: projectRoot }).toString().trim();
+      parentHash = null;
     }
   }
 
   // 创建密文 commit
+  const parentArg = parentHash ? `-p ${parentHash}` : '';
   const commitHash = execSync(
-    `git commit-tree ${treeHash} -p ${parentHash} -m ${JSON.stringify(finalMsg)}`,
+    `git commit-tree ${treeHash} ${parentArg} -m ${JSON.stringify(finalMsg)}`,
     { env: gitEnv, cwd: shadowDir }
   ).toString().trim();
 
   console.log(`   🔖 已生成影子密文提交: ${commitHash.substring(0, 7)} ("${finalMsg}")`);
-  console.log(`   🌐 正在推送到远端 ${remote}/${targetBranch} (线上展示分支)...`);
+  console.log(`   🌐 正在推送到公开远端 ${deployRemote}/${targetBranch} (线上展示分支)...`);
 
-  execSync(`git push ${remote} ${commitHash}:refs/heads/${targetBranch}`, {
+  execSync(`git push ${deployRemote} ${commitHash}:refs/heads/${targetBranch}`, {
     cwd: projectRoot,
     stdio: 'inherit',
   });
+
+  // 如果存在私有仓库 github，同时备份明文分支
+  try {
+    const remotes = execSync('git remote', { cwd: projectRoot }).toString().trim().split('\n');
+    if (remotes.includes('github')) {
+      console.log(`   🔒 正在同步明文备份到私有仓库 (github/${currentBranch})...`);
+      execSync(`git push github ${currentBranch}:${currentBranch}`, {
+        cwd: projectRoot,
+        stdio: 'inherit',
+      });
+    }
+  } catch (err) {
+    console.warn(`⚠️ 私有仓库同步提示:`, err.message);
+  }
 
   // 清理影子区
   fs.rmSync(shadowDir, { recursive: true, force: true });
