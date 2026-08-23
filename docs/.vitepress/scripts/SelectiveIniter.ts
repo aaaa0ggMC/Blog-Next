@@ -1,41 +1,5 @@
 import { base, cdn_base } from './Data'
 
-function checkFont(name: string): boolean {
-  if (typeof document === 'undefined' || !document.fonts) return false
-  for (const fontFace of document.fonts) {
-    if (fontFace.family === name) {
-      return true
-    }
-  }
-  return false
-}
-
-function loadFont(fontName: string, fontUrl: string): void {
-  if (checkFont(fontName)) {
-    console.log('已有字体：', fontName)
-    return
-  }
-
-  const prefont = new FontFace(fontName, 'url(' + fontUrl + ')')
-  console.log('开始加载字体：', fontName)
-
-  const timeOut = window.setTimeout(() => {
-    window.narn('log', '字体正在加载，请耐心等待......', 1500, '字体加载中')
-  }, 5000)
-
-  prefont
-    .load()
-    .then((loadedFace) => {
-      document.fonts.add(loadedFace)
-      console.log('字体加载成功', loadedFace, document.fonts)
-      window.clearTimeout(timeOut)
-    })
-    .catch((error) => {
-      console.log('字体加载失败', error)
-      window.clearTimeout(timeOut)
-    })
-}
-
 function getAssetPrefix(): string {
   if (typeof localStorage === 'undefined') {
     return cdn_base
@@ -129,6 +93,4 @@ export function initPage(pageId: string): void {
       { once: true },
     )
   })
-
-  loadFont('canger', `${prefix}/fonts/canger.ttf`)
 }

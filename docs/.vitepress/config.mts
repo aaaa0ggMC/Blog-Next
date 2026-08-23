@@ -59,22 +59,5 @@ export default defineConfig({
       prev:"上一篇",
       next:"下一篇",
     }
-  },
-  transformHead({ assets }) {
-    const myFont = assets.find(file => /canger.ttf/);
-    if(myFont){
-      return [
-        [
-          'link',
-          {
-            rel: 'preload',
-            href: myFont,
-            as: 'font',
-            type: 'font/truetype',
-            crossorigin: ''
-          }
-        ]
-      ]
-    }
   }
 });

@@ -1,0 +1,747 @@
+/* [000] base (353 chars, 26.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_000_base.woff2') format('woff2');
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2005, U+2010-2016, U+2018-201A, U+201C-201E, U+2020-2022, U+2025-2026, U+2030, U+2032-2033, U+2039-203C, U+2044, U+2047-2049, U+3000-3003, U+3005, U+3007-3012, U+3014-3017, U+301C, U+301E, U+3036, U+FF01-FF65, U+FFE0-FFE1, U+FFE3, U+FFE5-FFE6, U+FFED-FFEE;
+}
+/* [001] common_00 (180 chars, 38.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_001_common_00.woff2') format('woff2');
+  unicode-range: U+4E00, U+4E09-4E0B, U+4E0D-4E0E, U+4E1A, U+4E24, U+4E2A, U+4E2D, U+4E3A-4E3B, U+4E49, U+4E4B, U+4E5F, U+4E86, U+4E8B-4E8C, U+4E8E, U+4E9B, U+4EA7, U+4EBA, U+4ECE, U+4ED6, U+4EE3, U+4EE5, U+4EEC, U+4EF6, U+4F1A, U+4F53, U+4F5C, U+4F7F, U+4FBF, U+4FDD, U+4FE1, U+5148, U+515A, U+5165, U+5168, U+516C, U+5173, U+5176, U+51FA, U+5206, U+5229, U+522B, U+5230, U+5236, U+524D, U+529B, U+52A0, U+52A8, U+5316, U+5341, U+5373, U+539F, U+53BB, U+53CA, U+53CD, U+53D1, U+53D7-53D8, U+53EA, U+53EF, U+5404, U+5408, U+540C-540E, U+5411, U+542C, U+547D, U+548C, U+56DB, U+56E0, U+56FD, U+5728, U+5730, U+5916, U+591A, U+5927, U+5929, U+597D, U+5982, U+5B50, U+5B66, U+5B83, U+5B8C, U+5B9A, U+5B9E, U+5BB6, U+5BF9, U+5BFC, U+5C0F, U+5C31, U+5C55, U+5DE5, U+5DF2, U+5E38, U+5E73-5E74, U+5E76, U+5E94, U+5EA6, U+5EFA, U+5F00, U+5F3A, U+5F53, U+5F62, U+5F97, U+5FC3, U+6027, U+603B, U+60C5, U+60F3, U+610F, U+611F, U+6210-6211, U+6216, U+6218, U+6240, U+624B, U+628A, U+6307, U+63A5, U+63D0, U+6539, U+653F, U+6570, U+6587, U+65B9, U+65E5, U+65F6, U+660E, U+662F, U+6700, U+6708-6709, U+671F, U+672C, U+673A, U+6761, U+6765, U+679C, U+6837, U+6B63, U+6B65, U+6C11, U+6C34, U+6CD5, U+6D3B, U+70B9, U+7136, U+7269, U+7279, U+73B0, U+7406, U+751F, U+7528, U+7531, U+7535, U+767D-767E, U+7684, U+76EE, U+76F4, U+76F8, U+771F, U+7740, U+7814, U+793E, U+795E, U+79CD, U+7ACB, U+7B49, U+7B97, U+7BA1, U+7CFB, U+7EC4;
+}
+/* [002] common_01 (46 chars, 13.2 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_002_common_01.woff2') format('woff2');
+  unicode-range: U+7ECF, U+7ED3, U+7EDF, U+8001, U+8005, U+800C, U+80FD, U+81EA, U+81F3, U+884C, U+8868, U+897F, U+8981, U+89C1, U+89C4, U+89E3, U+8BA4, U+8BB0, U+8BBE, U+8BF4, U+8C03, U+8D70, U+8D77, U+8DEF, U+8EAB, U+8FC7, U+8FD0, U+8FD8-8FD9, U+8FDB, U+901A, U+9020, U+90A3, U+90E8, U+90FD, U+91CC-91CD, U+91CF, U+957F, U+95E8, U+95EE, U+95F4, U+9762, U+9886, U+9898, U+9AD8;
+}
+/* [003] cjk_000 (360 chars, 26.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_003_cjk_000.woff2') format('woff2');
+  unicode-range: U+0000-001F, U+0100-0107, U+010F-0113, U+0115, U+0117, U+0119-011B, U+011D, U+011F, U+0121, U+0123, U+0125-012C, U+012F-0133, U+0135, U+0137, U+0139-013A, U+013C, U+013E, U+0140, U+0142-0144, U+0146-014F, U+0152-0153, U+015A-015B, U+0164, U+0166, U+0168-0171, U+0174-017F, U+018F, U+01C3, U+01CD-01DC, U+01F8, U+0251-0252, U+0254, U+0259, U+025C, U+0261, U+026A, U+0283, U+028A, U+028C, U+0292, U+0298, U+02B9, U+02BB-02BC, U+02C0, U+02C2-02CB, U+02CD, U+02D0, U+02D8-02DA, U+02DC, U+02EE, U+0300-0304, U+0306-0308, U+030B-030C, U+030F, U+0311, U+031B, U+0323, U+0338, U+0391-03A1, U+03A3-03A9, U+03B1-03C1, U+03C3-03C9, U+0401, U+0410-044F, U+0451, U+1EBC-1EBD, U+1EC6-1EC7, U+1ECA-1ECD, U+1ED6-1ED9, U+1EE4-1EE5, U+1EF2-1EF5, U+1EF8-1EF9, U+2070, U+2074-2079, U+2080-2089, U+20A9, U+20AC, U+2100, U+2103, U+2105, U+2109, U+2116-2117, U+2122, U+2126-2127, U+212B, U+2153-2154, U+215B-215E, U+2160-2168;
+}
+/* [004] cjk_001 (360 chars, 20.9 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_004_cjk_001.woff2') format('woff2');
+  unicode-range: U+2169-216B, U+2170-217B, U+2190-2199, U+21C4-21C6, U+21CC, U+21D0, U+21D2, U+21D4, U+21E6-21E9, U+2200, U+2205, U+2207-2209, U+220B, U+220F, U+2211-2213, U+2219-221A, U+221D-2220, U+2223, U+2225-222E, U+2234-2237, U+223D, U+2243, U+2245, U+2248, U+224C, U+2252, U+2260-2262, U+2264-2267, U+226A-226B, U+226E-226F, U+2272-2273, U+2282-2283, U+2286-2287, U+2299, U+22A5, U+22BF, U+2312, U+2460-24EA, U+2500-254B, U+2550, U+255E, U+2561, U+256A, U+256D-2573, U+2581-258F, U+2594-2595, U+25A0-25A1, U+25AA-25AB, U+25B2-25B3, U+25B6-25B7, U+25BC-25BD, U+25C0-25C1, U+25C6-25C7, U+25C9, U+25CB, U+25CE-25CF, U+25E2-25E5, U+2605;
+}
+/* [005] cjk_002 (360 chars, 49.0 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_005_cjk_002.woff2') format('woff2');
+  unicode-range: U+2606, U+2640, U+2642, U+271A, U+278A-2793, U+27A1, U+3041-3093, U+30A1-30F6, U+3105-3129, U+3220-3243, U+3251-325F, U+3280-32CB, U+3358-3363;
+}
+/* [006] cjk_003 (360 chars, 96.2 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_006_cjk_003.woff2') format('woff2');
+  unicode-range: U+3364-3370, U+3385-3387, U+338E-3390, U+339C-33A6, U+33E0-3446, U+3448-3472, U+3474-352B;
+}
+/* [007] cjk_004 (360 chars, 113.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_007_cjk_004.woff2') format('woff2');
+  unicode-range: U+352C-359D, U+359F-360D, U+360F-3619, U+361B-3696;
+}
+/* [008] cjk_005 (360 chars, 114.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_008_cjk_005.woff2') format('woff2');
+  unicode-range: U+3697-37FE;
+}
+/* [009] cjk_006 (360 chars, 113.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_009_cjk_006.woff2') format('woff2');
+  unicode-range: U+37FF-3917, U+3919-3967;
+}
+/* [010] cjk_007 (360 chars, 125.6 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_010_cjk_007.woff2') format('woff2');
+  unicode-range: U+3968-396D, U+396F-39CE, U+39D1-39DE, U+39E0-3A72, U+3A74-3AD4;
+}
+/* [011] cjk_008 (360 chars, 122.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_011_cjk_008.woff2') format('woff2');
+  unicode-range: U+3AD5-3B4D, U+3B4F-3C3D;
+}
+/* [012] cjk_009 (360 chars, 124.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_012_cjk_009.woff2') format('woff2');
+  unicode-range: U+3C3E-3C6D, U+3C6F-3CDF, U+3CE1-3DA7;
+}
+/* [013] cjk_010 (360 chars, 121.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_013_cjk_010.woff2') format('woff2');
+  unicode-range: U+3DA8-3F0F;
+}
+/* [014] cjk_011 (360 chars, 123.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_014_cjk_011.woff2') format('woff2');
+  unicode-range: U+3F10-4055, U+4057-4078;
+}
+/* [015] cjk_012 (360 chars, 125.7 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_015_cjk_012.woff2') format('woff2');
+  unicode-range: U+4079-415E, U+4160-41E1;
+}
+/* [016] cjk_013 (360 chars, 137.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_016_cjk_013.woff2') format('woff2');
+  unicode-range: U+41E2-4336, U+4338-434A;
+}
+/* [017] cjk_014 (360 chars, 121.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_017_cjk_014.woff2') format('woff2');
+  unicode-range: U+434B-43AB, U+43AD-43B0, U+43B2-43DC, U+43DE-44B5;
+}
+/* [018] cjk_015 (360 chars, 137.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_018_cjk_015.woff2') format('woff2');
+  unicode-range: U+44B6-44D5, U+44D7-461E;
+}
+/* [019] cjk_016 (360 chars, 135.5 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_019_cjk_016.woff2') format('woff2');
+  unicode-range: U+461F-464B, U+464D-4660, U+4662-4722, U+4724-4728, U+472A-477B, U+477D-478B;
+}
+/* [020] cjk_017 (360 chars, 129.7 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_020_cjk_017.woff2') format('woff2');
+  unicode-range: U+478C, U+478E-48F4;
+}
+/* [021] cjk_018 (360 chars, 143.7 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_021_cjk_018.woff2') format('woff2');
+  unicode-range: U+48F5-4946, U+4948-4979, U+497B-497C, U+497E-4981, U+4984, U+4987-499A, U+499C-499E, U+49A0-49B5, U+49B8-4A67;
+}
+/* [022] cjk_019 (360 chars, 151.3 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_022_cjk_019.woff2') format('woff2');
+  unicode-range: U+4A68-4BCF;
+}
+/* [023] cjk_020 (360 chars, 157.7 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_023_cjk_020.woff2') format('woff2');
+  unicode-range: U+4BD0-4C76, U+4C78-4C9E, U+4CA4-4D12, U+4D1A-4D44;
+}
+/* [024] cjk_021 (360 chars, 100.6 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_024_cjk_021.woff2') format('woff2');
+  unicode-range: U+4D45-4DAD, U+4DAF-4DB5, U+4E01-4E08, U+4E0C, U+4E0F-4E19, U+4E1B-4E23, U+4E25-4E29, U+4E2B-4E2C, U+4E2E-4E39, U+4E3C-4E48, U+4E4A, U+4E4C-4E5E, U+4E60-4E85, U+4E87-4E8A, U+4E8D, U+4E8F-4E9A, U+4E9C-4EA6, U+4EA8-4EB9, U+4EBB-4ECD, U+4ECF-4ED5, U+4ED7-4EE2, U+4EE4, U+4EE6-4EEB, U+4EED-4EF5, U+4EF7-4F13;
+}
+/* [025] cjk_022 (360 chars, 91.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_025_cjk_022.woff2') format('woff2');
+  unicode-range: U+4F14-4F19, U+4F1B-4F52, U+4F54-4F5B, U+4F5D-4F7E, U+4F80-4FBE, U+4FC0-4FDC, U+4FDE-4FE0, U+4FE2-5082;
+}
+/* [026] cjk_023 (360 chars, 111.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_026_cjk_023.woff2') format('woff2');
+  unicode-range: U+5083-5147, U+5149-5159, U+515B-5164, U+5166-5167, U+5169-516B, U+516D-5172, U+5174-5175, U+5177-51F1;
+}
+/* [027] cjk_024 (360 chars, 98.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_027_cjk_024.woff2') format('woff2');
+  unicode-range: U+51F2-51F9, U+51FB-5205, U+5207-5228, U+522A, U+522C-522F, U+5231-5235, U+5237-524C, U+524E-529A, U+529C-529F, U+52A1-52A7, U+52A9-5315, U+5317-5340, U+5342-5365;
+}
+/* [028] cjk_025 (360 chars, 84.2 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_028_cjk_025.woff2') format('woff2');
+  unicode-range: U+5366-5372, U+5374-539E, U+53A0-53BA, U+53BC-53C9, U+53CB-53CC, U+53CE-53D0, U+53D2-53D6, U+53D9-53E9, U+53EB-53EE, U+53F0-5403, U+5405-5407, U+5409-540B, U+540F-5410, U+5412-542B, U+542D-547C, U+547E-548B, U+548D-54E0;
+}
+/* [029] cjk_026 (360 chars, 112.9 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_029_cjk_026.woff2') format('woff2');
+  unicode-range: U+54E1-5648;
+}
+/* [030] cjk_027 (360 chars, 113.7 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_030_cjk_027.woff2') format('woff2');
+  unicode-range: U+5649-56DA, U+56DC-56DF, U+56E1-56FC, U+56FE-5727, U+5729-572F, U+5731-57B5;
+}
+/* [031] cjk_028 (360 chars, 117.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_031_cjk_028.woff2') format('woff2');
+  unicode-range: U+57B6-5915, U+5917-5919, U+591B-591F;
+}
+/* [032] cjk_029 (360 chars, 102.2 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_032_cjk_029.woff2') format('woff2');
+  unicode-range: U+5920-5926, U+5928, U+592A-597C, U+597E-5981, U+5983-5A8B;
+}
+/* [033] cjk_030 (360 chars, 126.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_033_cjk_030.woff2') format('woff2');
+  unicode-range: U+5A8C-5B4F, U+5B51-5B65, U+5B67-5B82, U+5B84-5B8B, U+5B8D-5B99, U+5B9B-5B9D, U+5B9F-5BB5, U+5BB7-5BF8, U+5BFA-5BFB;
+}
+/* [034] cjk_031 (360 chars, 100.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_034_cjk_031.woff2') format('woff2');
+  unicode-range: U+5BFD-5C0E, U+5C10-5C30, U+5C32-5C54, U+5C56-5D67;
+}
+/* [035] cjk_032 (360 chars, 118.9 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_035_cjk_032.woff2') format('woff2');
+  unicode-range: U+5D68-5DE4, U+5DE6-5DF1, U+5DF3-5E37, U+5E39-5E72, U+5E75, U+5E77-5E93, U+5E95-5EA5, U+5EA7-5ED7;
+}
+/* [036] cjk_033 (360 chars, 101.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_036_cjk_033.woff2') format('woff2');
+  unicode-range: U+5ED8-5EF9, U+5EFB-5EFF, U+5F01-5F39, U+5F3B-5F52, U+5F54-5F61, U+5F63-5F96, U+5F98-5FC2, U+5FC4-6026, U+6028-603A, U+603C-6048;
+}
+/* [037] cjk_034 (360 chars, 113.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_037_cjk_034.woff2') format('woff2');
+  unicode-range: U+6049-60C4, U+60C6-60F2, U+60F4-610E, U+6110-611E, U+6120-61B4;
+}
+/* [038] cjk_035 (360 chars, 106.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_038_cjk_035.woff2') format('woff2');
+  unicode-range: U+61B5-620F, U+6212-6215, U+6217, U+6219-623F, U+6241-624A, U+624C-6289, U+628B-6306, U+6308-6324;
+}
+/* [039] cjk_036 (360 chars, 118.7 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_039_cjk_036.woff2') format('woff2');
+  unicode-range: U+6325-63A4, U+63A6-63CF, U+63D1-648E;
+}
+/* [040] cjk_037 (360 chars, 132.9 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_040_cjk_037.woff2') format('woff2');
+  unicode-range: U+648F-6538, U+653A-653E, U+6540-656F, U+6571-6586, U+6588-65B8, U+65BA-65E4, U+65E6-65F5, U+65F7-65FD;
+}
+/* [041] cjk_038 (360 chars, 105.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_041_cjk_038.woff2') format('woff2');
+  unicode-range: U+65FE-660D, U+660F-662E, U+6630-66FF, U+6701-6707, U+670A-671E, U+6720-672B, U+672D-6739, U+673B-6760, U+6762-6764, U+6766-676F;
+}
+/* [042] cjk_039 (360 chars, 92.7 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_042_cjk_039.woff2') format('woff2');
+  unicode-range: U+6770-679B, U+679D-6836, U+6838-68D9;
+}
+/* [043] cjk_040 (360 chars, 119.9 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_043_cjk_040.woff2') format('woff2');
+  unicode-range: U+68DA-6A41;
+}
+/* [044] cjk_041 (360 chars, 139.0 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_044_cjk_041.woff2') format('woff2');
+  unicode-range: U+6A42-6B62, U+6B64, U+6B66-6BAB;
+}
+/* [045] cjk_042 (360 chars, 95.5 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_045_cjk_042.woff2') format('woff2');
+  unicode-range: U+6BAC-6C10, U+6C12-6C33, U+6C35-6CD4, U+6CD6-6D16;
+}
+/* [046] cjk_043 (360 chars, 101.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_046_cjk_043.woff2') format('woff2');
+  unicode-range: U+6D17-6D3A, U+6D3C-6E7F;
+}
+/* [047] cjk_044 (360 chars, 129.5 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_047_cjk_044.woff2') format('woff2');
+  unicode-range: U+6E80-6FE7;
+}
+/* [048] cjk_045 (360 chars, 123.6 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_048_cjk_045.woff2') format('woff2');
+  unicode-range: U+6FE8-70B8, U+70BA-7135, U+7137-7151;
+}
+/* [049] cjk_046 (360 chars, 129.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_049_cjk_046.woff2') format('woff2');
+  unicode-range: U+7152-7268, U+726A-7278, U+727A-72BB;
+}
+/* [050] cjk_047 (360 chars, 108.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_050_cjk_047.woff2') format('woff2');
+  unicode-range: U+72BC-73AF, U+73B1-7405, U+7407-7425;
+}
+/* [051] cjk_048 (360 chars, 124.0 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_051_cjk_048.woff2') format('woff2');
+  unicode-range: U+7426-751E, U+7520-7527, U+7529-7530, U+7532-7534, U+7536-7591;
+}
+/* [052] cjk_049 (360 chars, 117.7 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_052_cjk_049.woff2') format('woff2');
+  unicode-range: U+7592-767C, U+767F-7683, U+7685-76ED, U+76EF-76F3, U+76F5-76F7, U+76F9-76FF;
+}
+/* [053] cjk_050 (360 chars, 111.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_053_cjk_050.woff2') format('woff2');
+  unicode-range: U+7700-771E, U+7720-773F, U+7741-7813, U+7815-786A;
+}
+/* [054] cjk_051 (360 chars, 124.3 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_054_cjk_051.woff2') format('woff2');
+  unicode-range: U+786B-793D, U+793F-795D, U+795F-79CC, U+79CE-79D5;
+}
+/* [055] cjk_052 (360 chars, 116.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_055_cjk_052.woff2') format('woff2');
+  unicode-range: U+79D6-7ACA, U+7ACC-7B3E;
+}
+/* [056] cjk_053 (360 chars, 130.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_056_cjk_053.woff2') format('woff2');
+  unicode-range: U+7B3F-7B48, U+7B4A-7B96, U+7B98-7BA0, U+7BA2-7CA9;
+}
+/* [057] cjk_054 (360 chars, 127.2 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_057_cjk_054.woff2') format('woff2');
+  unicode-range: U+7CAA-7CFA, U+7CFC-7E12;
+}
+/* [058] cjk_055 (360 chars, 137.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_058_cjk_055.woff2') format('woff2');
+  unicode-range: U+7E13-7EC3, U+7EC5-7ECE, U+7ED0-7ED2, U+7ED4-7EDE, U+7EE0-7F7E;
+}
+/* [059] cjk_056 (360 chars, 116.0 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_059_cjk_056.woff2') format('woff2');
+  unicode-range: U+7F7F-8000, U+8002-8004, U+8006-800B, U+800D-80E9;
+}
+/* [060] cjk_057 (360 chars, 122.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_060_cjk_057.woff2') format('woff2');
+  unicode-range: U+80EA-80FC, U+80FE-81E9, U+81EB-81F2, U+81F4-8254;
+}
+/* [061] cjk_058 (360 chars, 96.6 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_061_cjk_058.woff2') format('woff2');
+  unicode-range: U+8255-83BC;
+}
+/* [062] cjk_059 (360 chars, 118.5 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_062_cjk_059.woff2') format('woff2');
+  unicode-range: U+83BD-8524;
+}
+/* [063] cjk_060 (360 chars, 146.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_063_cjk_060.woff2') format('woff2');
+  unicode-range: U+8525-868C;
+}
+/* [064] cjk_061 (360 chars, 127.6 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_064_cjk_061.woff2') format('woff2');
+  unicode-range: U+868D-87F4;
+}
+/* [065] cjk_062 (360 chars, 133.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_065_cjk_062.woff2') format('woff2');
+  unicode-range: U+87F5-884B, U+884D-8867, U+8869-895E;
+}
+/* [066] cjk_063 (360 chars, 125.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_066_cjk_063.woff2') format('woff2');
+  unicode-range: U+895F-897E, U+8980, U+8982-89C0, U+89C2-89C3, U+89C5-89E2, U+89E4-8ACB;
+}
+/* [067] cjk_064 (360 chars, 131.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_067_cjk_064.woff2') format('woff2');
+  unicode-range: U+8ACC-8BA3, U+8BA5-8BAF, U+8BB1-8BBD, U+8BBF-8BF3, U+8BF5-8C02, U+8C04-8C38;
+}
+/* [068] cjk_065 (360 chars, 122.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_068_cjk_065.woff2') format('woff2');
+  unicode-range: U+8C39-8D6F, U+8D71-8D76, U+8D78-8DA2;
+}
+/* [069] cjk_066 (360 chars, 133.5 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_069_cjk_066.woff2') format('woff2');
+  unicode-range: U+8DA3-8DEE, U+8DF0-8EAA, U+8EAC-8F0C;
+}
+/* [070] cjk_067 (360 chars, 122.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_070_cjk_067.woff2') format('woff2');
+  unicode-range: U+8F0D-8FC6, U+8FC8-8FCF, U+8FD1-8FD7, U+8FDA, U+8FDC-9019, U+901B-901F, U+9021-907B;
+}
+/* [071] cjk_068 (360 chars, 127.3 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_071_cjk_068.woff2') format('woff2');
+  unicode-range: U+907C-90A2, U+90A4-90E7, U+90E9-90FC, U+90FE-91CB, U+91CE, U+91D0-91E9;
+}
+/* [072] cjk_069 (360 chars, 118.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_072_cjk_069.woff2') format('woff2');
+  unicode-range: U+91EA-9351;
+}
+/* [073] cjk_070 (360 chars, 151.1 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_073_cjk_070.woff2') format('woff2');
+  unicode-range: U+9352-94B9;
+}
+/* [074] cjk_071 (360 chars, 121.3 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_074_cjk_071.woff2') format('woff2');
+  unicode-range: U+94BA-957E, U+9580-95E7, U+95E9-95ED, U+95EF-95F3, U+95F5-9625;
+}
+/* [075] cjk_072 (360 chars, 130.4 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_075_cjk_072.woff2') format('woff2');
+  unicode-range: U+9626-9761, U+9763-978E;
+}
+/* [076] cjk_073 (360 chars, 139.9 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_076_cjk_073.woff2') format('woff2');
+  unicode-range: U+978F-9885, U+9887-9897, U+9899-98F8;
+}
+/* [077] cjk_074 (360 chars, 142.6 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_077_cjk_074.woff2') format('woff2');
+  unicode-range: U+98F9-9A60;
+}
+/* [078] cjk_075 (360 chars, 144.6 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_078_cjk_075.woff2') format('woff2');
+  unicode-range: U+9A61-9AD7, U+9AD9-9BC9;
+}
+/* [079] cjk_076 (360 chars, 149.0 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_079_cjk_076.woff2') format('woff2');
+  unicode-range: U+9BCA-9D31;
+}
+/* [080] cjk_077 (360 chars, 154.8 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_080_cjk_077.woff2') format('woff2');
+  unicode-range: U+9D32-9E99;
+}
+/* [081] cjk_078 (360 chars, 149.3 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_081_cjk_078.woff2') format('woff2');
+  unicode-range: U+9E9A-9FA5, U+E815-E864, U+F92C, U+F979, U+F995, U+F9E7, U+F9F1, U+FA0C-FA0F, U+FA11, U+FA13-FA14;
+}
+/* [082] cjk_079 (75 chars, 8.7 KB) */
+@font-face {
+  font-family: 'canger';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/canger/canger_082_cjk_079.woff2') format('woff2');
+  unicode-range: U+FA18, U+FA1F-FA21, U+FA23-FA24, U+FA27-FA29, U+FB00-FB04, U+FE10-FE19, U+FE30-FE44, U+FE47-FE48, U+FE4B-FE4C, U+FE4F-FE52, U+FE54-FE57, U+FE59-FE66, U+FE68-FE6B;
+}

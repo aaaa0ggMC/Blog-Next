@@ -1,9 +1,4 @@
-/*@font-face {
-    font-family: 'canger';
-    src: url(/fonts/canger.ttf) format('truetype');
-    font-weight: 200 900;
-    font-stretch: 100% 100%;
-}*/
+@import '../../public/fonts/canger/canger.css';
 
 @media print {
   .giscus-content { 
