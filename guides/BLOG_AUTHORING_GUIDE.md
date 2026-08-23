@@ -181,6 +181,7 @@ category: essays # 可选：若目录结构规范可省略，系统会自动推�
 | `<FriendLinks />` | 友链卡片网格展示 | `<FriendLinks />`（自动呈现卡片与社交链接） |
 | `<Card />` / `<CardList />` | 导航卡片盒与外部/内部链接 | `<Card href="/style" tag="展示" desc="排版示范">MathJax 公式展示</Card>` |
 | `<Timeline />` / `<TimelineItem />` | 手工定制时间轴 | `<TimelineItem date="2026/08/22" highlight>文章标题</TimelineItem>` |
+| `<PointList />` / `<PointItem />` | 结构化分点/灵感卡片盒 | `<PointList><PointItem num="1" title="想法" k="核心要点" /></PointList>` |
 | `<Img />` | 自适应暗色/加密图片 | `<Img content="/imgs/cover.png" />` |
 | `<CryptoDebugger />` | 加密解密调测沙盒 | `<CryptoDebugger />` |
 
@@ -223,6 +224,9 @@ Cheers! <br/>
 | `img` | `<Img content="/imgs/..." alt="..." />` | 自适应暗色图片 |
 | `card` | `<Card href="..." tag="..." desc="...">...</Card>` | 导航卡片 |
 | `cardlist` | `<CardList><Card .../></CardList>` | 卡片网格列表 |
+| `points` / `pointlist` | `<PointList><PointItem ... /></PointList>` | 结构化分点/灵感列表容器 |
+| `point` | `<PointItem num="1" title="..." k="..." />` | 单个分点/灵感卡片组件 |
+| `point-full` | `<PointItem num="1" title="..." o="..." k="..." eg="..." q="..." act="..." btw="..." />` | 完整字段分点卡片组件 |
 | `expansion` | `<FrontmatterExpansion category="..." />` | 分类时间轴聚合 |
 | `archive` | `<FrontmatterExpansion mode="archive" />` | 全站归档检索组件 |
 | `friends` | `<FriendLinks />` | 友链组件 |
@@ -230,6 +234,12 @@ Cheers! <br/>
 | `leave` | `::: leave ... :::` | 右对齐落款容器 |
 | `ins` | `::: ins ... :::` | 段首缩进容器 |
 | `hl` | `::: hl ... :::` | 高亮容器 |
+| `rhl` | `<span class="hl">...</span>` | 行内高亮文本 span |
+| `rps` | `<span class="ps">...</span>` | 行内浅灰小注 span |
+| `rins` | `<span class="ins">...</span>` | 行内缩进文本 span |
+| `rtit` | `<span class="tit">...</span>` | 行内标题色文本 span |
+| `rspan` / `span` | `<span class="...">...</span>` | 自定义 class 行内 span |
+
 
 ---
 

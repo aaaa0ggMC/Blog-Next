@@ -13,11 +13,6 @@
 
     <!-- 主体说明区 -->
     <div class="point-body">
-      <!-- 默认插槽（通用说明正文） -->
-      <div v-if="$slots.default" class="point-content">
-        <slot />
-      </div>
-
       <!-- 起因 / 背景 (Origin) -->
       <div v-if="originText || $slots.o || $slots.origin" class="point-row row-origin">
         <span class="point-field-badge badge-origin">
@@ -90,6 +85,11 @@
         <div class="point-field-text">
           <slot name="act"><slot name="todo">{{ actionText }}</slot></slot>
         </div>
+      </div>
+
+      <!-- 默认插槽（通用说明长段落正文） -->
+      <div v-if="$slots.default" class="point-content">
+        <slot />
       </div>
 
       <!-- 补充说明 (By the way / PS) -->

@@ -95,6 +95,47 @@
     ],
     "description": "博客卡片列表容器"
   },
+  "PointList Container (points)": {
+    "prefix": ["$points", "$pointlist", "$idealist", "points", "pointlist", "idealist"],
+    "body": [
+      "<PointList>",
+      "  <PointItem",
+      "    num=\"${1:1}\"",
+      "    title=\"${2:想法/要点标题}\"",
+      "    k=\"${3:核心要点}\"",
+      "  />$0",
+      "</PointList>"
+    ],
+    "description": "分点/灵感卡片列表容器 (<PointList>)"
+  },
+  "PointItem Component (point)": {
+    "prefix": ["$point", "$pointitem", "$idea", "point", "pointitem", "idea"],
+    "body": [
+      "<PointItem",
+      "  num=\"${1:1}\"",
+      "  title=\"${2:想法/要点标题}\"",
+      "  k=\"${3:核心要点}\"",
+      "/>$0"
+    ],
+    "description": "单个分点/灵感卡片组件 (<PointItem>)"
+  },
+  "PointItem Full Component (point-full)": {
+    "prefix": ["$point-full", "$pointitem-full", "$points-full", "point-full", "pointitem-full", "points-full"],
+    "body": [
+      "<PointItem",
+      "  num=\"${1:1}\"",
+      "  title=\"${2:想法/要点标题}\"",
+      "  tag=\"${3:标签}\"",
+      "  o=\"${4:起因/背景 (Origin)}\"",
+      "  k=\"${5:核心要点 (Key)}\"",
+      "  eg=\"${6:举例/案例 (Example)}\"",
+      "  q=\"${7:追问/思考 (Question)}\"",
+      "  act=\"${8:行动/计划 (Action)}\"",
+      "  btw=\"${9:补充说明 (BTW)}\"",
+      "/>$0"
+    ],
+    "description": "完整字段分点/灵感卡片组件 (<PointItem> 含 o, k, eg, q, act, btw)"
+  },
   "Category Timeline (FrontmatterExpansion)": {
     "prefix": ["$expansion", "$category-timeline", "expansion", "category-timeline"],
     "body": [
@@ -189,5 +230,41 @@
       ":::$0"
     ],
     "description": "::: hl 高亮边框容器"
+  },
+  "Raw Inline Span: Highlight (rhl)": {
+    "prefix": ["$rhl", "rhl", "raw-hl"],
+    "body": [
+      "<span class=\"hl\">${1:高亮文本}</span>$0"
+    ],
+    "description": "插入 <span class=\"hl\"> 行内高亮文本"
+  },
+  "Raw Inline Span: PS Note (rps)": {
+    "prefix": ["$rps", "rps", "raw-ps"],
+    "body": [
+      "<span class=\"ps\">${1:浅灰小注/随想}</span>$0"
+    ],
+    "description": "插入 <span class=\"ps\"> 行内浅灰小注"
+  },
+  "Raw Inline Span: Indent (rins)": {
+    "prefix": ["$rins", "rins", "raw-ins"],
+    "body": [
+      "<span class=\"ins\">${1:缩进文本}</span>$0"
+    ],
+    "description": "插入 <span class=\"ins\"> 行内缩进文本"
+  },
+  "Raw Inline Span: Title Color (rtit)": {
+    "prefix": ["$rtit", "rtit", "raw-tit"],
+    "body": [
+      "<span class=\"tit\">${1:标题色文本}</span>$0"
+    ],
+    "description": "插入 <span class=\"tit\"> 行内标题色文本"
+  },
+  "Raw Inline Span: Custom Class (rspan)": {
+    "prefix": ["$rspan", "$span", "rspan", "span"],
+    "body": [
+      "<span class=\"${1|hl,ps,ins,tit|}\">${2:文本}</span>$0"
+    ],
+    "description": "插入自定义 class 的 <span class=\"...\"> 行内文本"
   }
 }
+
