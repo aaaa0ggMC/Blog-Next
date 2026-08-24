@@ -44,6 +44,24 @@
     ],
     "description": "普通密钥加密标签 (BLOG_GPG_KEY)"
   },
+  "New Para(np)": {
+    "prefix": ["$np", "np"],
+    "body": [
+      "<np>",
+      "$1",
+      "</np>"
+    ],
+    "description": "新的段落"
+  },
+  "P align (pa)": {
+    "prefix": ["$pa", "pa"],
+    "body": [
+      "<p align='center'>",
+      "$1",
+      "</p>"
+    ],
+    "description": "新的段落"
+  },
   "Normal Key Encrypt Tag with Fallback": {
     "prefix": ["$ec-fb", "$ecfb", "ec-fb", "ecfb"],
     "body": [
