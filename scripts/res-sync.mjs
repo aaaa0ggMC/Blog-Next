@@ -3,7 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import https from 'node:https';
 import { fileURLToPath } from 'node:url';
-import { parseEnvFile } from './crypto-shared.mjs';
+import { parseEnvFile, encryptBase64, decryptBase64 } from './crypto-shared.mjs';
 import { encryptPath, decryptPath, getPathSecret } from './path-crypto.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -51,11 +51,14 @@ function getR2Config() {
   const publicDomain = process.env.R2_PUBLIC_DOMAIN || localEnv.R2_PUBLIC_DOMAIN || rootEnv.R2_PUBLIC_DOMAIN || 'https://res.yslwd.eu.org';
   const secret = getPathSecret();
 
-  if (!accountId || !apiToken || !bucket) {
+  const accessKeyId = process.env.R2_ACCESS_KEY_ID || localEnv.R2_ACCESS_KEY_ID || rootEnv.R2_ACCESS_KEY_ID;
+  const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY || localEnv.R2_SECRET_ACCESS_KEY || rootEnv.R2_SECRET_ACCESS_KEY;
+
+  if (!accountId || (!apiToken && (!accessKeyId || !secretAccessKey)) || !bucket) {
     throw new Error('❌ [R2 Sync] 缺少 R2 配置，请在 .env.local 中配置 R2_ACCOUNT_ID, R2_API_TOKEN, R2_BUCKET！');
   }
 
-  return { accountId, apiToken, bucket, publicDomain, secret };
+  return { accountId, apiToken, bucket, publicDomain, secret, accessKeyId, secretAccessKey };
 }
 
 function computeFileHash(filePath) {
@@ -78,8 +81,8 @@ function parseIgnoreFile(ignoreFilePath) {
 }
 
 function isPathIgnored(relPath, patterns) {
-  // .ignore 本身始终直传（不经过路径加密）
-  if (relPath === '.ignore' || relPath === '/.ignore') return true;
+  // ignore_files 本身始终直传（不经过路径加密）
+  if (relPath === 'ignore_files' || relPath === '/ignore_files' || relPath === '.ignore' || relPath === '/.ignore') return true;
 
   const normalized = relPath.replace(/^\/+/, '');
 
@@ -154,7 +157,7 @@ function scanResFiles(dir, baseDir = dir) {
   const list = fs.readdirSync(dir, { withFileTypes: true });
 
   for (const item of list) {
-    if (['.git', 'node_modules', '.DS_Store', '.res_manifest.json'].includes(item.name)) continue;
+    if (item.name.startsWith('.') || ['node_modules', '.res_manifest.json'].includes(item.name)) continue;
     const fullPath = path.join(dir, item.name);
 
     if (item.isDirectory()) {
@@ -234,9 +237,104 @@ function r2HttpRequest({ hostname = 'api.cloudflare.com', path: reqPath, method 
   });
 }
 
+function fetchText(url) {
+  return new Promise((resolve) => {
+    https.get(url, { agent: httpsAgent, timeout: 15000 }, (res) => {
+      if (res.statusCode !== 200) return resolve(null);
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve(data));
+    }).on('error', () => resolve(null));
+  });
+}
+
+async function getUploadPayload(filePath, remoteKey, config) {
+  const isIgnoreConfig = remoteKey === 'ignore_files' || remoteKey === '.ignore';
+  if (isIgnoreConfig) {
+    const rawContent = fs.readFileSync(filePath, 'utf-8');
+    const encryptedBase64 = await encryptBase64(rawContent, config.secret);
+    return {
+      buffer: Buffer.from(encryptedBase64, 'utf-8'),
+      mime: 'text/plain; charset=utf-8',
+    };
+  }
+  return {
+    buffer: fs.readFileSync(filePath),
+    mime: null,
+  };
+}
+
+async function uploadToR2ViaS3({ config, remoteKey, filePath, ext }) {
+  const payload = await getUploadPayload(filePath, remoteKey, config);
+  const mime = payload.mime || getMimeType(ext);
+  const buffer = payload.buffer;
+  const cleanKey = remoteKey.replace(/^\/+/, '');
+  const url = `https://${config.accountId}.r2.cloudflarestorage.com/${config.bucket}/${encodeURI(cleanKey)}`;
+  const contentHash = crypto.createHash('sha256').update(buffer).digest('hex');
+
+  const headers = {
+    'Content-Type': mime,
+    'Content-Length': buffer.length,
+    'Cache-Control': 'public, max-age=31536000, immutable',
+    'x-amz-content-sha256': contentHash,
+  };
+
+  signAwsV4({
+    method: 'PUT',
+    url,
+    headers,
+    body: buffer,
+    accessKeyId: config.accessKeyId,
+    secretAccessKey: config.secretAccessKey,
+    region: 'auto',
+    service: 's3',
+  });
+
+  return new Promise((resolve, reject) => {
+    const req = https.request(
+      url,
+      {
+        method: 'PUT',
+        headers,
+        timeout: 60000,
+        agent: httpsAgent,
+      },
+      (res) => {
+        let data = '';
+        res.on('data', (chunk) => (data += chunk));
+        res.on('end', () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            resolve(true);
+          } else {
+            reject(new Error(`S3 PutObject HTTP ${res.statusCode}: ${data.substring(0, 300)}`));
+          }
+        });
+      },
+    );
+    req.on('timeout', () => req.destroy(new Error('S3 Upload timeout')));
+    req.on('error', reject);
+    req.write(buffer);
+    req.end();
+  });
+}
+
+function encodeR2Key(key) {
+  return key.replace(/^\/+/, '').split('/').map(encodeURIComponent).join('/');
+}
+
 async function uploadToR2({ config, remoteKey, filePath, ext }) {
-  const mime = getMimeType(ext);
-  const buffer = fs.readFileSync(filePath);
+  if (config.accessKeyId && config.secretAccessKey) {
+    try {
+      return await uploadToR2ViaS3({ config, remoteKey, filePath, ext });
+    } catch (err) {
+      console.warn(`⚠️ [S3 Upload Failed for ${remoteKey}]: ${err.message}`);
+      if (!config.apiToken) throw err;
+    }
+  }
+
+  const payload = await getUploadPayload(filePath, remoteKey, config);
+  const mime = payload.mime || getMimeType(ext);
+  const buffer = payload.buffer;
 
   let attempts = 0;
   const maxAttempts = 4;
@@ -245,7 +343,7 @@ async function uploadToR2({ config, remoteKey, filePath, ext }) {
     attempts++;
     try {
       const res = await r2HttpRequest({
-        path: `/client/v4/accounts/${config.accountId}/r2/buckets/${config.bucket}/objects/${encodeURIComponent(remoteKey)}`,
+        path: `/client/v4/accounts/${config.accountId}/r2/buckets/${config.bucket}/objects/${encodeR2Key(remoteKey)}`,
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${config.apiToken}`,
@@ -271,13 +369,173 @@ async function uploadToR2({ config, remoteKey, filePath, ext }) {
   }
 }
 
+async function deleteFromR2ViaS3({ config, remoteKey }) {
+  const cleanKey = remoteKey.replace(/^\/+/, '');
+  const url = `https://${config.accountId}.r2.cloudflarestorage.com/${config.bucket}/${encodeURI(cleanKey)}`;
+  const headers = {
+    'x-amz-content-sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+  };
+
+  signAwsV4({
+    method: 'DELETE',
+    url,
+    headers,
+    body: null,
+    accessKeyId: config.accessKeyId,
+    secretAccessKey: config.secretAccessKey,
+    region: 'auto',
+    service: 's3',
+  });
+
+  return new Promise((resolve, reject) => {
+    const req = https.request(
+      url,
+      {
+        method: 'DELETE',
+        headers,
+        timeout: 30000,
+        agent: httpsAgent,
+      },
+      (res) => {
+        let data = '';
+        res.on('data', (chunk) => (data += chunk));
+        res.on('end', () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            resolve(true);
+          } else {
+            reject(new Error(`S3 DeleteObject HTTP ${res.statusCode}: ${data.substring(0, 300)}`));
+          }
+        });
+      },
+    );
+    req.on('timeout', () => req.destroy(new Error('S3 Delete timeout')));
+    req.on('error', reject);
+    req.end();
+  });
+}
+
 async function deleteFromR2({ config, remoteKey }) {
+  if (config.accessKeyId && config.secretAccessKey) {
+    try {
+      return await deleteFromR2ViaS3({ config, remoteKey });
+    } catch (err) {
+      if (!config.apiToken) throw err;
+    }
+  }
+
   await r2HttpRequest({
-    path: `/client/v4/accounts/${config.accountId}/r2/buckets/${config.bucket}/objects/${encodeURIComponent(remoteKey)}`,
+    path: `/client/v4/accounts/${config.accountId}/r2/buckets/${config.bucket}/objects/${encodeR2Key(remoteKey)}`,
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${config.apiToken}`,
     },
+  });
+}
+
+function signAwsV4({ method, url, headers, body, accessKeyId, secretAccessKey, region = 'auto', service = 's3' }) {
+  const parsedUrl = new URL(url);
+  const datetime = new Date().toISOString().replace(/[:-]|\.\d{3}/g, '');
+  const date = datetime.slice(0, 8);
+
+  const normalizedHeaders = {};
+  for (const [key, value] of Object.entries(headers)) {
+    if (value !== undefined && value !== null) {
+      normalizedHeaders[key.toLowerCase()] = String(value).trim();
+    }
+  }
+
+  normalizedHeaders['host'] = parsedUrl.host;
+  normalizedHeaders['x-amz-date'] = datetime;
+  if (!normalizedHeaders['x-amz-content-sha256']) {
+    normalizedHeaders['x-amz-content-sha256'] = body ? crypto.createHash('sha256').update(body).digest('hex') : 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+  }
+
+  // Sync normalized headers back to headers object
+  for (const [k, v] of Object.entries(normalizedHeaders)) {
+    headers[k] = v;
+  }
+
+  const signedHeaderKeys = Object.keys(normalizedHeaders).sort();
+  const signedHeaders = signedHeaderKeys.join(';');
+  const canonicalHeaders = signedHeaderKeys.map((k) => `${k}:${normalizedHeaders[k]}\n`).join('');
+
+  const canonicalRequest = [
+    method,
+    parsedUrl.pathname,
+    parsedUrl.search ? parsedUrl.search.slice(1) : '',
+    canonicalHeaders,
+    signedHeaders,
+    normalizedHeaders['x-amz-content-sha256'],
+  ].join('\n');
+
+  const credentialScope = `${date}/${region}/${service}/aws4_request`;
+  const stringToSign = [
+    'AWS4-HMAC-SHA256',
+    datetime,
+    credentialScope,
+    crypto.createHash('sha256').update(canonicalRequest).digest('hex'),
+  ].join('\n');
+
+  const kDate = crypto.createHmac('sha256', 'AWS4' + secretAccessKey).update(date).digest();
+  const kRegion = crypto.createHmac('sha256', kDate).update(region).digest();
+  const kService = crypto.createHmac('sha256', kRegion).update(service).digest();
+  const kSigning = crypto.createHmac('sha256', kService).update('aws4_request').digest();
+  const signature = crypto.createHmac('sha256', kSigning).update(stringToSign).digest('hex');
+
+  headers['Authorization'] = `AWS4-HMAC-SHA256 Credential=${accessKeyId}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
+  return headers;
+}
+
+async function copyObjectOnR2({ config, sourceKey, targetKey }) {
+  if (!config.accessKeyId || !config.secretAccessKey) {
+    return false;
+  }
+
+  const cleanTarget = targetKey.replace(/^\/+/, '');
+  const cleanSource = sourceKey.replace(/^\/+/, '');
+  const url = `https://${config.accountId}.r2.cloudflarestorage.com/${config.bucket}/${encodeURI(cleanTarget)}`;
+  const copySource = `/${config.bucket}/${encodeURI(cleanSource)}`;
+
+  const headers = {
+    'x-amz-copy-source': copySource,
+    'x-amz-content-sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+  };
+
+  signAwsV4({
+    method: 'PUT',
+    url,
+    headers,
+    body: null,
+    accessKeyId: config.accessKeyId,
+    secretAccessKey: config.secretAccessKey,
+    region: 'auto',
+    service: 's3',
+  });
+
+  return new Promise((resolve, reject) => {
+    const req = https.request(
+      url,
+      {
+        method: 'PUT',
+        headers,
+        timeout: 30000,
+        agent: httpsAgent,
+      },
+      (res) => {
+        let data = '';
+        res.on('data', (chunk) => (data += chunk));
+        res.on('end', () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            resolve(true);
+          } else {
+            reject(new Error(`S3 CopyObject HTTP ${res.statusCode}: ${data.substring(0, 300)}`));
+          }
+        });
+      },
+    );
+    req.on('timeout', () => req.destroy(new Error('S3 Copy timeout')));
+    req.on('error', reject);
+    req.end();
   });
 }
 
@@ -290,7 +548,93 @@ function flushManifest(manifest) {
   }
 }
 
+async function listAllR2ObjectsViaS3(config) {
+  const objects = [];
+  let continuationToken = null;
+
+  while (true) {
+    let url = `https://${config.accountId}.r2.cloudflarestorage.com/${config.bucket}?list-type=2`;
+    if (continuationToken) {
+      url += `&continuation-token=${encodeURIComponent(continuationToken)}`;
+    }
+
+    const headers = {
+      'x-amz-content-sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    };
+
+    signAwsV4({
+      method: 'GET',
+      url,
+      headers,
+      body: null,
+      accessKeyId: config.accessKeyId,
+      secretAccessKey: config.secretAccessKey,
+      region: 'auto',
+      service: 's3',
+    });
+
+    const xml = await new Promise((resolve, reject) => {
+      const req = https.request(
+        url,
+        {
+          method: 'GET',
+          headers,
+          timeout: 30000,
+          agent: httpsAgent,
+        },
+        (res) => {
+          let data = '';
+          res.on('data', (chunk) => (data += chunk));
+          res.on('end', () => {
+            if (res.statusCode >= 200 && res.statusCode < 300) {
+              resolve(data);
+            } else {
+              reject(new Error(`S3 ListObjectsV2 HTTP ${res.statusCode}: ${data.substring(0, 300)}`));
+            }
+          });
+        },
+      );
+      req.on('timeout', () => req.destroy(new Error('S3 List timeout')));
+      req.on('error', reject);
+      req.end();
+    });
+
+    const keyMatches = [...xml.matchAll(/<Key>(.*?)<\/Key>/g)];
+    for (const match of keyMatches) {
+      const rawKey = match[1]
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'");
+      objects.push({ key: rawKey });
+    }
+
+    const isTruncated = /<IsTruncated>true<\/IsTruncated>/i.test(xml);
+    const tokenMatch = xml.match(/<NextContinuationToken>(.*?)<\/NextContinuationToken>/i);
+
+    if (isTruncated && tokenMatch) {
+      continuationToken = tokenMatch[1]
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>');
+    } else {
+      break;
+    }
+  }
+
+  return objects;
+}
+
 export async function listAllR2Objects(config) {
+  if (config.accessKeyId && config.secretAccessKey) {
+    try {
+      return await listAllR2ObjectsViaS3(config);
+    } catch (err) {
+      console.warn(`⚠️ S3 协议 ListObjects 失败，尝试 REST API: ${err.message}`);
+    }
+  }
+
   const objects = [];
   let cursor = null;
 
@@ -366,10 +710,30 @@ export async function syncRes({ dryRun = false, force = false, prune = false, co
 
   // 3. Scan local files and compute hashes
   console.log('🔍 扫描本地文件并计算校验和...');
-  const ignoreFilePath = path.join(resDir, '.ignore');
+  let ignoreFilePath = path.join(resDir, 'ignore_files');
+  if (!fs.existsSync(ignoreFilePath) && !fs.existsSync(path.join(resDir, '.ignore'))) {
+    console.log('📥 本地未检测到 ignore_files，尝试从 R2 下载并解密还原...');
+    try {
+      const url = `${config.publicDomain.replace(/\/+$/, '')}/ignore_files`;
+      const cipherText = await fetchText(url);
+      if (cipherText && cipherText.trim()) {
+        const decrypted = await decryptBase64(cipherText.trim(), config.secret);
+        if (decrypted.success) {
+          if (!fs.existsSync(resDir)) fs.mkdirSync(resDir, { recursive: true });
+          fs.writeFileSync(ignoreFilePath, decrypted.plaintext, 'utf-8');
+          console.log('   ✅ 成功从 R2 还原本地 docs/public/res/ignore_files！');
+        }
+      }
+    } catch (e) {
+      console.warn(`   ⚠️ 还原 ignore_files 跳过: ${e.message}`);
+    }
+  }
+  if (!fs.existsSync(ignoreFilePath)) {
+    ignoreFilePath = path.join(resDir, '.ignore');
+  }
   const ignorePatterns = parseIgnoreFile(ignoreFilePath);
   if (ignorePatterns.length > 0) {
-    console.log(`📋 读取到 .ignore 规则 (${ignorePatterns.length} 条): ${ignorePatterns.join(', ')}`);
+    console.log(`📋 读取到 ignore 规则 (${ignorePatterns.length} 条): ${ignorePatterns.join(', ')}`);
   }
 
   const localFiles = scanResFiles(resDir);
@@ -390,17 +754,18 @@ export async function syncRes({ dryRun = false, force = false, prune = false, co
 
   // 4. Diff against manifest and remote keys
   const oldFiles = manifest.files || {};
-  const oldHashToPaths = new Map();
+  const oldHashToItems = new Map();
   for (const [oldRel, item] of Object.entries(oldFiles)) {
-    if (!oldHashToPaths.has(item.hash)) {
-      oldHashToPaths.set(item.hash, []);
+    if (!oldHashToItems.has(item.hash)) {
+      oldHashToItems.set(item.hash, []);
     }
-    oldHashToPaths.get(item.hash).push({ relPath: oldRel, ...item });
+    oldHashToItems.get(item.hash).push({ relPath: oldRel, ...item });
   }
 
   const toUpload = [];
+  const toMigrate = [];
   const toDelete = [];
-  const renames = [];
+  const handledOldRemoteKeys = new Set();
   let skippedCount = 0;
 
   for (const [relPath, cur] of Object.entries(currentMap)) {
@@ -410,45 +775,62 @@ export async function syncRes({ dryRun = false, force = false, prune = false, co
     if (old && old.hash === cur.hash && old.remoteKey === cur.remoteKey && existsOnRemote && !force) {
       // Unchanged and exists on remote
       skippedCount++;
+      handledOldRemoteKeys.add(cur.remoteKey);
     } else {
-      // Check if this is a rename from a deleted old file
-      const sameHashOld = oldHashToPaths.get(cur.hash);
-      const matchingDeletedOld = sameHashOld
-        ? sameHashOld.find((o) => !currentMap[o.relPath])
-        : null;
+      // Check if there is an existing remote object with the exact same content hash
+      const candidates = oldHashToItems.get(cur.hash) || [];
+      const matchedOld = candidates.find(
+        (c) =>
+          (remoteKeysSet.size === 0 || remoteKeysSet.has(c.remoteKey)) &&
+          c.remoteKey !== cur.remoteKey &&
+          !handledOldRemoteKeys.has(c.remoteKey),
+      );
 
-      if (matchingDeletedOld && !force) {
-        renames.push({
-          oldPath: matchingDeletedOld.relPath,
-          oldRemoteKey: matchingDeletedOld.remoteKey,
-          newPath: relPath,
-          newRemoteKey: cur.remoteKey,
+      if (matchedOld && !force) {
+        toMigrate.push({
+          sourceKey: matchedOld.remoteKey,
+          targetKey: cur.remoteKey,
+          oldRelPath: matchedOld.relPath,
+          newRelPath: relPath,
           cur,
         });
-        toUpload.push(cur);
-        toDelete.push({ relPath: matchingDeletedOld.relPath, remoteKey: matchingDeletedOld.remoteKey });
+        handledOldRemoteKeys.add(matchedOld.remoteKey);
       } else {
         toUpload.push(cur);
       }
     }
   }
 
-  // Find deleted files
+  // Find remaining deleted/orphan remote keys
+  const validCurrentRemoteKeys = new Set(Object.values(currentMap).map((c) => c.remoteKey));
   for (const [oldRel, oldItem] of Object.entries(oldFiles)) {
-    if (!currentMap[oldRel]) {
-      const isHandledRename = renames.some((r) => r.oldPath === oldRel);
-      if (!isHandledRename && prune) {
+    if (!currentMap[oldRel] && !handledOldRemoteKeys.has(oldItem.remoteKey)) {
+      if (prune) {
         toDelete.push({ relPath: oldRel, remoteKey: oldItem.remoteKey });
       }
     }
   }
+  if (remoteKeysSet.size > 0 && prune) {
+    for (const rKey of remoteKeysSet) {
+      if (!validCurrentRemoteKeys.has(rKey) && !toDelete.some((d) => d.remoteKey === rKey)) {
+        toDelete.push({ relPath: '(远端孤儿对象)', remoteKey: rKey });
+      }
+    }
+  }
+
+  const hasS3Creds = !!(config.accessKeyId && config.secretAccessKey);
 
   console.log(`\n📊 增量变更统计:`);
-  console.log(`   ✨ 待上传/更新: ${toUpload.length} 个`);
-  if (renames.length > 0) {
-    console.log(`   🔄 识别重命名/移动: ${renames.length} 个`);
-    renames.forEach((r) => console.log(`      ↳ ${r.oldPath} -> ${r.newPath}`));
+  if (toMigrate.length > 0) {
+    const modeDesc = hasS3Creds ? 'S3 服务端秒级 Copy（0 上传流量）' : '上传并自动替换旧文件';
+    console.log(`   🔄 识别重命名/密钥迁移 (${modeDesc}): ${toMigrate.length} 个`);
+    toMigrate.forEach((r) => {
+      const isPathChange = r.oldRelPath !== r.newRelPath;
+      const desc = isPathChange ? `${r.oldRelPath} -> ${r.newRelPath}` : `${r.newRelPath} (Key 变更)`;
+      console.log(`      ↳ ${desc}`);
+    });
   }
+  console.log(`   ✨ 待上传/更新: ${toUpload.length} 个`);
   console.log(`   ⏭️  已是最新 (跳过): ${skippedCount} 个`);
   if (toDelete.length > 0) {
     console.log(`   🗑️  待清理远端: ${toDelete.length} 个`);
@@ -461,9 +843,99 @@ export async function syncRes({ dryRun = false, force = false, prune = false, co
     return;
   }
 
-  // 5. Perform Uploads in parallel with scrolling stream output
+  // 5. Perform Remote Migrations / Server-side Copies
+  if (toMigrate.length > 0) {
+    const startTime = Date.now();
+    let completed = 0;
+
+    if (hasS3Creds) {
+      console.log(`\n⚡ 正在执行云端服务端秒级 Copy (免上传流量，并发数: ${concurrency})...\n`);
+      await runConcurrent(toMigrate, concurrency, async (item) => {
+        try {
+          await copyObjectOnR2({
+            config,
+            sourceKey: item.sourceKey,
+            targetKey: item.targetKey,
+          });
+
+          // Delete old remote key after copy succeeds
+          await deleteFromR2({ config, remoteKey: item.sourceKey }).catch(() => {});
+
+          if (item.oldRelPath !== item.newRelPath) {
+            delete manifest.files[item.oldRelPath];
+          }
+
+          manifest.files[item.newRelPath] = {
+            hash: item.cur.hash,
+            size: item.cur.size,
+            mtime: item.cur.mtime,
+            remoteKey: item.targetKey,
+            ...(item.cur.raw ? { raw: true } : {}),
+          };
+
+          completed++;
+          const pct = ((completed / toMigrate.length) * 100).toFixed(1);
+          console.log(`[${completed}/${toMigrate.length}] (${pct}%) ⚡ 云端迁移完成: ${item.newRelPath} (${formatSize(item.cur.size)})`);
+
+          if (completed % 5 === 0 || completed === toMigrate.length) {
+            flushManifest(manifest);
+          }
+        } catch (err) {
+          flushManifest(manifest);
+          console.error(`\n❌ 云端迁移失败 [${item.newRelPath}]:`, err.message);
+          throw err;
+        }
+      });
+      const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      console.log(`\n✅ 云端秒级迁移完成！耗时: ${elapsed}s`);
+    } else {
+      console.log(`\n💡 提示：在 .env.local 中配置 R2_ACCESS_KEY_ID 与 R2_SECRET_ACCESS_KEY 可开启云端 0 流量秒级 Copy。`);
+      console.log(`⚡ 正在并发上传并自动清理旧 key (并发数: ${concurrency})...\n`);
+      await runConcurrent(toMigrate, concurrency, async (item) => {
+        try {
+          await uploadToR2({
+            config,
+            remoteKey: item.targetKey,
+            filePath: item.cur.fullPath,
+            ext: item.cur.ext,
+          });
+
+          // Clean up old remote key so no orphan files are left
+          await deleteFromR2({ config, remoteKey: item.sourceKey }).catch(() => {});
+
+          if (item.oldRelPath !== item.newRelPath) {
+            delete manifest.files[item.oldRelPath];
+          }
+
+          manifest.files[item.newRelPath] = {
+            hash: item.cur.hash,
+            size: item.cur.size,
+            mtime: item.cur.mtime,
+            remoteKey: item.targetKey,
+            ...(item.cur.raw ? { raw: true } : {}),
+          };
+
+          completed++;
+          const pct = ((completed / toMigrate.length) * 100).toFixed(1);
+          console.log(`[${completed}/${toMigrate.length}] (${pct}%) 🚀 迁移上传成功 (旧对象已清理): ${item.newRelPath} (${formatSize(item.cur.size)})`);
+
+          if (completed % 5 === 0 || completed === toMigrate.length) {
+            flushManifest(manifest);
+          }
+        } catch (err) {
+          flushManifest(manifest);
+          console.error(`\n❌ 迁移上传失败 [${item.newRelPath}]:`, err.message);
+          throw err;
+        }
+      });
+      const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      console.log(`\n✅ 迁移完成！耗时: ${elapsed}s`);
+    }
+  }
+
+  // 6. Perform Uploads in parallel for new/modified files
   if (toUpload.length > 0) {
-    console.log(`\n⚡ 正在并发上传 (并发数: ${concurrency})...\n`);
+    console.log(`\n⚡ 正在并发上传新增/修改文件 (并发数: ${concurrency})...\n`);
     let completed = 0;
     const startTime = Date.now();
 
@@ -505,7 +977,7 @@ export async function syncRes({ dryRun = false, force = false, prune = false, co
     console.log(`\n✅ 上传完成！耗时: ${elapsed}s`);
   }
 
-  // 6. Perform Deletions
+  // 7. Perform Deletions for orphaned files
   if (toDelete.length > 0 && prune) {
     console.log(`\n🗑️ 正在清理远端孤儿文件...`);
     for (const del of toDelete) {

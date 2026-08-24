@@ -71,12 +71,12 @@
 
 ---
 
-## 三、 R2 存储同步与 `.ignore` 白名单规范
+## 三、 R2 存储同步与 `ignore_files` 白名单规范
 
 所有资源存放在本地 `docs/public/res/` 中，通过 `scripts/res-sync.mjs` 同步到 Cloudflare R2。
 
-### 1. `docs/public/res/.ignore` 规则书写规范
-为防止根目录的白名单误伤深层子目录的敏感资源，`.ignore` 规则遵循**严格的根路径锚定约定**：
+### 1. `docs/public/res/ignore_files` 规则书写规范
+为防止根目录的白名单误伤深层子目录的敏感资源，`ignore_files` 规则遵循**严格的根路径锚定约定**：
 
 ```text
 # 1. 扩展名全局通配（所有 GPG 二进制加密文件保持直传）
@@ -92,8 +92,33 @@
 ```
 
 > [!WARNING]
-> **严禁在 `.ignore` 中写无斜杠的裸文件名（例如写 `logo.png`）**！
+> **严禁在 `ignore_files` 中写无斜杠的裸文件名（例如写 `logo.png`）**！
 > 写 `logo.png` 会导致 `imgs/bingyan-MiniNginx/logo.png` 这类子目录敏感图片也被误判为白名单而脱敏裸传。必须写 `/logo.png` 严格限定根目录。
+
+### 2. 凭据配置与双协议兼容规范 (S3 原生协议与 REST 降级)
+
+同步脚本 `scripts/res-sync.mjs` 支持**双协议自动识别与平滑降级**：
+
+- **标准推荐配置（S3 协议 —— 开启云端 0 流量秒级 Copy 与重命名）**：
+  在 `.env.local` 中配置 R2 API 令牌与 S3 凭证：
+  ```ini
+  R2_ACCOUNT_ID="你的AccountID"
+  R2_BUCKET="blog-picbackend"
+  R2_PUBLIC_DOMAIN="https://res.yslwd.eu.org"
+  R2_PATH_SECRET="你的路径混淆密钥"
+
+  # S3 凭据（在 Cloudflare R2 > Manage R2 API Tokens 中创建获得）
+  R2_ACCESS_KEY_ID="你的Access_Key_ID"
+  R2_SECRET_ACCESS_KEY="你的Secret_Access_Key"
+  ```
+  - **特性**：使用 S3 原生接口（`ListObjectsV2` / `CopyObject` / `PutObject` / `DeleteObject`）。
+  - **优势**：当进行**密钥轮换 (Key Rotation)** 或 **文件重命名/移动** 时，脚本通过 SHA-256 Hash 比对识别后直接在 Cloudflare 云端内部执行服务端秒级拷贝，**本地 0 上传网络消耗，秒级完成全库重命名**。
+
+- **旧版 API Token 兼容模式（自动降级）**：
+  若 `.env.local` 中未配置 S3 的 AccessKey/SecretKey，仅配置了 `R2_API_TOKEN`：
+  - **完全向下兼容**：脚本自动平滑降级为 Cloudflare REST API 模式；
+  - **智能清理**：依然具备 SHA-256 Hash 比对能力，在上传新 Key 后会自动清理旧 Key，避免产生孤儿文件；
+  - **清单自愈**：依托本地 `.res_manifest.json` 维持精准状态追踪。
 
 ---
 

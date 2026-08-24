@@ -2,13 +2,25 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { loadKeys, transformMarkdownContent } from './crypto-shared.mjs';
+import https from 'node:https';
+import { loadKeys, transformMarkdownContent, decryptBase64, parseEnvFile } from './crypto-shared.mjs';
 import { loadEnvKeys, transformMarkdownPaths } from './repo-path-transform.mjs';
 import { decryptPath, isPathEncrypted } from './path-crypto.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
+
+function fetchText(url) {
+  return new Promise((resolve) => {
+    https.get(url, { timeout: 15000 }, (res) => {
+      if (res.statusCode !== 200) return resolve(null);
+      let data = '';
+      res.on('data', (chunk) => (data += chunk));
+      res.on('end', () => resolve(data));
+    }).on('error', () => resolve(null));
+  });
+}
 
 export async function resumeRepo() {
   console.log(`\n======================================================`);
@@ -48,6 +60,35 @@ export async function resumeRepo() {
     console.error(`   R2_PATH_SECRET=...`);
     console.error(`   R2_API_TOKEN=...`);
     process.exit(1);
+  }
+
+  // 2.5 检查并还原本地 docs/public/res/ignore_files
+  const ignoreFilePath = path.join(projectRoot, 'docs/public/res/ignore_files');
+  if (!fs.existsSync(ignoreFilePath)) {
+    console.log(`\n📥 [步骤 2.5/4] 从 R2 拉取并解密恢复 ignore_files...`);
+    try {
+      const localEnv = parseEnvFile(path.join(projectRoot, '.env.local'));
+      const rootEnv = parseEnvFile(path.join(projectRoot, '.env'));
+      const publicDomain =
+        process.env.R2_PUBLIC_DOMAIN || localEnv.R2_PUBLIC_DOMAIN || rootEnv.R2_PUBLIC_DOMAIN || 'https://res.yslwd.eu.org';
+      const url = `${publicDomain.replace(/\/+$/, '')}/ignore_files`;
+      const cipherText = await fetchText(url);
+      if (cipherText && cipherText.trim()) {
+        const decrypted = await decryptBase64(cipherText.trim(), pathSecret);
+        if (decrypted.success) {
+          const resDir = path.dirname(ignoreFilePath);
+          if (!fs.existsSync(resDir)) fs.mkdirSync(resDir, { recursive: true });
+          fs.writeFileSync(ignoreFilePath, decrypted.plaintext, 'utf-8');
+          console.log(`   ✅ 成功从 R2 解密还原 docs/public/res/ignore_files`);
+        } else {
+          console.warn(`   ⚠️ 解密 ignore_files 失败 (密钥可能不匹配)`);
+        }
+      } else {
+        console.log(`   ℹ️ 远端 R2 暂无 ignore_files，已跳过。`);
+      }
+    } catch (err) {
+      console.warn(`   ⚠️ 拉取 ignore_files 失败: ${err.message}`);
+    }
   }
 
   // 3. 全库解密还原为人类可读明文

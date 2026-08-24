@@ -11,3 +11,5 @@ docs/public/pic/
 .env.local
 .env.*.local
 docs/public/res
+.res_manifest.json
+*.res_manifest.json
