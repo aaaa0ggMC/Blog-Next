@@ -83,7 +83,7 @@ highlight: true
 </np>
 
 <p align='center'>
-非礼勿视，非礼勿听，非礼勿言，非礼勿进
+非礼勿视，非礼勿听，非礼勿言，非礼勿近
 </p>
 
 <np>
