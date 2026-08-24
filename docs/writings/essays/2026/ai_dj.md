@@ -374,7 +374,7 @@ if __name__ == "__main__":
 </np>
 
 <div style="text-align: center;">
-    <Img content="/dSTsaBf4ufhB0MefXp_fIzXAb_qebksHVrMVI7T6Ccy18Ko.png" width="600" height="400" fit="cover" objectPosition="-120px -300px" />
+    <Img content="/dSTsaBf4ufhB0MefXp_fIzXAb_qebksHVrMVI7T6Ccy18Ko.png" width="600" height="400" fit="cover" />
 </div>
 
 

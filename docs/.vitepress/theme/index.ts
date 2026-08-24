@@ -31,6 +31,7 @@ import FrontmatterExpansion from './components/FrontmatterExpansion.vue';
 import NoteCards from './components/NoteCards.vue';
 import PointList from './components/PointList.vue';
 import PointItem from './components/PointItem.vue';
+import AI from './components/AI.vue';
 
 // CSS
 import './custom.css';
@@ -92,5 +93,8 @@ export default {
     app.component('PointItem', PointItem);
     app.component('IdeaList', PointList);
     app.component('IdeaItem', PointItem);
+    app.component('AI', AI);
+    app.component('ai', AI);
+    app.component('AiBlock', AI);
   }
 };

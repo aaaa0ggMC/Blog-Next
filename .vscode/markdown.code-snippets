@@ -283,6 +283,42 @@
       "<span class=\"${1|hl,ps,ins,tit|}\">${2:文本}</span>$0"
     ],
     "description": "插入自定义 class 的 <span class=\"...\"> 行内文本"
+  },
+  "AI Generated Content Block (ai)": {
+    "prefix": ["$ai", "ai", "AI", "aiblock"],
+    "body": [
+      "<AI>",
+      "$1",
+      "</AI>$0"
+    ],
+    "description": "插入 AI 生成内容块"
+  },
+  "AI Generated Content Block with Prompt (aip)": {
+    "prefix": ["$aip", "aip", "ai-meta", "aimeta", "aiprompt"],
+    "body": [
+      "<AI prompt=\"${1:Prompt / 描述}\">",
+      "$2",
+      "</AI>$0"
+    ],
+    "description": "插入带 Prompt 描述元数据的 AI 生成内容块"
+  },
+  "AI Generated Content Block with Fallback (aifb)": {
+    "prefix": ["$aifb", "aifb", "ai-fb"],
+    "body": [
+      "<AI fallback>",
+      "$1",
+      "</AI>$0"
+    ],
+    "description": "插入带默认 fallback 占位提示的 AI 生成内容块"
+  },
+  "AI Generated Content Block with Custom Fallback (aifbc)": {
+    "prefix": ["$aifbc", "aifbc", "ai-fbc"],
+    "body": [
+      "<AI fallback=\"${1:自定义 fallback 提示文本}\" prompt=\"${2:Prompt / 描述}\">",
+      "$3",
+      "</AI>$0"
+    ],
+    "description": "插入带自定义 fallback 提示与 Prompt 的 AI 生成内容块"
   }
 }
 

@@ -471,6 +471,7 @@ async function decryptTitleString(titleHtml: string): Promise<{ html: string; pl
     return { html: titleHtml, plainText: plain }
   }
 
+  const isFailView = localStorage.getItem('failView') === 'true'
   const normKey = localStorage.getItem(ekey_norm)
   const privKey = localStorage.getItem(ekey_priv)
   const teacherKey = localStorage.getItem(ekey_teacher)
@@ -488,6 +489,15 @@ async function decryptTitleString(titleHtml: string): Promise<{ html: string; pl
     const postAttrs = match[3] || ''
     const cipherText = match[4].trim()
 
+    const fallbackMatch = (preAttrs + ' ' + postAttrs).match(/fallback=['"]([^'"]+)['"]/)
+
+    if (isFailView) {
+      if (fallbackMatch) {
+        resultHtml = resultHtml.replace(fullMatch, fallbackMatch[1])
+      }
+      continue
+    }
+
     let keyToUse: string | null = null
     if (/\b(e\+|encpp)\b/.test(classAttr)) {
       keyToUse = privKey
@@ -502,7 +512,6 @@ async function decryptTitleString(titleHtml: string): Promise<{ html: string; pl
       if (decrypted !== cipherText) {
         resultHtml = resultHtml.replace(fullMatch, decrypted)
       } else {
-        const fallbackMatch = (preAttrs + ' ' + postAttrs).match(/fallback=['"]([^'"]+)['"]/)
         if (fallbackMatch) {
           resultHtml = resultHtml.replace(fullMatch, fallbackMatch[1])
         }
@@ -511,7 +520,7 @@ async function decryptTitleString(titleHtml: string): Promise<{ html: string; pl
   }
 
   // 2. 纯 Hex/Base64 处理
-  if (isBase64Cipher(resultHtml.trim())) {
+  if (!isFailView && isBase64Cipher(resultHtml.trim())) {
     if (normKey) {
       const dec = await decrypt(resultHtml.trim(), normKey)
       if (dec !== resultHtml.trim()) {
@@ -990,7 +999,7 @@ async function triggerDecrypt() {
 }
 
 function handleStorageEvent(e: StorageEvent) {
-  if ([ekey_norm, ekey_priv, ekey_teacher].includes(e.key || '')) {
+  if ([ekey_norm, ekey_priv, ekey_teacher, 'failView'].includes(e.key || '')) {
     triggerDecrypt()
   }
 }
@@ -1002,6 +1011,9 @@ onMounted(() => {
     window.addEventListener('gpg-keys-updated', () => {
       triggerDecrypt()
     })
+    window.addEventListener('fail-view-change', () => {
+      triggerDecrypt()
+    })
   }
   setTimeout(triggerDecrypt, 150)
   setTimeout(triggerDecrypt, 500)
@@ -1010,6 +1022,9 @@ onMounted(() => {
 onUnmounted(() => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('storage', handleStorageEvent)
+    window.removeEventListener('fail-view-change', () => {
+      triggerDecrypt()
+    })
   }
 })
 

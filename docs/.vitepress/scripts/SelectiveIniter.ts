@@ -42,6 +42,8 @@ export function initPage(pageId: string): void {
         disAllowErr: 'false',
         useLocal: 'false',
         enableParallax: 'true',
+        showAi: 'true',
+        failView: 'false',
       }
 
       for (const [key, defaultVal] of Object.entries(defaultSettings)) {
@@ -57,6 +59,8 @@ export function initPage(pageId: string): void {
         { id: 'sw_err', key: 'disAllowErr', positive: false },
         { id: 'sw_local', key: 'useLocal', positive: true },
         { id: 'sw_parallax', key: 'enableParallax', positive: true },
+        { id: 'sw_ai', key: 'showAi', positive: true },
+        { id: 'sw_fail_view', key: 'failView', positive: true },
       ]
 
       for (const { id, key, positive } of switchBindings) {

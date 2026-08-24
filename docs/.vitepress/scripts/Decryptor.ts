@@ -19,6 +19,7 @@ async function decryptData(
   ) as HTMLCollectionOf<DecryptElement>
   let result = 0
   let totalValid = 0
+  const isFailView = typeof localStorage !== 'undefined' && localStorage.getItem('failView') === 'true'
 
   for (let i = 0; i < encs.length; ++i) {
     const element = encs[i]
@@ -51,9 +52,16 @@ async function decryptData(
           .trim()
       }
 
+      element.dataset.hex = cipherString
+
       // 如果当前内容本身就是人类可读明文（非密文格式，如本地开发 dev 分支环境）
       const isCipher = isBase64Cipher(cipherString) || isHexCipher(cipherString)
-      if (!isCipher) {
+      if (!isCipher && !isFailView) {
+        if (!storeInContent) {
+          element.innerHTML = cipherString
+        } else {
+          element.setAttribute('content', cipherString)
+        }
         element.decState = 'success'
         element.className = element.className.replace(/\bencFail\b/g, '') + ' encSuc'
         result++
@@ -62,15 +70,17 @@ async function decryptData(
       }
 
       totalValid++
-      const decryptedText = await decrypt(cipherString, key)
-      element.dataset.hex = cipherString
+      let decryptedText = cipherString
+      if (!isFailView && isCipher) {
+        decryptedText = await decrypt(cipherString, key)
+      }
 
       const lst = (): void => {
         if (element.decState === 'success') return
         element.textContent = element.dataset.hex ?? ''
       }
 
-      if (decryptedText === cipherString) {
+      if (isFailView || decryptedText === cipherString) {
         const fallbackAttr = element.getAttribute('fallback')
         if (fallbackAttr !== null) {
           if (!storeInContent) {
@@ -228,14 +238,23 @@ export function tryDecrypt(forceNotice: boolean = false): void {
       const totalEncrypted = results.reduce((acc, cur) => acc + cur.total, 0)
       const totalSuccess = results.reduce((acc, cur) => acc + cur.success, 0)
 
+      const isFailView = typeof localStorage !== 'undefined' && localStorage.getItem('failView') === 'true'
+
       if (totalEncrypted > 0 && typeof window.narn === 'function') {
         const isDev = import.meta.env.DEV
-        const currentSignature = `${window.location.pathname}:${totalSuccess}/${totalEncrypted}`
+        const currentSignature = `${window.location.pathname}:${totalSuccess}/${totalEncrypted}:${isFailView}`
 
         if (forceNotice || currentSignature !== lastNoticeSignature) {
           lastNoticeSignature = currentSignature
 
-          if (totalSuccess === totalEncrypted) {
+          if (isFailView) {
+            window.narn(
+              'warn',
+              `已开启解密失败视角，内容均显示为未解密状态 (0/${totalEncrypted})`,
+              1500,
+              '解密失败视角',
+            )
+          } else if (totalSuccess === totalEncrypted) {
             if (isDev) {
               window.narn(
                 'success',

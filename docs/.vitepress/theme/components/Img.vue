@@ -51,12 +51,15 @@ const props = withDefaults(
     noMangle?: boolean
     no_mangle?: boolean
     raw?: boolean
+    encrypt?: boolean
+    level?: string
   }>(),
   {},
 )
 
 const raw = props.content.trim()
 const isEncrypted = isBase64Cipher(raw)
+const isEncTag = isEncrypted || props.encrypt || !!props.level
 
 const box = ref<HTMLElement | null>(null)
 const target = ref<string | null>(null)
@@ -159,10 +162,33 @@ const onPrintReady = () => {
   show()
 }
 
+async function loadTarget(): Promise<void> {
+  const isFailView = typeof localStorage !== 'undefined' && localStorage.getItem('failView') === 'true'
+  if (isFailView && isEncTag) {
+    failed.value = true
+    target.value = base + 'fallback.png'
+    if (src.value != null) src.value = target.value
+    return
+  }
+
+  const path = await resolveContent(raw)
+  if (isEncrypted && path === raw) {
+    failed.value = true
+    target.value = base + 'fallback.png'
+    if (src.value != null) src.value = target.value
+    return
+  }
+
+  failed.value = false
+  target.value = toCdnUrl(path)
+  if (src.value != null) {
+    src.value = target.value
+  }
+}
+
 onMounted(async () => {
   if (typeof window === 'undefined') return
-  const path = await resolveContent(raw)
-  target.value = toCdnUrl(path)
+  await loadTarget()
 
   const el = box.value
   if (!el) return
@@ -178,6 +204,7 @@ onMounted(async () => {
   }
 
   window.addEventListener('before-blog-print', onPrintReady)
+  window.addEventListener('fail-view-change', loadTarget)
 
   if (typeof IntersectionObserver !== 'undefined') {
     observer = new IntersectionObserver(
@@ -205,6 +232,7 @@ onUnmounted(() => {
   observer?.disconnect()
   if (typeof window !== 'undefined') {
     window.removeEventListener('before-blog-print', onPrintReady)
+    window.removeEventListener('fail-view-change', loadTarget)
   }
 })
 
@@ -220,6 +248,8 @@ function onError(): void {
 }
 
 function onDblClick(): void {
+  const isFailView = typeof localStorage !== 'undefined' && localStorage.getItem('failView') === 'true'
+  if ((isFailView && isEncTag) || failed.value) return
   if (target.value) openViewer(target.value, props.title)
 }
 </script>

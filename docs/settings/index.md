@@ -39,6 +39,15 @@ desc: 网站加密解密密钥的设置页面。
       <button class='set-btn' onclick='confirmGPG();narn("success","密钥更新成功",1000,"密钥设置");initGPG();'>确定</button>
     </div>
   </div>
+  <div class='set-row'>
+    <div class='set-meta'>
+      <span class='set-name'>解密失败视角</span>
+      <span class='set-desc'>模拟未持有密钥的访客视角：开启后线上与本地环境无论密码是否正确均走解密失败逻辑（涵盖普通密钥、私密密钥、教师密钥三种模式）</span>
+    </div>
+    <div class='set-control'>
+      <input id='sw_fail_view' class="switch switch-anim" onchange="var fn = function(){narn('success','设置成功');};localStorage.failView = checkSwitch(this,fn,fn);window.dispatchEvent(new CustomEvent('fail-view-change'));tryDecrypt(true);" type="checkbox" />
+    </div>
+  </div>
 </div>
 
 ### 密钥解码示例
@@ -102,8 +111,17 @@ desc: 网站加密解密密钥的设置页面。
   </div>
 </div>
 
-## 界面与动效
+## 内容与显示偏好
 <div class='set-card'>
+  <div class='set-row'>
+    <div class='set-meta'>
+      <span class='set-name'>展示 AI 增强内容 (AI Content)</span>
+      <span class='set-desc'>控制博文中由 AI 生成的配图/场景与辅助说明，关闭后将自动隐藏或显示提示占位</span>
+    </div>
+    <div class='set-control'>
+      <input id='sw_ai' class="switch switch-anim" onchange="var fn = function(){narn('success','设置成功');};localStorage.showAi = checkSwitch(this,fn,fn);window.dispatchEvent(new CustomEvent('ai-toggle-change'))" type="checkbox" />
+    </div>
+  </div>
   <div class='set-row'>
     <div class='set-meta'>
       <span class='set-name'>主页背景视差</span>

@@ -1,10 +1,13 @@
 ---
 title: 博客目前的架构
 date: 2026-08-23
-tags: [随记,博客,AI-Generated]
+tags: [博客,技术,AI-Generated]
 ---
 
 这里不想复述了，直接AI生成：
+
+<AI fallback>
+
 
 前文只是简略讲了讲架构，其实整个博客的核心哲学就是“吃百家饭”：不买任何一台云服务器，不租任何一个数据库，纯靠把各大平台的免费层 (Free Tier) 和客户端算力拼装组合，实现真正的 Serverless + Costless：
 
@@ -62,6 +65,9 @@ tags: [随记,博客,AI-Generated]
 </PointList>
 
 这样一套“百家饭”拼图下来，整个博客运行起来不仅速度极快、隐私可靠，而且每个月的账单都稳稳保持在 0 元。
+
+
+</AI>
 
 ::: leave
 Cheers! <br/>
