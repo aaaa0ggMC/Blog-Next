@@ -1,7 +1,7 @@
 ---
 title: 语文学习方法
-category: chinese
-tags: []
+category: subjects
+tags: [语文]
 desc: 语文各维度的学习方法与资料汇总。
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 游戏人生
-category: gaming_life
+category: games
 desc: 记录游戏人生的总览页，含各游戏专题入口。
 ---
 

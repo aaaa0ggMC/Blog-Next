@@ -1,7 +1,7 @@
 ---
 title: C/C++ 学习历程
-category: c_cpp
-tags: []
+category: coding
+tags: [C++]
 desc: 记录 C/C++ 学习过程中的 DevLog 与深度总结。
 ---
 

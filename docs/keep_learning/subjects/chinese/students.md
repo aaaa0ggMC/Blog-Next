@@ -1,6 +1,6 @@
 ---
 title: 学生素质(似乎可培养)
-category: chinese
+category: subjects
 tags: [语文]
 desc: 关于学生素质的思考与总结（大部分已加密）。
 ---

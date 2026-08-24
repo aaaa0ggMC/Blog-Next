@@ -19,19 +19,12 @@ export const CATEGORY_MAP: Record<string, string> = {
   are_you_____: 'Are You 口口口口',
 
   // 学习板块
-  c_cpp: 'C/C++学习',
-  life: '编程生涯',
-  programming: '编程技术',
-  linux: '系统与Linux',
-  chinese: '语文思考',
-  english: '高考英语',
+  coding : '编程学习',
   subjects: '学科思考',
   reading: '读书笔记',
 
   // 游戏板块
-  '3c3u': '3C3U历险记',
-  greedy: '贪婪',
-  gaming_life: '游戏人生',
+  games : '游戏',
 
   // 探险与杂项
   exploration: '探险',
@@ -46,8 +39,8 @@ export const CATEGORY_MAP: Record<string, string> = {
  */
 export const SECTION_CATEGORIES_MAP: Record<string, string[]> = {
   writings: ['writings', 'essays', 'poems', 'dreams', 'forget_me_not', 'are_you_____'],
-  keep_learning: ['keep_learning', 'c_cpp', 'life', 'programming', 'linux', 'chinese', 'english', 'subjects', 'reading'],
-  gaming_life: ['gaming_life', '3c3u', 'greedy'],
+  keep_learning: ['keep_learning', 'coding', 'subjects', 'reading'],
+  gaming_life: ['gaming_life', 'games'],
   exploration: ['exploration'],
   notes: ['notes'],
   others: ['others'],
@@ -64,18 +57,12 @@ export const PATH_CATEGORY_RULES: Array<{ pattern: string; id: string }> = [
   { pattern: 'writings/forget_me_not', id: 'forget_me_not' },
   { pattern: 'writings/are_you_____', id: 'are_you_____' },
 
-  { pattern: 'keep_learning/programming/c_cpp', id: 'c_cpp' },
-  { pattern: 'keep_learning/programming/life', id: 'life' },
-  { pattern: 'keep_learning/programming', id: 'programming' },
-  { pattern: 'keep_learning/linux', id: 'linux' },
-  { pattern: 'keep_learning/subjects/chinese', id: 'chinese' },
-  { pattern: 'keep_learning/subjects/english', id: 'english' },
+  { pattern: 'keep_learning/programming', id: 'coding' },
+  { pattern: 'keep_learning/linux', id: 'coding' },
   { pattern: 'keep_learning/subjects', id: 'subjects' },
   { pattern: 'keep_learning/reading', id: 'reading' },
 
-  { pattern: 'gaming_life/3c3u', id: '3c3u' },
-  { pattern: 'gaming_life/greedy', id: 'greedy' },
-  { pattern: 'gaming_life', id: 'gaming_life' },
+  { pattern: 'gaming_life', id: 'games' },
 
   { pattern: 'exploration', id: 'exploration' },
   { pattern: 'others', id: 'others' },
@@ -157,8 +144,8 @@ export function inferCategoryFromUrl(url: string): { id: string; name: string } 
   const clean = url.replace(/^\//, '').replace(/\/$/, '')
 
   for (const rule of PATH_CATEGORY_RULES) {
-    if (clean.includes(rule.pattern)) {
-      return { id: rule.id, name: CATEGORY_MAP[rule.id] || rule.id }
+    if (clean.includes(rule.pattern) && CATEGORY_MAP[rule.id]) {
+      return { id: rule.id, name: CATEGORY_MAP[rule.id] }
     }
   }
 

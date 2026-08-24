@@ -1,6 +1,6 @@
 ---
 title: 学习资料
-category: chinese
+category: subjects
 tags: [语文]
 desc: 语文各类学习资料的汇总（已加密）。
 ---

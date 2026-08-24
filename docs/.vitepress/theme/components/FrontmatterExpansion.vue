@@ -390,6 +390,8 @@ import { ekey_norm, ekey_priv, ekey_teacher } from '../../scripts/Data'
 const props = withDefaults(
   defineProps<{
     category?: string | string[]
+    tags?: string | string[]
+    tag?: string | string[]
     path?: string
     mode?: 'timeline' | 'archive'
     limit?: number
@@ -400,6 +402,8 @@ const props = withDefaults(
   {
     mode: undefined,
     category: '',
+    tags: () => [],
+    tag: '',
     path: '',
     limit: 0,
     pageSize: 15,
@@ -408,18 +412,45 @@ const props = withDefaults(
   }
 )
 
+function parseInitialTags(): string[] {
+  const t = props.tags || props.tag
+  if (!t) return []
+  if (Array.isArray(t)) {
+    return t.map((s) => String(s).trim()).filter(Boolean)
+  }
+  const str = String(t).trim()
+  if (str.startsWith('[') && str.endsWith(']')) {
+    return str
+      .slice(1, -1)
+      .split(',')
+      .map((s) => s.trim().replace(/^['"]|['"]$/g, ''))
+      .filter(Boolean)
+  }
+  return str.split(',').map((s) => s.trim()).filter(Boolean)
+}
+
 const currentMode = computed(() => {
   if (props.mode) return props.mode
-  return props.category || props.path ? 'timeline' : 'archive'
+  const hasTagProp = Array.isArray(props.tags) ? props.tags.length > 0 : !!props.tags || !!props.tag
+  return props.category || props.path || hasTagProp ? 'timeline' : 'archive'
 })
 
 const rootEl = ref<HTMLElement | null>(null)
 
 // 筛选与分页状态
 const selectedCategory = ref(typeof props.category === 'string' ? props.category : '')
-const selectedTags = ref<string[]>([])
+const selectedTags = ref<string[]>(parseInitialTags())
 const searchQuery = ref('')
 const currentPage = ref(1)
+
+watch(
+  () => [props.category, props.tags, props.tag],
+  () => {
+    selectedCategory.value = typeof props.category === 'string' ? props.category : ''
+    selectedTags.value = parseInitialTags()
+  },
+  { deep: true }
+)
 
 // 时间段筛选状态
 type DatePreset = 'all' | 'custom' | `year-${string}` | 'last-3-months' | 'last-6-months' | 'last-1-year'
@@ -699,11 +730,14 @@ const filteredPosts = computed(() => {
     list = list.filter((p) => p.url.startsWith('/' + cleanP + '/') || p.url === '/' + cleanP)
   }
 
-  // 3. 联合标签筛选（AND 逻辑：文章必须包含所有选中的标签）
-  if (selectedTags.value.length > 0) {
+  // 3. 联合标签筛选（AND 逻辑：文章必须包含所有选中的标签，支持忽略大小写匹配）
+  const activeTags = [...new Set([...parseInitialTags(), ...selectedTags.value])]
+  if (activeTags.length > 0) {
     list = list.filter((p) => {
       if (!Array.isArray(p.tags) || p.tags.length === 0) return false
-      return selectedTags.value.every((t) => p.tags.includes(t))
+      return activeTags.every((reqTag) =>
+        p.tags.some((pt) => pt.trim().toLowerCase() === reqTag.trim().toLowerCase())
+      )
     })
   }
 
@@ -936,8 +970,8 @@ function onTagClick(tag: string) {
 }
 
 function resetFilters() {
-  selectedCategory.value = props.category || ''
-  selectedTags.value = []
+  selectedCategory.value = typeof props.category === 'string' ? props.category : ''
+  selectedTags.value = parseInitialTags()
   searchQuery.value = ''
   selectedDatePreset.value = 'all'
   customStartDate.value = ''

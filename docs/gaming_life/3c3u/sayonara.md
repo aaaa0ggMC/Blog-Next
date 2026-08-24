@@ -1,7 +1,7 @@
 ---
 title: 最后的热情 - 留给3C3U的遗书
 date: 2025-06-01
-category: 3c3u
+category: games
 tags: [Minecraft, 3C3U, 回忆]
 desc: 写给 3C3U 无政府服务器的告别遗书。
 highlight: true

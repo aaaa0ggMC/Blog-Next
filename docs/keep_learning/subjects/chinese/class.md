@@ -1,6 +1,6 @@
 ---
 title: 课堂教学
-category: chinese
+category: subjects
 tags: [语文]
 desc: 语文课堂教学笔记（已加密）。
 ---

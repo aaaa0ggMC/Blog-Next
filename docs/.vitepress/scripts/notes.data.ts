@@ -59,7 +59,7 @@ function scanNotes(dir: string, baseDir: string = docsDir): string[] {
 
   const list = fs.readdirSync(dir, { withFileTypes: true })
   for (const item of list) {
-    if (['node_modules', '.vitepress', 'dist', 'cache', '.git'].includes(item.name)) continue
+    if (['node_modules', '.vitepress', 'public', 'dist', 'cache', '.git'].includes(item.name)) continue
     const fullPath = path.join(dir, item.name)
     if (item.isDirectory()) {
       results.push(...scanNotes(fullPath, baseDir))

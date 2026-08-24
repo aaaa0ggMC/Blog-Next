@@ -1,7 +1,7 @@
 ---
 title: 探究：2021北京英语高考题阅读理解C篇
 date: 2026-03-06
-category: english
+category: subjects
 tags: [英语, 高考]
 desc: 深度探究 2021 北京高考英语阅读 C 篇的解题思路。
 ---

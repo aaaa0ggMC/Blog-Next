@@ -1,7 +1,7 @@
 ---
 title: 静态反射 -- C++的里程碑功能
 date: 2026-05-08
-category: c_cpp
+category: coding
 tags: [C++]
 desc: 初探 C++26 静态反射这一里程碑特性的使用体验。
 highlight: true

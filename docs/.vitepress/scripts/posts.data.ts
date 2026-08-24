@@ -121,7 +121,7 @@ function scanMarkdownFiles(dir: string, baseDir: string = docsDir): string[] {
 
   const list = fs.readdirSync(dir, { withFileTypes: true })
   for (const item of list) {
-    if (['node_modules', '.vitepress', 'dist', 'cache', '.git'].includes(item.name)) continue
+    if (['node_modules', '.vitepress', 'public', 'dist', 'cache', '.git'].includes(item.name)) continue
     if (item.name === 'ENCRYPTION_GUIDE.md') continue
 
     const fullPath = path.join(dir, item.name)
@@ -172,10 +172,13 @@ export default {
       let categoryId = fm.category
       let categoryName = ''
 
-      if (categoryId && CATEGORY_MAP[categoryId]) {
-        categoryName = CATEGORY_MAP[categoryId]
-      } else if (categoryId) {
-        categoryName = categoryId
+      if (categoryId) {
+        if (CATEGORY_MAP[categoryId]) {
+          categoryName = CATEGORY_MAP[categoryId]
+        } else {
+          categoryId = 'unknown'
+          categoryName = CATEGORY_MAP.unknown
+        }
       } else {
         const inferred = inferCategoryFromUrl(cleanUrl)
         categoryId = inferred.id

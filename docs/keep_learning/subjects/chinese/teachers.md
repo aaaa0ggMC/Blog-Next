@@ -1,6 +1,6 @@
 ---
 title: 教学老师
-category: chinese
+category: subjects
 tags: [语文]
 desc: 语文教学老师的特征分析与教学总结（已加密）。
 ---

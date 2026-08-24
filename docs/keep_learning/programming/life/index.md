@@ -1,7 +1,7 @@
 ---
 title: 编程生涯记录
-category: life
-tags: []
+category: coding
+tags: [编程]
 desc: 记录编程学习之路上的经历与思考。
 ---
 

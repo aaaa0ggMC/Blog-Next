@@ -1,7 +1,7 @@
 ---
 title: MiniNginx = 1
 date: 2025-10-07
-category: c_cpp
+category: coding
 tags: [C++, 网络编程]
 desc: 从零实现 MiniNginx 服务器的七天开发日志。
 ---

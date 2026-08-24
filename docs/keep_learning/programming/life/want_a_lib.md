@@ -1,7 +1,7 @@
 ---
 title: 我真的想做一个lib库！——长谈我两年半的编程生涯
 date: 2025-09-28
-category: life
+category: coding
 tags: [编程, 回忆]
 desc: 长谈两年半的编程生涯，回顾那些半途而废的项目。
 ---

@@ -1,6 +1,6 @@
 ---
 title: 课后作业
-category: chinese
+category: subjects
 tags: [语文]
 desc: 语文课后作业的分类总结（已加密）。
 ---
