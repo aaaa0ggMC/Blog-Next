@@ -565,8 +565,14 @@ watch(
 .note-content :deep(.timeline-title p),
 .note-content :deep(.point-list-container p),
 .note-content :deep(.point-item-card p),
-.note-content :deep(.point-field-text p) {
-  text-indent: 0;
+.note-content :deep(.point-field-text p),
+.note-content :deep([style*="text-indent: 0"] p),
+.note-content :deep([style*="text-indent:0"] p),
+.note-content :deep(p[style*="text-indent: 0"]),
+.note-content :deep(p[style*="text-indent:0"]),
+.note-content :deep(.no-indent),
+.note-content :deep(.no-indent p) {
+  text-indent: 0 !important;
 }
 
 .note-content :deep(img) {
