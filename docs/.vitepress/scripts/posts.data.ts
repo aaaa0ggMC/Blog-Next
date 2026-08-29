@@ -19,6 +19,7 @@ export interface PostItem {
   desc?: string
   highlight?: boolean
   wordCount?: number
+  transcribe_at?: string
 }
 
 export { CATEGORY_MAP }
@@ -205,6 +206,7 @@ export default {
         desc: fm.desc || fm.description || '',
         highlight: !!fm.highlight,
         wordCount: countWords(content),
+        transcribe_at: fm.transcribe_at || fm.transcribed_at || undefined,
       })
     }
 

@@ -132,6 +132,7 @@ function calculateStats() {
     '.line-number',
     '.header-anchor',
     '.article-meta-bar',
+    '.article-footnote',
     '.leave',
     '.timeline-year-node',
     '.giscus',

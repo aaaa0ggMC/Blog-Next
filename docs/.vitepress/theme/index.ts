@@ -14,6 +14,7 @@ import tc from './components/replacers/tc.vue';
 
 // UI Components
 import ArticleMeta from './components/ArticleMeta.vue';
+import ArticleFootnote from './components/ArticleFootnote.vue';
 import CopyPageButton from './components/CopyPageButton.vue';
 import HomePage from './layouts/HomePage.vue';
 import Periods from './components/periods/Periods.vue';
@@ -74,6 +75,7 @@ export default {
     app.component('ecp',ecp);
     app.component('tc',tc);
     app.component('ArticleMeta', ArticleMeta);
+    app.component('ArticleFootnote', ArticleFootnote);
     app.component('CopyPageButton', CopyPageButton);
     app.component('HomePage', HomePage);
     app.component('NewPeriods', Periods);

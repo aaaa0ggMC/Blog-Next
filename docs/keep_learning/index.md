@@ -15,6 +15,6 @@ desc: 学海无涯，收录阅读、编程、Linux 与主科学习的各类笔�
 <Card href="./programming/life/">编程生涯</Card>
 <Card href="./programming/c_cpp/">C/C++学习(语法，STL...)</Card>
 <Card href="./programming/other_langs">其他语言的学习(如Java,Python,HTML,Rust...)</Card>
-<Card href="./linux/archlinux">Linux的学习（以ArchLinux为核心）</Card>
+<Card href="./linux/">Linux的学习（以ArchLinux为核心）</Card>
 <Card href="./subjects/">主科上的思考</Card>
 </CardList>

@@ -3,7 +3,9 @@
   <HomePage v-if="isHomePage" />
   <div v-else>
     <Layout>
-      <template #doc-footer-before></template>
+      <template #doc-footer-before>
+        <ArticleFootnote />
+      </template>
 
       <template #doc-before>
         <ArticleMeta />
@@ -45,6 +47,7 @@ import { watch, computed } from "vue";
 import { inBrowser, useData, useRouter } from "vitepress";
 import { base } from '../../scripts/Data';
 import ArticleMeta from "../components/ArticleMeta.vue";
+import ArticleFootnote from "../components/ArticleFootnote.vue";
 import FooterStats from "../components/FooterStats.vue";
 import HomePage from "./HomePage.vue";
 import ImageViewer from "../components/ImageViewer.vue";

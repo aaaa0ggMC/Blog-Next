@@ -14,6 +14,8 @@ export const IGNORE_SELECTORS = [
   '.archive-controls',
   '.giscus',
   '.giscus-content',
+  '.prev-next',
+  '.footer-stats',
   '.vimg-skeleton',
   '.vimg-spinner',
   '.line-number',
@@ -165,6 +167,7 @@ export function serializeChildrenToText(el: Element): string {
 export function getPagePlainText(rootEl?: Element | null): string {
   const content =
     rootEl ||
+    document.querySelector('.content-container') ||
     document.querySelector('.vp-doc') ||
     document.querySelector('main') ||
     document.querySelector('.content')
@@ -431,6 +434,7 @@ export function serializeChildrenToMarkdown(el: Element, level = 0, inParagraph 
 export function getPageMarkdown(rootEl?: Element | null): string {
   const content =
     rootEl ||
+    document.querySelector('.content-container') ||
     document.querySelector('.vp-doc') ||
     document.querySelector('main') ||
     document.querySelector('.content')
