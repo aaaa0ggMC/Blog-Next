@@ -139,6 +139,7 @@ onUnmounted(() => {
   color: var(--vp-c-text-1);
   cursor: pointer;
   transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ctrl-btn:hover {

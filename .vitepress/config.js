@@ -5,5 +5,10 @@ export default defineConfig({
   description: 'My personal blog powered by VitePress',
   themeConfig: {
     lastUpdated: true
+  },
+  vite: {
+    server: {
+      allowedHosts: ['pc.yslwd.eu.org']
+    }
   }
 })

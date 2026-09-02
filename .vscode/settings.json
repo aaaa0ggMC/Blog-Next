@@ -1,12 +1,51 @@
 {
+  // ==========================================
+  // Path Intellisense 路径映射 (Blog Indexing)
+  // ==========================================
+  "path-intellisense.mappings": {
+    // 1. 图床与静态资源体系 (映射到 docs/public/res/imgs)
+    "/imgs": "${workspaceFolder}/docs/public/res/imgs",
+    "@/imgs": "${workspaceFolder}/docs/public/res/imgs",
+    "~/res": "${workspaceFolder}/docs/public/res",
+    "~": "${workspaceFolder}/docs/public",
+    "/res": "${workspaceFolder}/docs/public/res",
+    "/fonts": "${workspaceFolder}/docs/public/res/fonts",
+    "/art": "${workspaceFolder}/docs/public/res/art",
+
+    // 2. 站内文章互链路由体系 (映射到 docs/ 专栏文章目录)
+    "/": "${workspaceFolder}/docs",
+    "@docs": "${workspaceFolder}/docs",
+
+    // 3. VitePress 开发与主题扩展别名
+    "@theme": "${workspaceFolder}/docs/.vitepress/theme",
+    "@scripts": "${workspaceFolder}/docs/.vitepress/scripts",
+    "@": "${workspaceFolder}"
+  },
+
+  // 补全体验优化
+  "path-intellisense.autoSlashUtilities": true,
+  "path-intellisense.autoTriggerNextSuggestion": true,
+  "path-intellisense.showHiddenFiles": false,
+  "path-intellisense.ignoreFilePatterns": {
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/.res_manifest.json": true,
+    "**/ignore_files": true,
+    "**/.vitepress/cache/**": true,
+    "**/.vitepress/dist/**": true
+  },
+
+  // VSCode 原生 Markdown 路径补全增强
+  "markdown.suggest.paths.enabled": true,
+  "markdown.suggest.paths.includeWorkspaceHeaderCompletions": "onDoubleHash",
+
+  // 开启 Markdown 模式下的代码片段与自动联想
   "[markdown]": {
     "editor.quickSuggestions": {
       "other": "on",
       "comments": "off",
       "strings": "off"
     },
-    "editor.tabCompletion": "on",
-    "editor.snippetSuggestions": "top",
-    "editor.suggest.snippetsPreventQuickSuggestions": false
+    "editor.snippetSuggestions": "top"
   }
 }

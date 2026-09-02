@@ -183,6 +183,7 @@ category: essays # 可选：若目录结构规范可省略，系统会自动推�
 | `<Timeline />` / `<TimelineItem />` | 手工定制时间轴 | `<TimelineItem date="2026/08/22" highlight>文章标题</TimelineItem>` |
 | `<PointList />` / `<PointItem />` | 结构化分点/灵感卡片盒 | `<PointList><PointItem num="1" title="想法" k="核心要点" /></PointList>` |
 | `<Img />` | 自适应暗色/加密图片 | `<Img content="/imgs/cover.png" />` |
+| `<Video />` | 自适应视频播放器（支持CDN/加密/骨架屏） | `<Video content="/imgs/demo.mp4" title="演示视频" />` |
 | `<CryptoDebugger />` | 加密解密调测沙盒 | `<CryptoDebugger />` |
 
 ### Markdown 快捷自定义容器语法糖 (推荐替代 raw HTML)：
@@ -222,6 +223,8 @@ Cheers! <br/>
 | `ecp` | `<ecp>xW8HI5xaQdyVDb3A+sSkX50Qsh8C3M8E/PuzgfVXz4Jms9ldkDX2QgPOU//OLQ==</ecp>` | 私密密钥加密标签 |
 | `tc` | `<tc>9YItWFG663z0OLp6ISWDHbtR6+Y57/d8xHSJeq9x6Uuf8tJCkmCK7VYuyFUqow==</tc>` | 教师密钥加密标签 |
 | `img` | `<Img content="/imgs/..." alt="..." />` | 自适应暗色图片 |
+| `video` / `bvideo` | `<Video content="/imgs/..." title="..." />` | 自适应视频播放器 |
+| `evideo` / `video-enc` | `<Video encrypt content="/imgs/..." title="..." />` | 加密视频组件 |
 | `card` | `<Card href="..." tag="..." desc="...">...</Card>` | 导航卡片 |
 | `cardlist` | `<CardList><Card .../></CardList>` | 卡片网格列表 |
 | `points` / `pointlist` | `<PointList><PointItem ... /></PointList>` | 结构化分点/灵感列表容器 |

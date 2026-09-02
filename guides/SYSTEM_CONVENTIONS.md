@@ -41,7 +41,25 @@
 <Img content="/imgs/photo.jpg" width="400" height="300" fit="cover" />
 ```
 
-### 2. 文本与超链接加密标签
+### 2. 视频组件 `<Video />` (推荐)
+与 `<Img />` 类似，视频推荐使用专用的 `<Video />` 组件。使用 `content` 传参，支持懒加载、骨架屏、本地/CDN自适应和路径混淆：
+```html
+<!-- 1. 默认自动加密混淆 (推荐常规视频) -->
+<Video content="/imgs/notes/comfyui/demo.mp4" title="演示视频" />
+
+<!-- 2. 裸传模式 (@/ 或 no-mangle) -->
+<Video content="@/videos/open_source.mp4" />
+<Video no-mangle content="/videos/open_source.mp4" />
+
+<!-- 3. 敏感私密视频 (git commit 时自动将 content 转换为密文) -->
+<Video encrypt content="/videos/private/diary.mp4" title="私密日记" />
+<Video level="priv" content="/videos/private/record.mp4" />
+
+<!-- 4. 播放器属性控制 (默认 controls=true, playsinline=true) -->
+<Video content="/videos/clip.mp4" width="80%" autoplay loop muted poster="/imgs/cover.png" />
+```
+
+### 3. 文本与超链接加密标签
 ```html
 <!-- 普通密钥加密 (Normal Key: BLOG_GPG_KEY) -->
 <ec>向好友公开的内容，或 [私密网盘链接](https://pan.example.com/s/123)</ec>
@@ -53,20 +71,14 @@
 <tc>供长辈或教师审阅的教学评价</tc>
 ```
 
-### 3. 音频与视频多媒体
-将原生 HTML5 标签放入 `<ec>` / `<ecp>` 中，客户端解密后自动挂载并支持流式播放：
+### 4. 原生音频与外部流媒体多媒体
+若使用原生 HTML5 标签（如 `<audio>` 或外链 `<video>`），由于原生标签不支持 `content` 动态解析，必须写入完整 `src`，敏感内容可放入 `<ec>` / `<ecp>` 中：
 ```html
 <ec>
 <audio controls>
   <source src="https://res.yslwd.eu.org/audios/record.mp3" type="audio/mpeg">
 </audio>
 </ec>
-
-<ecp>
-<video controls width="100%" style="border-radius: 8px;">
-  <source src="https://res.yslwd.eu.org/videos/diary.mp4" type="video/mp4">
-</video>
-</ecp>
 ```
 
 ---

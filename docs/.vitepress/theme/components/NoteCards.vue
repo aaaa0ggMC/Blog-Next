@@ -404,6 +404,7 @@ watch(
   color: var(--vp-c-text-2);
   cursor: pointer;
   transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .tag-btn:hover {
@@ -444,6 +445,7 @@ watch(
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   transform-origin: 50% 100%;
   transition: transform 0.4s cubic-bezier(0.34, 1.15, 0.64, 1), opacity 0.3s ease, filter 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .note-card.center {
@@ -524,6 +526,7 @@ watch(
   color: var(--vp-c-brand);
   cursor: pointer;
   transition: background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .note-tag-chip:hover {
@@ -764,6 +767,7 @@ watch(
   color: var(--vp-c-text-3);
   text-decoration: none;
   transition: color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .note-full-link:hover {
@@ -793,6 +797,7 @@ watch(
   color: var(--vp-c-text-1);
   cursor: pointer;
   transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ctrl-btn:hover {
@@ -889,6 +894,7 @@ watch(
   color: var(--vp-c-text-1);
   cursor: pointer;
   transition: background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .jump-item:hover {
@@ -937,6 +943,7 @@ watch(
   background: var(--vp-c-bg-elv);
   color: var(--vp-c-brand);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* 自定义轻量滚动条 */

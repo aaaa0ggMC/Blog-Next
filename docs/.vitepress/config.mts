@@ -9,6 +9,9 @@ export default defineConfig({
   buildEnd: generateRss,
   vite: {
     plugins: [vitepressResTransformPlugin()],
+    server: {
+      allowedHosts: ['pc.yslwd.eu.org'],
+    },
   },
   markdown: {
     math: true,

@@ -25,6 +25,8 @@
   .last-updated,
   .vimg-skeleton,
   .vimg-spinner,
+  .vvid-skeleton,
+  .vvid-spinner,
   .copy-code-button,
   .line-number {
     display: none !important;
@@ -79,6 +81,8 @@
   img,
   .vimg-box,
   .vimg-main,
+  .vvid-box,
+  .vvid-main,
   .timeline-item,
   .timeline-year-node,
   .card,
@@ -142,10 +146,18 @@
 :root {
 	--vp-font-family-base: canger, 'PingFang SC', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif !important;
 	--vp-font-family-mono: canger, 'PingFang SC', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif !important;
+	-webkit-tap-highlight-color: transparent;
+}
+
+*,
+*::before,
+*::after {
+	-webkit-tap-highlight-color: transparent;
 }
 
 html {
     font-family: var(--vp-font-family-base);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .imgGroup {

@@ -97,6 +97,20 @@
     ],
     "description": "博客加密图片组件（在 git commit 时由 pre-commit 自动加密）"
   },
+  "Blog Adaptive Video (Video)": {
+    "prefix": ["$video", "$bvideo", "video", "bvideo"],
+    "body": [
+      "<Video content=\"/imgs/${1:video_path.mp4}\" title=\"${2:描述}\" />$0"
+    ],
+    "description": "博客公开自适应视频组件"
+  },
+  "Encrypted Blog Video (Video encrypt)": {
+    "prefix": ["$evideo", "$video-enc", "evideo", "video-enc"],
+    "body": [
+      "<Video encrypt content=\"/imgs/${1:secret_video.mp4}\" title=\"${2:描述}\" />$0"
+    ],
+    "description": "博客加密视频组件（在 git commit 时由 pre-commit 自动加密）"
+  },
   "Card Component": {
     "prefix": ["$card", "card"],
     "body": [

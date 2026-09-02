@@ -84,6 +84,7 @@ onMounted(() => {
   color: inherit;
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .card:hover {

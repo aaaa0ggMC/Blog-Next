@@ -45,6 +45,7 @@ function onClick() {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   transform-origin: 50% 100%;
   transition: transform 0.4s cubic-bezier(0.34, 1.15, 0.64, 1), opacity 0.3s ease, filter 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .period-card.center {

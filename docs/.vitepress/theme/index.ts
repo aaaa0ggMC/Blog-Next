@@ -23,6 +23,7 @@ import Feat from './components/Feat.vue';
 import CardList from './components/CardList.vue';
 import Card from './components/Card.vue';
 import Img from './components/Img.vue';
+import Video from './components/Video.vue';
 import ImageViewer from './components/ImageViewer.vue';
 import Timeline from './components/Timeline.vue';
 import TimelineItem from './components/TimelineItem.vue';
@@ -84,6 +85,8 @@ export default {
     app.component('CardList', CardList);
     app.component('Card', Card);
     app.component('Img', Img);
+    app.component('Video', Video);
+    app.component('VideoPlayer', Video);
     app.component('ImageViewer', ImageViewer);
     app.component('Timeline', Timeline);
     app.component('TimelineItem', TimelineItem);

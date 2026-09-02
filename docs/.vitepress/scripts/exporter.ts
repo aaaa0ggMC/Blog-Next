@@ -18,6 +18,8 @@ export const IGNORE_SELECTORS = [
   '.footer-stats',
   '.vimg-skeleton',
   '.vimg-spinner',
+  '.vvid-skeleton',
+  '.vvid-spinner',
   '.line-number',
   '.copy-code-button',
   '.header-anchor',
