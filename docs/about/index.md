@@ -4,7 +4,7 @@ desc: 高中生的个人介绍页，涵盖编程爱好与生活记录。
 ---
 
 # <p align='center' id='aboutme'>An Explorer</p>
-<p align='center'><Img content="/avQH26jftKt0fl2gP4nNxDffAdBj.png" /></p>
+<p align='center'><Img content="~/logo.png" /></p>
 
 <NewPeriods>
 

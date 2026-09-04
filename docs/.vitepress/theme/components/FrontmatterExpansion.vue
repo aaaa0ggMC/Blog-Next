@@ -272,7 +272,7 @@
     </div>
 
     <!-- 2. 时间轴列表渲染区 -->
-    <div class="expansion-timeline" v-if="groupedTimeline.length > 0">
+    <div ref="timelineEl" class="expansion-timeline" v-if="groupedTimeline.length > 0">
       <template v-for="group in groupedTimeline" :key="group.year">
         <!-- 年份节点 -->
         <div class="timeline-year-node">
@@ -436,6 +436,7 @@ const currentMode = computed(() => {
 })
 
 const rootEl = ref<HTMLElement | null>(null)
+const timelineEl = ref<HTMLElement | null>(null)
 
 // 筛选与分页状态
 const selectedCategory = ref(typeof props.category === 'string' ? props.category : '')
@@ -478,11 +479,47 @@ async function decryptTitleString(titleHtml: string): Promise<{ html: string; pl
 
   let resultHtml = titleHtml
 
-  // 1. 匹配 <span ...class="...e..."...>CIPHER</span> / class="encrypt"
-  const spanRegex = /<span\s+([^>]*?)class=['"]([^'"]*?)['"]([^>]*?)>([\s\S]*?)<\/span>/gi
-  const matches = [...titleHtml.matchAll(spanRegex)]
+  // 1. 匹配自定义加密标签：<ec ...>CIPHER</ec> / <ecp ...>CIPHER</ecp> / <tc ...>CIPHER</tc>
+  const customTagRegex = /<(ec|ecp|tc)(\s+[^>]*)?>([\s\S]*?)<\/\1>/gi
+  const customMatches = [...resultHtml.matchAll(customTagRegex)]
 
-  for (const match of matches) {
+  for (const match of customMatches) {
+    const fullMatch = match[0]
+    const tagName = match[1].toLowerCase()
+    const attrs = match[2] || ''
+    const cipherText = match[3].trim()
+
+    const fallbackMatch = attrs.match(/fallback=['"]([^'"]+)['"]/)
+
+    if (isFailView) {
+      if (fallbackMatch) {
+        resultHtml = resultHtml.replace(fullMatch, fallbackMatch[1])
+      }
+      continue
+    }
+
+    let keyToUse: string | null = null
+    if (tagName === 'ec') keyToUse = normKey
+    else if (tagName === 'ecp') keyToUse = privKey
+    else if (tagName === 'tc') keyToUse = teacherKey
+
+    if (keyToUse && (isBase64Cipher(cipherText) || /^[0-9a-fA-F]{32,}$/.test(cipherText))) {
+      const decrypted = await decrypt(cipherText, keyToUse)
+      if (decrypted !== cipherText) {
+        resultHtml = resultHtml.replace(fullMatch, decrypted)
+      } else if (fallbackMatch) {
+        resultHtml = resultHtml.replace(fullMatch, fallbackMatch[1])
+      }
+    } else if (fallbackMatch) {
+      resultHtml = resultHtml.replace(fullMatch, fallbackMatch[1])
+    }
+  }
+
+  // 2. 匹配标准 span 标签：<span ...class="...e..."...>CIPHER</span> / class="encrypt"
+  const spanRegex = /<span\s+([^>]*?)class=['"]([^'"]*?)['"]([^>]*?)>([\s\S]*?)<\/span>/gi
+  const spanMatches = [...resultHtml.matchAll(spanRegex)]
+
+  for (const match of spanMatches) {
     const fullMatch = match[0]
     const preAttrs = match[1] || ''
     const classAttr = match[2] || ''
@@ -507,24 +544,27 @@ async function decryptTitleString(titleHtml: string): Promise<{ html: string; pl
       keyToUse = normKey
     }
 
-    if (keyToUse && isBase64Cipher(cipherText)) {
+    if (keyToUse && (isBase64Cipher(cipherText) || /^[0-9a-fA-F]{32,}$/.test(cipherText))) {
       const decrypted = await decrypt(cipherText, keyToUse)
       if (decrypted !== cipherText) {
         resultHtml = resultHtml.replace(fullMatch, decrypted)
-      } else {
-        if (fallbackMatch) {
-          resultHtml = resultHtml.replace(fullMatch, fallbackMatch[1])
-        }
+      } else if (fallbackMatch) {
+        resultHtml = resultHtml.replace(fullMatch, fallbackMatch[1])
       }
+    } else if (fallbackMatch) {
+      resultHtml = resultHtml.replace(fullMatch, fallbackMatch[1])
     }
   }
 
-  // 2. 纯 Hex/Base64 处理
-  if (!isFailView && isBase64Cipher(resultHtml.trim())) {
-    if (normKey) {
-      const dec = await decrypt(resultHtml.trim(), normKey)
-      if (dec !== resultHtml.trim()) {
+  // 3. 纯 Hex/Base64 密文无标签情况处理
+  const trimmed = resultHtml.trim()
+  if (!isFailView && (isBase64Cipher(trimmed) || /^[0-9a-fA-F]{32,}$/.test(trimmed))) {
+    const keys = [normKey, privKey, teacherKey].filter(Boolean) as string[]
+    for (const k of keys) {
+      const dec = await decrypt(trimmed, k)
+      if (dec !== trimmed) {
         resultHtml = dec
+        break
       }
     }
   }
@@ -923,15 +963,10 @@ function setPage(page: number) {
 
 function scrollToTimelineTop() {
   if (typeof window === 'undefined') return
-  if (rootEl.value) {
-    const top = rootEl.value.getBoundingClientRect().top + window.scrollY - 80
+  const targetEl = timelineEl.value || (document.querySelector('.expansion-timeline') as HTMLElement | null) || rootEl.value
+  if (targetEl) {
+    const top = targetEl.getBoundingClientRect().top + window.scrollY - 80
     window.scrollTo({ top, behavior: 'smooth' })
-  } else {
-    const el = document.querySelector('.expansion-timeline') || document.querySelector('.frontmatter-expansion')
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 80
-      window.scrollTo({ top, behavior: 'smooth' })
-    }
   }
 }
 

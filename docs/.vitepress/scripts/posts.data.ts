@@ -166,7 +166,8 @@ export default {
 
       const fm = extractFrontmatter(content)
       const fallbackTitle = path.basename(relPath, '.md')
-      const title = fm.title || extractTitleFromContent(content, fallbackTitle)
+      const rawTitle = fm.title || extractTitleFromContent(content, fallbackTitle)
+      const title = normalizeTitle(rawTitle)
 
       const { dateStr, yearStr } = extractDate(fm.date, cleanUrl)
 

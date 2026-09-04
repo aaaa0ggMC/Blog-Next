@@ -35,6 +35,52 @@ export function loadEnvKeys() {
   return { pathSecret, articleKeys };
 }
 
+const ignoreFilePath = path.resolve(projectRoot, 'docs/public/res/ignore_files');
+
+function loadIgnorePatterns() {
+  if (!fs.existsSync(ignoreFilePath)) return [];
+  try {
+    return fs
+      .readFileSync(ignoreFilePath, 'utf-8')
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('#'));
+  } catch {
+    return [];
+  }
+}
+
+function isPathInIgnoreList(relPath, patterns) {
+  if (!relPath || typeof relPath !== 'string') return false;
+  const normalized = relPath.replace(/^\/+/, '');
+  for (const rawPattern of patterns) {
+    const pattern = rawPattern.trim();
+    if (!pattern || pattern.startsWith('#')) continue;
+    if (pattern.startsWith('/')) {
+      const cleanRoot = pattern.slice(1);
+      if (cleanRoot.endsWith('/')) {
+        if (normalized === cleanRoot.slice(0, -1) || normalized.startsWith(cleanRoot)) {
+          return true;
+        }
+      } else {
+        if (normalized === cleanRoot) {
+          return true;
+        }
+      }
+    } else if (pattern.startsWith('*.')) {
+      const ext = pattern.slice(1).toLowerCase();
+      if (normalized.toLowerCase().endsWith(ext)) {
+        return true;
+      }
+    } else {
+      if (normalized === pattern || normalized.startsWith(pattern.endsWith('/') ? pattern : pattern + '/')) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 /**
  * Transform all content="..." attributes in a markdown string
  * @param {string} content - Markdown content
@@ -53,6 +99,7 @@ export async function transformMarkdownPaths(content, action, { pathSecret, arti
     return { newContent: content, modified: false, count: 0 };
   }
 
+  const ignorePatterns = loadIgnorePatterns();
   let result = '';
   let lastIndex = 0;
   let count = 0;
@@ -63,12 +110,13 @@ export async function transformMarkdownPaths(content, action, { pathSecret, arti
 
     const isNoMangleProp = /\b(no-mangle|no_mangle|raw)\b/i.test(m.full);
     const isAtPrefix = newVal.startsWith('@/');
+    const isIgnored = isPathInIgnoreList(newVal, ignorePatterns);
 
-    if (isNoMangleProp || isAtPrefix) {
+    if (isNoMangleProp || isAtPrefix || isIgnored) {
       if (isAtPrefix) {
         newVal = '/' + newVal.slice(2);
       }
-      // 裸传模式：保持原样路径，不进行任何哈希混淆/加密
+      // 裸传/白名单模式：保持原样路径，不进行任何哈希混淆/加密
     } else if (newVal.startsWith('/') && !newVal.startsWith('/res/') && !newVal.startsWith('~') && !newVal.startsWith('http')) {
       // Direct relative resource path
       const encrypted = isPathEncrypted(newVal, pathSecret);
