@@ -14,3 +14,8 @@ desc: 记录游戏人生的总览页，含各游戏专题入口。
 <Card href="./3c3u/index.md" desc="无政府服务器里的历险记录">3C3U历险记</Card>
 <Card href="./greedy/index.md" desc="贪婪模式的阶段性总结">贪婪--阶段性总结</Card>
 </CardList>
+
+## Pokemon
+::: ins
+我最早玩的是《口袋妖怪 复刻》这个网游，后面就在悟饭模拟器玩各种GBA/NDS以及改版。到了后面自然就把的动漫也看了七七八八，不过现在基本上退了口袋妖怪了，很少玩。
+:::
