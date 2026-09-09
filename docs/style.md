@@ -399,4 +399,60 @@ impl ThreadSafeCounter {
   </svg>
 </div>
 
+---
+
+## 十一、 互动测验组件 (Exam Suite)
+
+支持单选题、多选题、行内填空题与小题分数自动汇总。提交后自动展开参考解析，绿色代表回答正确，红色代表回答错误。
+
+### 1. 前置得分指示栏 (支持任意位置放置)
+
+即使放置在正文开头，也能在页面加载后自动统计后续试卷的小题总分：
+
+<ExamScore name="demo-exam" />
+
+### 2. 试卷正文与交互
+
+<Exam name="demo-exam" title="现代前端与 Vue 3 基础能力测验">
+
+  <!-- 单选题：支持直接在正确选项上标注 correct -->
+  <Exam score="2">
+    1. 【单选题】Vue 3 内部实现响应式数据拦截的核心技术是：
+    <Selection value="A">Object.defineProperty 属性劫持</Selection>
+    <Selection value="B" correct>ES6 Proxy 代理对象</Selection>
+    <Selection value="C">脏值检查 (Dirty Checking)</Selection>
+    <Selection value="D">发布-订阅模式的事件总线</Selection>
+    <ExamAnswer>
+      Vue 3 使用 ES6 的 <code>Proxy</code> 对对象进行代理，解决了 Vue 2 中 <code>Object.defineProperty</code> 无法原生检测属性添加、删除以及数组索引直接修改的局限。
+    </ExamAnswer>
+  </Exam>
+
+  <!-- 行内填空题：完美嵌入正文 -->
+  <Exam score="3">
+    2. 【填空题】在 Vue 3 Composition API 中，声明基本数据类型的响应式变量使用 <ExamBlank answer="ref" />，而为复杂对象创建响应式副本则使用 <ExamBlank answer="reactive" />。
+    <ExamAnswer>
+      <code>ref</code> 接受内部值并返回响应式且可变的 ref 对象（访问需 <code>.value</code>），<code>reactive</code> 返回对象的响应式副本。
+    </ExamAnswer>
+  </Exam>
+
+  <!-- 多选题：指定 answer 或多个 correct 选项 -->
+  <Exam score="5" answer="A,C">
+    3. 【多选题】下列关于 Vite 构建工具特性的描述中，正确的有：
+    <Selection value="A">在开发环境中基于原生 ES 模块实现极速冷启动</Selection>
+    <Selection value="B">开发环境依然使用 Webpack 预先全量打包 bundle</Selection>
+    <Selection value="C">基于 esbuild 预构建依赖，极大提升了构建性能</Selection>
+    <Selection value="D">只支持 Vue 框架，无法用于 React 或 Svelte</Selection>
+    <ExamAnswer>
+      Vite 开发服务器利用浏览器原生 ESM 特性，不需要全量打包；依赖预构建采用 Go 编写的 <code>esbuild</code>。Vite 属于框架无关的通用前端工具链。
+    </ExamAnswer>
+  </Exam>
+
+</Exam>
+
+### 3. 独立交卷与测评面板
+
+<ExamSubmit name="demo-exam">提交测验</ExamSubmit>
+
+<ExamResult name="demo-exam" />
+
 <div id='page_id'>style</div>

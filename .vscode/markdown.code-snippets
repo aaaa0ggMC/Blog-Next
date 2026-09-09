@@ -333,6 +333,113 @@
       "</AI>$0"
     ],
     "description": "插入带自定义 fallback 提示与 Prompt 的 AI 生成内容块"
+  },
+  "Exam Container Template": {
+    "prefix": ["$exam", "exam"],
+    "body": [
+      "<Exam name=\"${1:exam-id}\" title=\"${2:测验试卷标题}\">",
+      "  $0",
+      "</Exam>"
+    ],
+    "description": "插入 Exam 测评试卷容器"
+  },
+  "Exam Single Choice Question": {
+    "prefix": ["$exam-single", "$single", "exam-single", "q-single"],
+    "body": [
+      "<Exam score=\"${1:2}\">",
+      "  ${2:1. 题目题干说明}",
+      "  <Selection value=\"A\">${3:选项 A 内容}</Selection>",
+      "  <Selection value=\"B\" correct>${4:选项 B 内容 (正确项)}</Selection>",
+      "  <Selection value=\"C\">${5:选项 C 内容}</Selection>",
+      "  <Selection value=\"D\">${6:选项 D 内容}</Selection>",
+      "  <ExamAnswer>${7:参考解析说明}</ExamAnswer>",
+      "</Exam>$0"
+    ],
+    "description": "插入单选题组件"
+  },
+  "Exam Multiple Choice Question": {
+    "prefix": ["$exam-multi", "$multi", "exam-multi", "q-multi"],
+    "body": [
+      "<Exam score=\"${1:4}\" answer=\"${2:A,C}\">",
+      "  ${3:1. 多选题题干说明}",
+      "  <Selection value=\"A\">${4:选项 A 内容}</Selection>",
+      "  <Selection value=\"B\">${5:选项 B 内容}</Selection>",
+      "  <Selection value=\"C\">${6:选项 C 内容}</Selection>",
+      "  <Selection value=\"D\">${7:选项 D 内容}</Selection>",
+      "  <ExamAnswer>${8:参考解析说明}</ExamAnswer>",
+      "</Exam>$0"
+    ],
+    "description": "插入多选题组件"
+  },
+  "Exam Fill In Blank Question": {
+    "prefix": ["$exam-blank", "$blank", "exam-blank", "q-blank"],
+    "body": [
+      "<Exam score=\"${1:2}\">",
+      "  ${2:题干文本，行内填空：}<ExamBlank answer=\"${3:正确答案}\" />${4:后续文本}。",
+      "  <ExamAnswer>${5:参考解析说明}</ExamAnswer>",
+      "</Exam>$0"
+    ],
+    "description": "插入填空题组件"
+  },
+  "Exam Inline Blank Input": {
+    "prefix": ["$fill", "fill", "$eblank", "blank"],
+    "body": [
+      "<ExamBlank answer=\"${1:正确答案}\" />$0"
+    ],
+    "description": "插入行内填空输入框"
+  },
+  "Exam Selection Option": {
+    "prefix": ["$sel", "selection", "$opt", "opt"],
+    "body": [
+      "<Selection value=\"${1:A}\"${2: correct}>${3:选项文本}</Selection>$0"
+    ],
+    "description": "插入选项组件"
+  },
+  "Exam Score Banner": {
+    "prefix": ["$exam-score", "examscore", "exam-score", "$score"],
+    "body": [
+      "<ExamScore name=\"${1:exam-id}\" />$0"
+    ],
+    "description": "插入得分指示横幅（可置于文章顶部）"
+  },
+  "Exam Submit Button": {
+    "prefix": ["$exam-submit", "examsubmit", "exam-submit"],
+    "body": [
+      "<ExamSubmit name=\"${1:exam-id}\">提交试卷</ExamSubmit>$0"
+    ],
+    "description": "插入独立交卷按钮"
+  },
+  "Exam Result Panel": {
+    "prefix": ["$exam-result", "examresult", "exam-result"],
+    "body": [
+      "<ExamResult name=\"${1:exam-id}\" />$0"
+    ],
+    "description": "插入测评统计结果卡片"
+  },
+  "Exam Complete Full Suite": {
+    "prefix": ["$exam-full", "examfull", "exam-suite"],
+    "body": [
+      "<ExamScore name=\"${1:exam-demo}\" />",
+      "",
+      "<Exam name=\"${1:exam-demo}\" title=\"${2:能力测评小测验}\">",
+      "  <Exam score=\"2\">",
+      "    1. 单选题：${3:题干内容}",
+      "    <Selection value=\"A\">${4:选项 A}</Selection>",
+      "    <Selection value=\"B\" correct>${5:选项 B (正确)}</Selection>",
+      "    <Selection value=\"C\">${6:选项 C}</Selection>",
+      "    <ExamAnswer>${7:解析内容}</ExamAnswer>",
+      "  </Exam>",
+      "",
+      "  <Exam score=\"3\">",
+      "    2. 填空题：${8:在下面填入关键词：}<ExamBlank answer=\"${9:答案}\" />。",
+      "    <ExamAnswer>${10:填空题解析}</ExamAnswer>",
+      "  </Exam>",
+      "</Exam>",
+      "",
+      "<ExamSubmit name=\"${1:exam-demo}\">提交试卷</ExamSubmit>",
+      "<ExamResult name=\"${1:exam-demo}\" />$0"
+    ],
+    "description": "插入完整的 Exam 测验套件（包含顶部指示器、容器、单选题、填空题、提交按钮与结果面板）"
   }
 }
 

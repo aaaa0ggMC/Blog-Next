@@ -35,6 +35,18 @@ import PointList from './components/PointList.vue';
 import PointItem from './components/PointItem.vue';
 import AI from './components/AI.vue';
 
+// Exam Interactive Components
+import {
+  Exam,
+  ExamQuestion,
+  ExamOption,
+  ExamBlank,
+  ExamAnswer,
+  ExamScore,
+  ExamSubmit,
+  ExamResult
+} from './components/exam';
+
 // CSS
 import './custom.css';
 
@@ -101,5 +113,20 @@ export default {
     app.component('AI', AI);
     app.component('ai', AI);
     app.component('AiBlock', AI);
+
+    // Exam Components
+    app.component('Exam', Exam);
+    app.component('ExamQuestion', ExamQuestion);
+    app.component('Question', ExamQuestion);
+    app.component('Selection', ExamOption);
+    app.component('ExamOption', ExamOption);
+    app.component('ExamBlank', ExamBlank);
+    app.component('Blank', ExamBlank);
+    app.component('Fill', ExamBlank);
+    app.component('ExamAnswer', ExamAnswer);
+    app.component('ExamExplain', ExamAnswer);
+    app.component('ExamScore', ExamScore);
+    app.component('ExamSubmit', ExamSubmit);
+    app.component('ExamResult', ExamResult);
   }
 };
