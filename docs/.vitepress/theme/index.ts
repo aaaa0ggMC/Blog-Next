@@ -34,6 +34,7 @@ import NoteCards from './components/NoteCards.vue';
 import PointList from './components/PointList.vue';
 import PointItem from './components/PointItem.vue';
 import AI from './components/AI.vue';
+import RikkahubAIBlock from './components/RikkahubAIBlock.vue';
 
 // Exam Interactive Components
 import {
@@ -113,6 +114,7 @@ export default {
     app.component('AI', AI);
     app.component('ai', AI);
     app.component('AiBlock', AI);
+    app.component('RikkahubAIBlock', RikkahubAIBlock);
 
     // Exam Components
     app.component('Exam', Exam);
