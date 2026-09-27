@@ -94,7 +94,8 @@
         title="上一篇 (快捷键: ←)"
         aria-label="上一篇"
       >
-        ‹ 上一篇
+        <span class="nav-arrow">‹</span>
+        <span class="nav-label">上一篇</span>
       </button>
 
       <!-- 🎲 随机一篇 -->
@@ -121,8 +122,10 @@
           @click="toggleJumpSelector"
           title="选择或指定随记跳转"
         >
-          <span class="jump-text">
-            {{ currentIndex + 1 }} / {{ currentList.length }}
+          <span class="jump-counter" :style="{ '--counter-ch': `${counterDigits}ch` }">
+            <span class="counter-num">{{ currentIndex + 1 }}</span>
+            <span class="counter-sep">/</span>
+            <span class="counter-num">{{ currentList.length }}</span>
           </span>
           <svg
             class="arrow-icon"
@@ -167,7 +170,8 @@
         title="下一篇 (快捷键: →)"
         aria-label="下一篇"
       >
-        下一篇 ›
+        <span class="nav-label">下一篇</span>
+        <span class="nav-arrow">›</span>
       </button>
     </div>
   </div>
@@ -227,6 +231,10 @@ const currentList = computed(() => {
     .filter((n) => Array.isArray(n.tags) && n.tags.includes(selectedTag.value))
 })
 
+// 计数器的位数：用固定宽度渲染「当前序号 / 总数」，
+// 避免从 9/120 跳到 10/120 时按钮变宽，导致整行按钮换行错位
+const counterDigits = computed(() => Math.max(2, String(currentList.value.length || 1).length))
+
 // 仅渲染当前激活项、左项、右项（若条目很多，保证 DOM 极轻量）
 const visibleNotes = computed(() => {
   const total = currentList.value.length
@@ -279,10 +287,10 @@ function go(delta: number) {
 function goRandom() {
   const total = currentList.value.length
   if (total <= 1) return
-  let next = Math.floor(Math.random() * total)
-  if (next === currentIndex.value) {
-    next = (next + 1) % total
-  }
+  // 在「除当前项以外」的 total-1 个条目里均匀抽样：
+  // 既不会连续两次翻到同一篇，也不会像旧写法那样把"下一个"的权重翻倍
+  let next = Math.floor(Math.random() * (total - 1))
+  if (next >= currentIndex.value) next += 1
   currentIndex.value = next
   onSlideChange()
 }
@@ -780,7 +788,26 @@ watch(
   align-items: center;
   justify-content: center;
   gap: 12px;
-  flex-wrap: wrap;
+  /* 按钮数量固定，禁止换行：否则 narrow 时错行会让「随机」等按钮位置乱跳 */
+  flex-wrap: nowrap;
+}
+
+/* 「当前 / 总数」计数器：每一位占等宽格，数字宽度变化不引起按钮宽度变化 */
+.jump-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter-num {
+  display: inline-block;
+  min-width: var(--counter-ch, 2ch);
+  text-align: center;
+}
+
+.counter-sep {
+  opacity: 0.6;
 }
 
 .ctrl-btn {
@@ -970,9 +997,28 @@ watch(
   .note-card {
     width: 90%;
   }
+  .note-controls {
+    gap: 8px;
+  }
   .ctrl-btn {
     padding: 0 12px;
     font-size: 12px;
+  }
+}
+
+/* 极窄屏：只保留箭头，保证四个按钮始终同一行 */
+@media (max-width: 400px) {
+  .note-controls {
+    gap: 6px;
+  }
+  .ctrl-btn {
+    padding: 0 10px;
+  }
+  .ctrl-btn.nav-btn {
+    padding: 0 8px;
+  }
+  .ctrl-btn.nav-btn .nav-label {
+    display: none;
   }
 }
 </style>

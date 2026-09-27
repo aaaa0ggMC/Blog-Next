@@ -10,23 +10,29 @@
         title="上一个时期 (快捷键: ←)"
         aria-label="上一个时期"
       >
-        ‹ 上一个时期
+        <span class="nav-arrow">‹</span>
+        <span class="nav-label">上一个时期</span>
       </button>
-      <span class="period-count">{{ state.active + 1 }} / {{ total }}</span>
+      <span class="period-count" :style="{ '--counter-ch': `${counterDigits}ch` }">
+        <span class="counter-num">{{ state.active + 1 }}</span>
+        <span class="counter-sep">/</span>
+        <span class="counter-num">{{ total }}</span>
+      </span>
       <button
         class="ctrl-btn nav-btn"
         @click="state.go(1)"
         title="下一个时期 (快捷键: →)"
         aria-label="下一个时期"
       >
-        下一个时期 ›
+        <span class="nav-label">下一个时期</span>
+        <span class="nav-arrow">›</span>
       </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, provide, useSlots, onMounted, onUnmounted, nextTick, type VNode } from 'vue'
+import { reactive, provide, useSlots, onMounted, onUnmounted, nextTick, computed, type VNode } from 'vue'
 import { PeriodsKey, type PeriodRole } from '../../stores/periods'
 import { tryDecrypt } from '../../../scripts/Decryptor'
 
@@ -44,6 +50,9 @@ function countPeriods(nodes: VNode[]): number {
 }
 
 const total = countPeriods(slots.default?.() ?? [])
+
+// 计数器的位数：固定宽度渲染「当前 / 总数」，避免切换时期时按钮宽度变化导致整行重排
+const counterDigits = computed(() => Math.max(2, String(total || 1).length))
 
 const state = reactive({
   active: 0,
@@ -122,7 +131,29 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   gap: 14px;
-  flex-wrap: wrap;
+  /* 按钮数量固定，禁止换行，避免切换时期时按钮错行 */
+  flex-wrap: nowrap;
+}
+
+.period-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.counter-num {
+  display: inline-block;
+  min-width: var(--counter-ch, 2ch);
+  text-align: center;
+}
+
+.counter-sep {
+  opacity: 0.6;
 }
 
 .ctrl-btn {
@@ -164,6 +195,19 @@ onUnmounted(() => {
   .ctrl-btn {
     padding: 0 12px;
     font-size: 12px;
+  }
+}
+
+/* 极窄屏：只保留箭头，保证三个元素始终同一行 */
+@media (max-width: 420px) {
+  .periods-controls {
+    gap: 8px;
+  }
+  .ctrl-btn {
+    padding: 0 10px;
+  }
+  .ctrl-btn .nav-label {
+    display: none;
   }
 }
 </style>

@@ -52,8 +52,9 @@
       </div>
 
       <!-- 时间段选择 Tabs & 预设 -->
-      <div class="filter-section">
-        <div class="filter-label">
+      <div class="filter-block">
+        <div class="filter-section">
+          <div class="filter-label">
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
             <line x1="16" y1="2" x2="16" y2="6"/>
@@ -71,7 +72,7 @@
             全部时间
           </button>
           <button
-            v-for="item in availableYears"
+            v-for="item in visibleYearPills"
             :key="item.year"
             class="pill-btn"
             :class="{ active: selectedDatePreset === `year-${item.year}` }"
@@ -118,6 +119,15 @@
             </svg>
             <span>自定义区间</span>
             <span class="dropdown-arrow" :class="{ open: showCustomDateInputs }">▾</span>
+          </button>
+          </div>
+        </div>
+
+        <!-- 年份折叠控制：年份随时间不断增多 -->
+        <div v-if="availableYears.length > YEAR_PILLS_LIMIT" class="filter-more-row">
+          <button class="filter-more-btn" @click="yearsExpanded = !yearsExpanded">
+            <span>{{ yearsExpanded ? '收起年份' : `展开全部年份（还有 ${hiddenYearCount} 个）` }}</span>
+            <span class="more-arrow" :class="{ open: yearsExpanded }">▾</span>
           </button>
         </div>
       </div>
@@ -198,10 +208,11 @@
       </transition>
 
       <!-- 分类选择 Tabs -->
-      <div class="filter-section">
-        <div class="filter-label">
-          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
-            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+      <div class="filter-block">
+        <div class="filter-section">
+          <div class="filter-label">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
           </svg>
           <span>分类：</span>
         </div>
@@ -214,7 +225,7 @@
             全部 ({{ allPosts.length }})
           </button>
           <button
-            v-for="cat in availableCategories"
+            v-for="cat in visibleCategories"
             :key="cat.id"
             class="pill-btn"
             :class="{ active: selectedCategory === cat.id }"
@@ -222,11 +233,21 @@
           >
             {{ cat.name }} ({{ cat.count }})
           </button>
+          </div>
+        </div>
+
+        <!-- 分类折叠控制：分类会随专栏增加而变多 -->
+        <div v-if="availableCategories.length > CATEGORY_PILLS_LIMIT" class="filter-more-row">
+          <button class="filter-more-btn" @click="categoriesExpanded = !categoriesExpanded">
+            <span>{{ categoriesExpanded ? '收起分类' : `展开全部分类（还有 ${hiddenCategoryCount} 个）` }}</span>
+            <span class="more-arrow" :class="{ open: categoriesExpanded }">▾</span>
+          </button>
         </div>
       </div>
 
       <!-- 标签云筛选 Chips -->
-      <div class="filter-section" v-if="availableTags.length > 0">
+      <div class="filter-block" v-if="availableTags.length > 0">
+        <div class="filter-section">
         <div class="filter-label">
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
             <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
@@ -236,7 +257,7 @@
         </div>
         <div class="tag-chips">
           <button
-            v-for="tagItem in availableTags"
+            v-for="tagItem in visibleTags"
             :key="tagItem.name"
             class="tag-chip"
             :class="{ active: selectedTags.includes(tagItem.name) }"
@@ -244,6 +265,15 @@
           >
             # {{ tagItem.name }}
             <span class="chip-count">{{ tagItem.count }}</span>
+          </button>
+          </div>
+        </div>
+
+        <!-- 标签云折叠控制：标签数量增长最快 -->
+        <div v-if="availableTags.length > TAG_CHIPS_LIMIT" class="filter-more-row">
+          <button class="filter-more-btn" @click="tagsExpanded = !tagsExpanded">
+            <span>{{ tagsExpanded ? '收起标签' : `展开全部标签（还有 ${hiddenTagCount} 个）` }}</span>
+            <span class="more-arrow" :class="{ open: tagsExpanded }">▾</span>
           </button>
         </div>
       </div>
@@ -332,7 +362,7 @@
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
             <polyline points="15 18 9 12 15 6" />
           </svg>
-          <span>Prev</span>
+          <span class="nav-label">Prev</span>
         </button>
 
         <div class="page-numbers">
@@ -355,7 +385,7 @@
           @click="setPage(currentPage + 1)"
           aria-label="下一页"
         >
-          <span>Next</span>
+          <span class="nav-label">Next</span>
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
             <polyline points="9 18 15 12 9 6" />
           </svg>
@@ -398,6 +428,9 @@ const props = withDefaults(
     pageSize?: number
     hideCategory?: boolean
     hideTags?: boolean
+    pageKey?: string
+    /** 复制整页内容时，标题是否强制保留密文（默认 false：跟随页面当前显示状态） */
+    keepTitleCipher?: boolean
   }>(),
   {
     mode: undefined,
@@ -409,6 +442,8 @@ const props = withDefaults(
     pageSize: 15,
     hideCategory: false,
     hideTags: false,
+    pageKey: '',
+    keepTitleCipher: false,
   }
 )
 
@@ -443,6 +478,229 @@ const selectedCategory = ref(typeof props.category === 'string' ? props.category
 const selectedTags = ref<string[]>(parseInitialTags())
 const searchQuery = ref('')
 const currentPage = ref(1)
+
+// 从地址栏恢复状态的标记：恢复过程中由 watcher 触发的写回会被抑制，
+// 避免把刚恢复的页码 / 筛选条件又重置回默认值
+let isRestoringFromUrl = false
+
+// ===== 状态 <-> URL 查询参数同步 =====
+// 每个组件实例拥有独立的参数前缀（如 poems_ / archive_），
+// 这样同一页面挂载多个 <FrontmatterExpansion /> 时互不干扰。
+// 1. 翻页：点击「下一页 / 具体页码」写入 ?xxx_page=N，刷新、分享链接、
+//    浏览器前进后退都能直达对应页，无需反复点击。
+// 2. 筛选：归档模式下的搜索词、分类、标签、时间段同样写入地址栏，
+//    方便把「某一组筛选结果」直接分享或收藏。
+const PAGE_PARAM = '_page'
+const SEARCH_PARAM = '_q'
+const CATEGORY_PARAM = '_cat'
+const TAGS_PARAM = '_tag'
+const FROM_PARAM = '_from'
+const TO_PARAM = '_to'
+
+/** 本实例可能写入地址栏的全部参数后缀 */
+const STATE_PARAMS = [PAGE_PARAM, SEARCH_PARAM, CATEGORY_PARAM, TAGS_PARAM, FROM_PARAM, TO_PARAM]
+
+function sanitizeParamKey(raw: string): string {
+  return String(raw || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+/** 根据静态 props 推导组件实例的唯一键（不随用户筛选条件变化） */
+function deriveInstanceKey(): string {
+  if (props.path) {
+    const fromPath = sanitizeParamKey(props.path.replace(/^\/+|\/+$/g, '').replace(/\//g, '-'))
+    if (fromPath) return fromPath
+  }
+  if (props.category) {
+    const cats = Array.isArray(props.category) ? props.category : String(props.category).split(',')
+    const fromCats = cats
+      .map((c) => sanitizeParamKey(c))
+      .filter(Boolean)
+      .join('-')
+    if (fromCats) return fromCats
+  }
+  const tags = parseInitialTags()
+  if (tags.length > 0) {
+    const fromTags = `tags-${tags
+      .map((t) => sanitizeParamKey(t))
+      .filter(Boolean)
+      .join('-')}`
+    if (fromTags !== 'tags-') return fromTags
+  }
+  return sanitizeParamKey(props.mode || currentMode.value) || 'timeline'
+}
+
+/** 参数前缀，可用 pageKey prop 覆盖 */
+const stateKey = computed(() => sanitizeParamKey(props.pageKey) || deriveInstanceKey())
+
+function paramName(suffix: string): string {
+  return `${stateKey.value}${suffix}`
+}
+
+function currentHref(): string {
+  if (typeof window === 'undefined') return ''
+  return window.location.pathname + window.location.search + window.location.hash
+}
+
+function searchParamsOf(): URLSearchParams {
+  return new URL(window.location.href).searchParams
+}
+
+/** 根据当前状态生成地址栏链接（只保留有值的参数，默认值一律省略） */
+function buildStateHref(): string {
+  const url = new URL(window.location.href)
+  const sp = url.searchParams
+  // 先清掉本实例写过的参数，再按当前状态重写，避免残留脏参数
+  STATE_PARAMS.forEach((suffix) => sp.delete(paramName(suffix)))
+
+  if (currentPage.value > 1) {
+    sp.set(paramName(PAGE_PARAM), String(currentPage.value))
+  }
+
+  // 筛选条件仅在归档模式下同步（时间轴模式的筛选来自 props）
+  if (currentMode.value === 'archive') {
+    const q = searchQuery.value.trim()
+    if (q) sp.set(paramName(SEARCH_PARAM), q)
+    if (selectedCategory.value) sp.set(paramName(CATEGORY_PARAM), selectedCategory.value)
+    if (selectedTags.value.length > 0) {
+      sp.set(paramName(TAGS_PARAM), selectedTags.value.join(','))
+    }
+    if (customStartDate.value) sp.set(paramName(FROM_PARAM), customStartDate.value)
+    if (customEndDate.value) sp.set(paramName(TO_PARAM), customEndDate.value)
+  }
+
+  return url.pathname + url.search + url.hash
+}
+
+/**
+ * 把当前状态写入地址栏
+ * @param mode push    主动翻页 / 主动筛选（可被浏览器后退撤销）
+ * @param mode replace 输入法连续输入等不希望污染历史记录的场景
+ */
+function syncStateToUrl(mode: 'push' | 'replace' = 'replace') {
+  if (typeof window === 'undefined') return
+  const nextHref = buildStateHref()
+  if (nextHref === currentHref()) return
+  // state 传 null：让 VitePress 自身的 popstate 处理跳过（不重置滚动、不重载页面）
+  if (mode === 'replace' && typeof window.history.replaceState === 'function') {
+    window.history.replaceState(null, '', nextHref)
+  } else if (typeof window.history.pushState === 'function') {
+    window.history.pushState(null, '', nextHref)
+  }
+}
+
+function parsePositiveInt(raw: string | null): number | null {
+  if (!raw) return null
+  const n = Number(raw)
+  if (!Number.isFinite(n) || n < 1) return null
+  return Math.floor(n)
+}
+
+function parseDateParam(raw: string | null): string {
+  if (!raw) return ''
+  const v = String(raw).trim()
+  return /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : ''
+}
+
+function clampPage(page: number): number {
+  const total = totalPages.value
+  const n = Math.floor(page)
+  if (!Number.isFinite(n) || n < 1) return 1
+  return n > total ? total : n
+}
+
+function isSameStringList(a: string[], b: string[]): boolean {
+  if (a.length !== b.length) return false
+  return a.every((item, idx) => item === b[idx])
+}
+
+/**
+ * 由起止日期反推时间预设（用于从 URL 恢复时点亮对应 pill）。
+ * 仅整年区间可无损还原；「近 N 个月」依赖当前时间，恢复为 custom 但区间仍准确。
+ */
+function derivePresetFromRange(from: string, to: string): DatePreset {
+  if (!from && !to) return 'all'
+  const yearMatch = /^(\d{4})-01-01$/.exec(from)
+  if (yearMatch && to === `${yearMatch[1]}-12-31`) {
+    return `year-${yearMatch[1]}` as DatePreset
+  }
+  return 'custom'
+}
+
+/** 从地址栏恢复「页码 + 筛选条件」，返回是否有实际变化 */
+function restoreStateFromUrl(): boolean {
+  if (typeof window === 'undefined') return false
+
+  isRestoringFromUrl = true
+  let changed = false
+
+  try {
+    const sp = searchParamsOf()
+
+    if (currentMode.value === 'archive') {
+      const q = sp.get(paramName(SEARCH_PARAM)) || ''
+      if (q && q !== searchQuery.value) {
+        searchQuery.value = q
+        changed = true
+      }
+      const cat = sp.get(paramName(CATEGORY_PARAM)) || ''
+      if (cat !== selectedCategory.value) {
+        selectedCategory.value = cat
+        changed = true
+      }
+      const tags = (sp.get(paramName(TAGS_PARAM)) || '')
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+      if (!isSameStringList(tags, selectedTags.value)) {
+        selectedTags.value = tags
+        changed = true
+      }
+      const from = parseDateParam(sp.get(paramName(FROM_PARAM)))
+      const to = parseDateParam(sp.get(paramName(TO_PARAM)))
+      if (from !== customStartDate.value) {
+        customStartDate.value = from
+        changed = true
+      }
+      if (to !== customEndDate.value) {
+        customEndDate.value = to
+        changed = true
+      }
+      const nextPreset = derivePresetFromRange(from, to)
+      if (nextPreset !== selectedDatePreset.value) {
+        selectedDatePreset.value = nextPreset
+        changed = true
+      }
+      showCustomDateInputs.value = false
+    }
+
+    const rawPage = parsePositiveInt(sp.get(paramName(PAGE_PARAM)))
+    const targetPage = rawPage === null ? currentPage.value : clampPage(rawPage)
+    if (targetPage !== currentPage.value) {
+      currentPage.value = targetPage
+      changed = true
+    }
+  } finally {
+    // 恢复是同步赋值的，但 watcher 回调是异步的，需要等一个微任务后再解锁
+    Promise.resolve().then(() => {
+      isRestoringFromUrl = false
+    })
+  }
+
+  return changed
+}
+
+function handlePopState() {
+  const changed = restoreStateFromUrl()
+  if (changed) {
+    scrollToTimelineTop()
+    triggerDecrypt()
+  }
+}
 
 watch(
   () => [props.category, props.tags, props.tag],
@@ -741,6 +999,67 @@ const availableTags = computed(() => {
     .sort((a, b) => b.count - a.count)
 })
 
+// ===== 筛选项折叠（标签云 / 分类 / 年份都会随内容增长而变多） =====
+// 折叠时「当前已选中」的项会被固定保留，避免用户看不到自己激活的筛选条件。
+const YEAR_PILLS_LIMIT = 5
+const CATEGORY_PILLS_LIMIT = 14
+const TAG_CHIPS_LIMIT = 12
+
+const yearsExpanded = ref(false)
+const categoriesExpanded = ref(false)
+const tagsExpanded = ref(false)
+
+/** 取列表前 limit 项作为可见项，并额外带上被置顶（已选中）的项 */
+function collapseList<T>(list: T[], limit: number, isPinned: (item: T) => boolean): T[] {
+  if (list.length <= limit) return list
+  const head = list.slice(0, limit)
+  const pinned = list.filter((item) => isPinned(item) && !head.includes(item))
+  return [...head, ...pinned]
+}
+
+const visibleYearPills = computed(() => {
+  if (yearsExpanded.value) return availableYears.value
+  return collapseList(
+    availableYears.value,
+    YEAR_PILLS_LIMIT,
+    (item) => selectedDatePreset.value === `year-${item.year}`
+  )
+})
+
+const hiddenYearCount = computed(() =>
+  Math.max(0, availableYears.value.length - visibleYearPills.value.length)
+)
+
+const visibleCategories = computed(() => {
+  if (categoriesExpanded.value) return availableCategories.value
+  return collapseList(
+    availableCategories.value,
+    CATEGORY_PILLS_LIMIT,
+    (item) => selectedCategory.value === item.id
+  )
+})
+
+const hiddenCategoryCount = computed(() =>
+  Math.max(0, availableCategories.value.length - visibleCategories.value.length)
+)
+
+const visibleTags = computed(() => {
+  if (tagsExpanded.value) return availableTags.value
+  const pinned = new Set(selectedTags.value.map((t) => t.trim().toLowerCase()))
+  return collapseList(availableTags.value, TAG_CHIPS_LIMIT, (item) =>
+    pinned.has(item.name.trim().toLowerCase())
+  )
+})
+
+const hiddenTagCount = computed(() => Math.max(0, availableTags.value.length - visibleTags.value.length))
+
+// 列表变短时（切换分类后标签变少等）自动收起，避免残留无意义的展开状态
+watch([availableTags, availableCategories, availableYears], () => {
+  if (availableTags.value.length <= TAG_CHIPS_LIMIT) tagsExpanded.value = false
+  if (availableCategories.value.length <= CATEGORY_PILLS_LIMIT) categoriesExpanded.value = false
+  if (availableYears.value.length <= YEAR_PILLS_LIMIT) yearsExpanded.value = false
+})
+
 // 过滤后的文章列表（支持解密后的明文标题搜索与时间段过滤！）
 const filteredPosts = computed(() => {
   let list = allPosts
@@ -931,32 +1250,56 @@ const displayPosts = computed(() => {
   return filteredPosts.value.slice(start, start + size)
 })
 
+// 收缩状态管理（窄屏时减少页码数量）
+const isCompactViewport = ref(false)
+const COMPACT_MEDIA_QUERY = '(max-width: 640px)'
+let compactMediaQuery: MediaQueryList | null = null
+
+function syncCompactViewport() {
+  isCompactViewport.value = compactMediaQuery
+    ? compactMediaQuery.matches
+    : typeof window !== 'undefined' && window.innerWidth <= 640
+}
+
 // 经典页码计算 [prev, 1, 2, 3, 4, 5, '...', LAST, next]
+// 紧凑视口（手机）下减少页码槽位，保证整行分页栏不换行
 const visiblePageNumbers = computed(() => {
   const total = totalPages.value
   const current = currentPage.value
+  return buildPageWindow(total, current, isCompactViewport.value ? 5 : 7)
+})
 
-  if (total <= 7) {
+/** 生成带省略号的页码窗口，最终条目数不超过 slots 个 */
+function buildPageWindow(
+  total: number,
+  current: number,
+  slots: number
+): Array<number | string> {
+  if (total <= slots) {
     return Array.from({ length: total }, (_, i) => i + 1)
   }
 
+  const sideCount = slots - 2
+
   // 靠前部分：1 2 3 4 5 ... LAST
-  if (current <= 4) {
-    return [1, 2, 3, 4, 5, '...', total]
+  if (current <= sideCount) {
+    return [...Array.from({ length: sideCount }, (_, i) => i + 1), '...', total]
   }
 
   // 靠后部分：1 ... LAST-4 LAST-3 LAST-2 LAST-1 LAST
-  if (current >= total - 3) {
-    return [1, '...', total - 4, total - 3, total - 2, total - 1, total]
+  if (current > total - sideCount) {
+    return [1, '...', ...Array.from({ length: sideCount }, (_, i) => total - sideCount + 1 + i)]
   }
 
   // 中间部分：1 ... current-1 current current+1 ... total
   return [1, '...', current - 1, current, current + 1, '...', total]
-})
+}
 
 function setPage(page: number) {
   if (page < 1 || page > totalPages.value || page === currentPage.value) return
   currentPage.value = page
+  // 翻页即写入地址栏：?xxx_page=N，方便分享 / 刷新 / 后退
+  syncStateToUrl('push')
   scrollToTimelineTop()
   triggerDecrypt()
 }
@@ -998,6 +1341,136 @@ function getCategoryName(catId: string): string {
   return CATEGORY_MAP[catId] || catId
 }
 
+// ===== 复制导出协议（_toMarkdown / _toText） =====
+// 复制整页内容时，展开组件会把「所有分页」的文章一次性导出，
+// 而不是只复制当前可见的那一页（普通序列化只会遍历已渲染的 DOM）。
+
+function stripHtml(raw: string): string {
+  return String(raw || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+/** 复制导出用的标题文本
+ *  - 默认：跟随页面当前显示状态（已解锁密钥输出明文，未解锁输出密文）
+ *  - keepTitleCipher：无论是否解锁都输出密文，避免明文落入剪贴板
+ */
+function getExportTitle(post: PostItem): string {
+  if (!props.keepTitleCipher) {
+    const decInfo = decryptedTitles.value[post.url]
+    if (decInfo && decInfo.plainText) return decInfo.plainText
+  }
+  return stripHtml(post.title)
+}
+
+/** 取出指定分页（1 起）的文章切片 */
+function getPagePosts(pageIndex: number): PostItem[] {
+  if (!isPaginationEnabled.value) return filteredPosts.value
+  const size = effectivePageSize.value
+  const start = (pageIndex - 1) * size
+  return filteredPosts.value.slice(start, start + size)
+}
+
+/** 参与复制的标签（显式 hideTags 时不输出） */
+function getExportTags(post: PostItem): string[] {
+  if (props.hideTags) return []
+  return Array.isArray(post.tags) ? post.tags.filter(Boolean) : []
+}
+
+function buildPostMarkdown(post: PostItem): string {
+  const parts: string[] = []
+  if (post.date) parts.push(`**${post.date}**`)
+  if (showCategory.value && post.categoryName) parts.push(`\`${post.categoryName}\``)
+  const title = getExportTitle(post)
+  const href = resolveHref(post.url)
+  parts.push(title ? `[${title}](${href})` : href)
+  if (post.desc) parts.push(`- ${stripHtml(post.desc)}`)
+  const tags = getExportTags(post)
+  if (tags.length > 0) parts.push(tags.map((t) => `#${t}`).join(' '))
+  return `- ${parts.join(' ')}\n`
+}
+
+function buildPostText(post: PostItem): string {
+  const parts: string[] = []
+  if (post.date) parts.push(post.date)
+  if (showCategory.value && post.categoryName) parts.push(`[${post.categoryName}]`)
+  const title = getExportTitle(post)
+  parts.push(title || resolveHref(post.url))
+  if (post.desc) parts.push(`(${stripHtml(post.desc)})`)
+  const tags = getExportTags(post)
+  if (tags.length > 0) parts.push(`(${tags.join(', ')})`)
+  return `- ${parts.join(' ')}\n`
+}
+
+/** 所有分页的完整 Markdown 列表（Page 1 ... Page 2 ...） */
+function buildAllPagesMarkdown(): string {
+  const posts = filteredPosts.value
+  if (posts.length === 0) return ''
+
+  const totalPageCount = isPaginationEnabled.value ? totalPages.value : 1
+  const heading = currentMode.value === 'archive' ? '全站文章归档' : '文章时间轴'
+  const summary = totalPageCount > 1 ? `共 ${posts.length} 篇 / ${totalPageCount} 页` : `共 ${posts.length} 篇`
+
+  let md = `
+
+## ${heading}（${summary}）
+
+`
+  for (let page = 1; page <= totalPageCount; page++) {
+    if (totalPageCount > 1) {
+      md += `
+
+#### Page ${page} / ${totalPageCount}
+
+`
+    }
+    let lastYear = ''
+    for (const post of getPagePosts(page)) {
+      const y = post.year || ''
+      if (y && y !== lastYear) {
+        md += `
+
+### ${y} 年
+
+`
+        lastYear = y
+      }
+      md += buildPostMarkdown(post)
+    }
+  }
+  return md
+}
+
+/** 所有分页的完整纯文本列表 */
+function buildAllPagesText(): string {
+  const posts = filteredPosts.value
+  if (posts.length === 0) return ''
+
+  const totalPageCount = isPaginationEnabled.value ? totalPages.value : 1
+  const heading = currentMode.value === 'archive' ? '全站文章归档' : '文章时间轴'
+
+  let text = `[${heading}] 共 ${posts.length} 篇
+`
+  for (let page = 1; page <= totalPageCount; page++) {
+    if (totalPageCount > 1) {
+      text += `[Page ${page} / ${totalPageCount}]
+`
+    }
+    let lastYear = ''
+    for (const post of getPagePosts(page)) {
+      const y = post.year || ''
+      if (y && y !== lastYear) {
+        text += `[${y} 年]
+`
+        lastYear = y
+      }
+      text += buildPostText(post)
+    }
+  }
+  return text
+}
+
 function toggleTag(tag: string) {
   const idx = selectedTags.value.indexOf(tag)
   if (idx !== -1) {
@@ -1022,8 +1495,8 @@ function resetFilters() {
   customEndDate.value = ''
   showCustomDateInputs.value = false
   currentPage.value = 1
+  syncStateToUrl('replace')
 }
-
 async function triggerDecrypt() {
   if (typeof window === 'undefined') return
   await decryptAllPostTitles()
@@ -1040,6 +1513,23 @@ function handleStorageEvent(e: StorageEvent) {
 }
 
 onMounted(() => {
+  // 复制整页时输出「所有分页」的完整内容，而非当前可见的一页
+  const el = rootEl.value
+  if (el) {
+    ;(el as any)._toMarkdown = () => buildAllPagesMarkdown()
+    ;(el as any)._toText = () => buildAllPagesText()
+  }
+  // 紧凑视口下减少页码槽位，避免分页栏换行
+  if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+    compactMediaQuery = window.matchMedia(COMPACT_MEDIA_QUERY)
+    syncCompactViewport()
+    if (typeof compactMediaQuery.addEventListener === 'function') {
+      compactMediaQuery.addEventListener('change', syncCompactViewport)
+    }
+  }
+  // 支持 ?xxx_page=N / ?xxx_q=... / ?xxx_cat=... 等直达指定状态
+  // （刷新、分享链接、浏览器前进后退）
+  restoreStateFromUrl()
   triggerDecrypt()
   if (typeof window !== 'undefined') {
     window.addEventListener('storage', handleStorageEvent)
@@ -1049,6 +1539,7 @@ onMounted(() => {
     window.addEventListener('fail-view-change', () => {
       triggerDecrypt()
     })
+    window.addEventListener('popstate', handlePopState)
   }
   setTimeout(triggerDecrypt, 150)
   setTimeout(triggerDecrypt, 500)
@@ -1057,16 +1548,24 @@ onMounted(() => {
 onUnmounted(() => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('storage', handleStorageEvent)
+    window.removeEventListener('popstate', handlePopState)
     window.removeEventListener('fail-view-change', () => {
       triggerDecrypt()
     })
+  }
+  if (compactMediaQuery && typeof compactMediaQuery.removeEventListener === 'function') {
+    compactMediaQuery.removeEventListener('change', syncCompactViewport)
+    compactMediaQuery = null
   }
 })
 
 watch(
   [selectedCategory, selectedTags, searchQuery, customStartDate, customEndDate],
   () => {
+    if (isRestoringFromUrl) return
     currentPage.value = 1
+    // 筛选条件变化后回到第一页，并把新的筛选条件写回地址栏
+    syncStateToUrl('replace')
     triggerDecrypt()
   },
   { deep: true }
@@ -1077,8 +1576,7 @@ watch(
   () => {
     triggerDecrypt()
   }
-)
-</script>
+)</script>
 
 <style scoped>
 .frontmatter-expansion {
@@ -1232,6 +1730,49 @@ watch(
 .analogy-text {
   flex: 1;
   color: var(--vp-c-text-2);
+}
+
+/* 筛选项折叠区块（年份 / 分类 / 标签云共用） */
+.filter-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-more-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filter-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--vp-c-text-3);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.filter-more-btn:hover {
+  color: var(--vp-c-brand);
+  background: var(--vp-c-default-soft);
+}
+
+.more-arrow {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.more-arrow.open {
+  transform: rotate(180deg);
 }
 
 /* 分类与标签过滤器 */
@@ -1723,6 +2264,9 @@ watch(
   margin: 32px 0 16px;
   padding: 12px 0;
   user-select: none;
+  /* 容器查询：按分页栏自身可用宽度（而非视口宽度）决定是否收起文字标签 */
+  container-type: inline-size;
+  flex-wrap: nowrap;
 }
 
 .page-numbers {
@@ -1802,7 +2346,6 @@ watch(
     display: none;
   }
   .timeline-pagination {
-    flex-wrap: wrap;
     gap: 6px;
   }
   .page-btn {
@@ -1812,6 +2355,33 @@ watch(
   }
   .page-btn.num-btn {
     min-width: 30px;
+  }
+  .page-btn.nav-btn {
+    padding: 0 7px;
+  }
+  /* 兜底：不支持容器查询的浏览器也能在窄屏收起文字标签 */
+  .page-btn.nav-btn .nav-label {
+    display: none;
+  }
+}
+
+/* 分页栏自身宽度不足时，先收起 Prev/Next 的文字标签（只留箭头） */
+@container (max-width: 460px) {
+  .page-btn.nav-btn .nav-label {
+    display: none;
+  }
+}
+
+/* 极窄屏：进一步压缩间距，保证 5 个页码 + 前后箭头仍在同一行 */
+@container (max-width: 300px) {
+  .timeline-pagination {
+    gap: 3px;
+  }
+  .page-btn.num-btn {
+    min-width: 26px;
+  }
+  .page-btn.nav-btn {
+    padding: 0 5px;
   }
 }
 </style>
