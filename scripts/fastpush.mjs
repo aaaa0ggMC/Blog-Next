@@ -13,6 +13,9 @@ const projectRoot = path.resolve(__dirname, '..');
 const shadowDir = path.resolve(projectRoot, '.git/.shadow_workspace');
 const shadowIndex = path.resolve(projectRoot, '.git/.shadow_index');
 
+// 仅存在于本地 dev 与私有备份(github)中、不发布到 blog-next 的路径前缀
+const SHADOW_EXCLUDE = ['docs/keep_learning/academic/'];
+
 function copyWorkingFilesToShadow(srcDir, destDir) {
   if (fs.existsSync(destDir)) {
     fs.rmSync(destDir, { recursive: true, force: true });
@@ -29,6 +32,7 @@ function copyWorkingFilesToShadow(srcDir, destDir) {
   for (const rel of files) {
     // 额外安全兜底：绝不复制 .env 环境变量文件
     if (path.basename(rel).startsWith('.env')) continue;
+    if (SHADOW_EXCLUDE.some((p) => rel.replace(/\\/g, '/').startsWith(p))) continue;
 
     const srcPath = path.join(srcDir, rel);
     if (!fs.existsSync(srcPath)) continue;
