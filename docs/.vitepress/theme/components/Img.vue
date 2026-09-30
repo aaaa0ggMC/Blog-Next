@@ -19,7 +19,7 @@
       :style="imgStyle"
       :title="title"
       :alt="title || 'image'"
-      loading="lazy"
+      :loading="printing ? 'eager' : 'lazy'"
       @load="onLoad"
       @error="onError"
       @dblclick="onDblClick"
@@ -66,6 +66,7 @@ const target = ref<string | null>(null)
 const src = ref<string | null>(null)
 const loaded = ref(false)
 const failed = ref(false)
+const printing = ref(false)
 let observer: IntersectionObserver | null = null
 
 const boxStyle = computed(() => {
@@ -159,7 +160,11 @@ async function resolveContent(input: string): Promise<string> {
 }
 
 const onPrintReady = () => {
+  printing.value = true
   show()
+}
+const onAfterPrint = () => {
+  printing.value = false
 }
 
 async function loadTarget(): Promise<void> {
@@ -204,6 +209,7 @@ onMounted(async () => {
   }
 
   window.addEventListener('before-blog-print', onPrintReady)
+  window.addEventListener('afterprint', onAfterPrint)
   window.addEventListener('fail-view-change', loadTarget)
 
   if (typeof IntersectionObserver !== 'undefined') {
@@ -232,6 +238,7 @@ onUnmounted(() => {
   observer?.disconnect()
   if (typeof window !== 'undefined') {
     window.removeEventListener('before-blog-print', onPrintReady)
+    window.removeEventListener('afterprint', onAfterPrint)
     window.removeEventListener('fail-view-change', loadTarget)
   }
 })

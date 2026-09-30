@@ -817,3 +817,256 @@ html {
   }
 }
 
+
+/* ===== [[toc]] 目录美化 ===== */
+.vp-doc nav.table-of-contents {
+  --toc-accent: var(--vp-c-brand-1, var(--vp-c-brand));
+  position: relative;
+  margin: 20px 0 28px;
+  padding: 14px 20px 16px;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-left: 4px solid var(--toc-accent);
+  border-radius: 12px;
+  counter-reset: toc-h2;
+}
+
+.vp-doc nav.table-of-contents ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vp-doc nav.table-of-contents li {
+  margin: 0;
+  padding: 0;
+}
+
+.vp-doc nav.table-of-contents li + li {
+  margin-top: 0;
+}
+
+.vp-doc nav.table-of-contents a {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+  font-size: 0.95em;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.vp-doc nav.table-of-contents a:hover {
+  background: var(--vp-c-default-soft);
+  color: var(--toc-accent);
+  transform: translateX(3px);
+}
+
+/* 一级条目：01 02 03 编号 */
+.vp-doc nav.table-of-contents > ul > li {
+  counter-increment: toc-h2;
+  counter-reset: toc-h3;
+}
+
+.vp-doc nav.table-of-contents > ul > li > a {
+  font-weight: 600;
+}
+
+.vp-doc nav.table-of-contents > ul > li > a::before {
+  content: counter(toc-h2, decimal-leading-zero);
+  flex: none;
+  min-width: 1.6em;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8em;
+  font-weight: 700;
+  color: var(--toc-accent);
+  opacity: 0.85;
+}
+
+/* 二级条目：缩进 + 引导线 + 1.1 编号 */
+.vp-doc nav.table-of-contents > ul > li > ul {
+  margin: 2px 0 6px 14px;
+  padding-left: 12px;
+  border-left: 1px dashed var(--vp-c-divider);
+}
+
+.vp-doc nav.table-of-contents > ul > li > ul > li {
+  counter-increment: toc-h3;
+}
+
+.vp-doc nav.table-of-contents > ul > li > ul > li > a {
+  font-size: 0.88em;
+  font-weight: 400;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc nav.table-of-contents > ul > li > ul > li > a::before {
+  content: counter(toc-h2) "." counter(toc-h3);
+  flex: none;
+  min-width: 2.2em;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.85em;
+  color: var(--vp-c-text-3);
+}
+
+.vp-doc nav.table-of-contents > ul > li > ul > li > a:hover {
+  color: var(--toc-accent);
+}
+
+/* 更深层级：不编号，仅缩进 */
+.vp-doc nav.table-of-contents ul ul ul {
+  margin-left: 12px;
+  padding-left: 10px;
+  border-left: 1px dashed var(--vp-c-divider);
+}
+
+@media (max-width: 640px) {
+  .vp-doc nav.table-of-contents {
+    padding: 10px 12px 12px;
+  }
+}
+
+@media print {
+  /* 目录：强制黑白高对比，不依赖深色模式变量 */
+  .vp-doc nav.table-of-contents {
+    --toc-accent: #1a3fa0;
+    margin: 10pt 0 14pt;
+    padding: 8pt 12pt;
+    background: transparent !important;
+    border: 1px solid #bbb !important;
+    border-left: 3pt solid var(--toc-accent) !important;
+    border-radius: 4pt;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .vp-doc nav.table-of-contents a,
+  .vp-doc nav.table-of-contents a:hover {
+    padding: 1pt 4pt;
+    color: #111 !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    transform: none !important;
+    font-size: 11pt;
+  }
+
+  .vp-doc nav.table-of-contents > ul > li > a::before {
+    color: var(--toc-accent) !important;
+    opacity: 1;
+  }
+
+  .vp-doc nav.table-of-contents > ul > li > ul > li > a {
+    color: #444 !important;
+    font-size: 10pt;
+  }
+
+  .vp-doc nav.table-of-contents > ul > li > ul > li > a::before {
+    color: #777 !important;
+  }
+
+  .vp-doc nav.table-of-contents ul ul {
+    border-left-color: #ccc !important;
+  }
+
+  /* 代码块：自动换行，避免被页面截断；强制浅色配色 */
+  .vp-doc div[class*='language-'],
+  .vp-doc div[class*='language-'] pre,
+  .vp-doc div[class*='language-'] code {
+    overflow: visible !important;
+    max-width: 100% !important;
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  .vp-doc div[class*='language-'] {
+    margin: 8pt 0 !important;
+    border-radius: 4pt !important;
+    background-color: #f6f8fa !important;
+  }
+
+  .vp-doc div[class*='language-'] pre,
+  .vp-doc div[class*='language-'] code {
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
+    font-size: 10pt !important;
+    line-height: 1.45 !important;
+  }
+
+  .vp-doc div[class*='language-'] pre {
+    padding: 8pt 10pt !important;
+  }
+
+  .vp-doc [class*='language-'].line-numbers-mode pre {
+    padding: 6pt 6pt 6pt 4pt !important;
+  }
+
+  /* 行号：原生行号列是绝对定位的，自动换行后会错位，
+     改为在每个 .line 上用 CSS 计数器生成，续行悬挂对齐 */
+  /* VitePress 给 .line-numbers-mode 容器预留了 32px 左侧空间给原生行号列，打印时收回 */
+  .vp-doc div[class*='language-'].line-numbers-mode {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .vp-doc div[class*='language-'].line-numbers-mode code {
+    counter-reset: print-line;
+  }
+
+  .vp-doc div[class*='language-'].line-numbers-mode code .line {
+    display: block !important;
+    position: relative;
+    min-height: 1.45em;
+    padding-left: 2.1em;
+    counter-increment: print-line;
+  }
+
+  .vp-doc div[class*='language-'].line-numbers-mode code .line::before {
+    content: counter(print-line);
+    position: absolute;
+    left: 0;
+    width: 1.6em;
+    text-align: right;
+    font-size: 0.85em;
+    color: #888;
+    user-select: none;
+  }
+
+  .vp-doc div[class*='language-'] .lang,
+  .vp-doc div[class*='language-'] .line-numbers-wrapper {
+    display: none !important;
+  }
+
+  /* 代码块允许跨页分割，否则过长代码会被整块挤掉 */
+  .vp-doc div[class*='language-'],
+  .vp-doc div[class*='language-'] pre {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  /* 深色模式下 shiki 用 --shiki-dark，打印时强制回到浅色 */
+  html.dark .vp-doc .shiki,
+  html.dark .vp-doc .shiki span {
+    color: var(--shiki-light, #24292e) !important;
+    background-color: transparent !important;
+  }
+
+  /* 行内代码与表格同样避免溢出 */
+  .vp-doc :not(pre) > code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #24292e !important;
+    background-color: #f0f0f0 !important;
+  }
+
+  .vp-doc table {
+    display: table;
+    width: 100% !important;
+    table-layout: auto;
+  }
+}

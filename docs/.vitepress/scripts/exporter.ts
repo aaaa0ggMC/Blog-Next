@@ -462,15 +462,32 @@ export async function preparePrint(): Promise<void> {
   // 1. 广播自定义事件，让 Vue 组件（如 Img.vue）强制完成加载
   window.dispatchEvent(new CustomEvent('before-blog-print'))
 
-  // 2. 检查页面上所有原生的 lazy img 或 .lazy-img
-  const images = document.querySelectorAll('img[loading="lazy"], .lazy-img')
+  // 2. 等 Vue 重渲染出 <img>（Img.vue 的 src 是 v-if 延后设置的）
+  await new Promise((resolve) => setTimeout(resolve, 80))
+
+  // 3. 去掉原生 lazy，并等待所有图片真正加载完成（带超时兜底）
+  const images = Array.from(document.querySelectorAll<HTMLImageElement>('.vp-doc img, img.lazy-img'))
   images.forEach((img) => {
     img.removeAttribute('loading')
+    img.loading = 'eager'
     if (img.classList.contains('lazy-img') && !img.classList.contains('loaded')) {
       img.classList.add('loaded')
     }
   })
 
-  // 给 DOM 留一点微任务时间以完成渲染
-  await new Promise((resolve) => setTimeout(resolve, 80))
+  const pending = images
+    .filter((img) => img.getAttribute('src') && !img.complete)
+    .map(
+      (img) =>
+        new Promise<void>((resolve) => {
+          img.addEventListener('load', () => resolve(), { once: true })
+          img.addEventListener('error', () => resolve(), { once: true })
+        }),
+    )
+  if (pending.length) {
+    await Promise.race([
+      Promise.all(pending),
+      new Promise((resolve) => setTimeout(resolve, 15000)),
+    ])
+  }
 }

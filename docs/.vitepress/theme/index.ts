@@ -69,6 +69,10 @@ export default {
         Decryptor.tryDecrypt();
         if (typeof window !== 'undefined') {
           console.log('Running in browser');
+          // 直接 Ctrl+P 时也尽量唤醒懒加载图片（同步事件无法等待加载完成，推荐用页面的打印按钮）
+          window.addEventListener('beforeprint', () => {
+            window.dispatchEvent(new CustomEvent('before-blog-print'));
+          });
         } else {
           console.log('Not in browser (GitHub Actions or other environments)');
         }
