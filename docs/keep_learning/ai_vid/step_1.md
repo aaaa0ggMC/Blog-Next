@@ -117,12 +117,6 @@ If ur gonna use IndexTTS and cannot find a nice voice,use this one, /home/aaaa0g
 
 <Img content="/fo1BUnldjnYyfGF7nC5zkf-Sw1wJHkvv7hXwgl2fXHI0NhQIKwBaUbl2.png" title="全片 23 个时间点接触摸 sheet" />
 
-## Fun Facts
-
-::: ps
-TODO(用户)：以下结构留好了，有趣发现可以先写在这里，我也可以先按我们的会话起草一版再给你改。
-:::
-
 ## 我的评价
 
 整体而言还行，Step这次表现得和个主播一样也是笑死我了。原本只想给3分的，中途的一些插入网感不错同时也不是过度玩梗，让人觉得很有趣，因此提到4分了。
