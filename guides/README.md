@@ -22,3 +22,12 @@
    * Cloudflare R2 `.ignore` 根路径严格锚定规范（`/fonts/`, `/logo.png` 等）；
    * 域名、CDN 与网络拓扑（Cloudflare CNAME 扁平化、GitHub Pages、R2）；
    * 前端解密生命周期、防抖与通知去重机制。
+
+4. **[AI Videos 排版指南 (AI_VID_WRITING_GUIDE.md)](./AI_VID_WRITING_GUIDE.md)**
+   * 写给 AI 看的：把粗稿 + 本文件交给 AI，自动排成 `ai_vid/` 系列格式；
+   * Frontmatter 字段映射（rating / usage / cost 链式写法）、多轮对话结构、AI 报告格式转换；
+   * 完整输入输出示例与交付前自检清单。
+
+5. **[AI Videos 收尾 Prompt (AI_VID_SELF_REPORT_PROMPT.md)](./AI_VID_SELF_REPORT_PROMPT.md)**
+   * 视频做完、告诉模型分数之前，整段复制给做视频的模型；
+   * 产出「交付卡」：逐字对话记录、成片信息、按统一量表的自评（含不足与未验证项）。

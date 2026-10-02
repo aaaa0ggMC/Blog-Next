@@ -6,7 +6,7 @@
       "title: ${1:文章标题}",
       "date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
       "tags: [${2:标签1, 标签2}]",
-      "category: ${3|notes,essays,poems,dreams,forget_me_not,are_you_____,coding,subjects,reading,games,exploration,others|}",
+      "category: ${3|notes,essays,poems,dreams,forget_me_not,are_you_____,coding,subjects,reading,ai_vids,games,exploration,others|}",
       "desc: ${4:一句话简介}",
       "highlight: ${5|false,true|}",
       "---",
@@ -440,6 +440,119 @@
       "<ExamResult name=\"${1:exam-demo}\" />$0"
     ],
     "description": "插入完整的 Exam 测验套件（包含顶部指示器、容器、单选题、填空题、提交按钮与结果面板）"
+  },
+  "AI Video Post": {
+    "prefix": [
+      "$aivid",
+      "aivid"
+    ],
+    "body": [
+      "---",
+      "title: ${1|Claude,DeepSeek,GPT,Gemini,Qwen|} · ${2:题目}",
+      "date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "tags: [AIVideos, $1]",
+      "desc: ${3:一句话简介（显示在索引卡片上）}",
+      "model: ${4:Claude Opus 5.5}",
+      "vendor: ${5|claude,deepseek,openai,gemini,qwen,stepfun,local|}",
+      "task: $2",
+      "rating: ${6:8}",
+      "# self_rating: 模型自评（来自交付卡）",
+      "verdict: ${7:一句话评价（卡片大标题）}",
+      "cost: ${8:38min20s}",
+      "length: \"${9:5:00}\"",
+      "stack: [${10:Remotion, Z-Image Turbo, ffmpeg}]",
+      "usage: [\"5h: ${11:0 → 0}\", \"Week: ${12:0 → 0}\"]",
+      "# bvid: BV1xxxxxxxxx      # B 站嵌入（大文件优先用这个）",
+      "# video: /imgs/ai_vids/xxx.mp4",
+      "---",
+      "",
+      "# $2 <span class='ps'>$4</span>",
+      "",
+      "<VidHero />",
+      "",
+      "## Prompt",
+      "",
+      "<VidPrompt round=\"1\">",
+      "",
+      "```text",
+      "${13:在此粘贴 Prompt}",
+      "```",
+      "",
+      "</VidPrompt>",
+      "",
+      "## 交付报告",
+      "",
+      "<AI badge=\"$1 交付报告\" model=\"$4\">",
+      "",
+      "${14:在此粘贴 AI 的交付总结（直接写 Markdown，别包代码块）}",
+      "",
+      "</AI>",
+      "",
+      "<!-- 有交付卡时：",
+      "## AI 自评",
+      "",
+      "<AI badge=\"$1 自评\" model=\"$4\">",
+      "",
+      "",
+      "</AI>",
+      "-->",
+      "",
+      "## 我的评价",
+      "",
+      "::: tip ${6} / 10",
+      "$0",
+      ":::"
+    ],
+    "description": "AI Videos 系列文章完整模板（Frontmatter + 卡片 + Prompt + 报告 + 评价）"
+  },
+  "AI Video Follow-up Round": {
+    "prefix": [
+      "$vidround",
+      "vidround"
+    ],
+    "body": [
+      "## 第${1:二}版 <Badge type=\"tip\" text=\"${2:9} / 10 · ${3:13min}\" />",
+      "",
+      "<VidPrompt round=\"${4:2}\" follow>",
+      "",
+      "```text",
+      "${5:追加指令}",
+      "```",
+      "",
+      "</VidPrompt>",
+      "",
+      "<AI badge=\"${6:Claude} 交付报告 · v$4\" model=\"${7:Claude Opus 5.5}\">",
+      "",
+      "$0",
+      "",
+      "</AI>"
+    ],
+    "description": "AI Videos：追加一轮对话（追加指令 + 新报告）。记得同步 frontmatter 的 rating / cost / usage 链"
+  },
+  "VidPrompt Block": {
+    "prefix": [
+      "$vidprompt",
+      "vidprompt"
+    ],
+    "body": [
+      "<VidPrompt round=\"${1:1}\"${2: follow}>",
+      "",
+      "```text",
+      "$0",
+      "```",
+      "",
+      "</VidPrompt>"
+    ],
+    "description": "Prompt 气泡块（过长自动折叠）"
+  },
+  "VidBoard": {
+    "prefix": [
+      "$vidboard",
+      "vidboard"
+    ],
+    "body": [
+      "<VidBoard />$0"
+    ],
+    "description": "AI Videos 答卷看板（自动收集 ai_vids 分类文章）"
   }
 }
-

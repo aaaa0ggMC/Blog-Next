@@ -185,6 +185,9 @@ category: essays # 可选：若目录结构规范可省略，系统会自动推�
 | `<Img />` | 自适应暗色/加密图片 | `<Img content="/imgs/cover.png" />` |
 | `<Video />` | 自适应视频播放器（支持CDN/加密/骨架屏） | `<Video content="/imgs/demo.mp4" title="演示视频" />` |
 | `<CryptoDebugger />` | 加密解密调测沙盒 | `<CryptoDebugger />` |
+| `<VidHero />` | AI Videos 文章头卡（读取 frontmatter：model / vendor / rating / verdict / cost / length / stack / usage / bvid / video） | `<VidHero />` |
+| `<VidPrompt />` | Prompt 气泡块，过长自动折叠；`follow` 为追加轮次 | `<VidPrompt round="2" follow>…</VidPrompt>` |
+| `<VidBoard />` | AI Videos 答卷看板（按厂商筛选 / 评分排序 / 同题对比） | `<VidBoard />` |
 
 ### Markdown 快捷自定义容器语法糖 (推荐替代 raw HTML)：
 
@@ -264,3 +267,15 @@ pnpm decrypt:base64
 # 全站工作区批量重新加密
 pnpm encrypt:base64
 ```
+
+---
+
+## AI Videos 系列速记
+
+VS Code 中输入 `aivid` 生成整篇骨架，`vidround` 追加一轮对话。frontmatter 约定：
+
+* `rating: 8 → 9.5`：多轮评分用 `→` 串起来，最后一个是最终分；不写即「待评」。
+* `cost: 38min20s + 13min21s`：多轮耗时用 `+` 连接。
+* `usage: ["5h: 24 → 38 → 50", "Week: 74 → 78"]`：纯数字按百分比画进度条，带货币/逗号的只显示文字。
+* `length: "5:01"`：**必须加引号**，否则 YAML 会把 `5:01` 解析成 301。
+* 成片：大文件优先传 B 站后填 `bvid`；小文件用 `video: /imgs/ai_vids/xxx.mp4`。

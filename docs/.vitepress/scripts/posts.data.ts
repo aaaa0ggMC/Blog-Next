@@ -20,6 +20,12 @@ export interface PostItem {
   highlight?: boolean
   wordCount?: number
   transcribe_at?: string
+  // AI Videos 系列专用字段
+  model?: string
+  vendor?: string
+  rating?: string
+  self_rating?: string
+  task?: string
 }
 
 export { CATEGORY_MAP }
@@ -208,6 +214,11 @@ export default {
         highlight: !!fm.highlight,
         wordCount: countWords(content),
         transcribe_at: fm.transcribe_at || fm.transcribed_at || undefined,
+        model: fm.model || undefined,
+        vendor: fm.vendor || undefined,
+        rating: fm.rating !== undefined && fm.rating !== '' ? String(fm.rating) : undefined,
+        self_rating: fm.self_rating !== undefined && fm.self_rating !== '' ? String(fm.self_rating) : undefined,
+        task: fm.task || undefined,
       })
     }
 

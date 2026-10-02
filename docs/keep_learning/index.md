@@ -11,6 +11,7 @@ desc: 学海无涯，收录阅读、编程、Linux 与主科学习的各类笔�
 
 ## 本大板块将讨论：
 <CardList>
+<Card href="./ai_vid/"> AI多媒体（视频为主）探索 </Card>
 <Card href="./reading/reading">读书笔记</Card>
 <Card href="./programming/life/">编程生涯</Card>
 <Card href="./programming/c_cpp/">C/C++学习(语法，STL...)</Card>

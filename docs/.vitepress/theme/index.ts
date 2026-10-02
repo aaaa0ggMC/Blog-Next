@@ -35,6 +35,9 @@ import PointList from './components/PointList.vue';
 import PointItem from './components/PointItem.vue';
 import AI from './components/AI.vue';
 import RikkahubAIBlock from './components/RikkahubAIBlock.vue';
+import VidHero from './components/VidHero.vue';
+import VidPrompt from './components/VidPrompt.vue';
+import VidBoard from './components/VidBoard.vue';
 
 // Exam Interactive Components
 import {
@@ -119,6 +122,9 @@ export default {
     app.component('ai', AI);
     app.component('AiBlock', AI);
     app.component('RikkahubAIBlock', RikkahubAIBlock);
+    app.component('VidHero', VidHero);
+    app.component('VidPrompt', VidPrompt);
+    app.component('VidBoard', VidBoard);
 
     // Exam Components
     app.component('Exam', Exam);

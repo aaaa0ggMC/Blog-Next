@@ -22,6 +22,7 @@ export const CATEGORY_MAP: Record<string, string> = {
   coding : '编程学习',
   subjects: '学科思考',
   reading: '读书笔记',
+  ai_vids: 'AI 视频',
 
   // 游戏板块
   games : '游戏',
@@ -39,7 +40,7 @@ export const CATEGORY_MAP: Record<string, string> = {
  */
 export const SECTION_CATEGORIES_MAP: Record<string, string[]> = {
   writings: ['writings', 'essays', 'poems', 'dreams', 'forget_me_not', 'are_you_____'],
-  keep_learning: ['keep_learning', 'coding', 'subjects', 'reading'],
+  keep_learning: ['keep_learning', 'coding', 'subjects', 'reading', 'ai_vids'],
   gaming_life: ['gaming_life', 'games'],
   exploration: ['exploration'],
   notes: ['notes'],
@@ -61,6 +62,7 @@ export const PATH_CATEGORY_RULES: Array<{ pattern: string; id: string }> = [
   { pattern: 'keep_learning/linux', id: 'coding' },
   { pattern: 'keep_learning/subjects', id: 'subjects' },
   { pattern: 'keep_learning/reading', id: 'reading' },
+  { pattern: 'keep_learning/ai_vid', id: 'ai_vids' },
 
   { pattern: 'gaming_life', id: 'games' },
 

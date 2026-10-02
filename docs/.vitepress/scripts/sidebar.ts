@@ -40,6 +40,7 @@ const dirTitleMap: Record<string, string> = {
   chinese: '语文学习方法',
   english: '高考英语',
   reading: '读书笔记',
+  ai_vid: 'AI Videos',
   others: '杂项',
   about: 'About Me',
   friends: '友链',
