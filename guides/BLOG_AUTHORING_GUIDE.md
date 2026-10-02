@@ -187,6 +187,7 @@ category: essays # 可选：若目录结构规范可省略，系统会自动推�
 | `<CryptoDebugger />` | 加密解密调测沙盒 | `<CryptoDebugger />` |
 | `<VidHero />` | AI Videos 文章头卡（读取 frontmatter：model / vendor / rating / verdict / cost / length / stack / usage / bvid / video） | `<VidHero />` |
 | `<VidPrompt />` | Prompt 气泡块，过长自动折叠；`follow` 为追加轮次 | `<VidPrompt round="2" follow>…</VidPrompt>` |
+| `<Bili />` | 自适应 16:9 的 B 站嵌入，带「在 B 站打开」链接；可直接 `src=` 粘贴 iframe 的 src | `<Bili bvid="BV1cFH863Efs" p="2" />` |
 | `<VidBoard />` | AI Videos 答卷看板（按厂商筛选 / 评分排序 / 同题对比） | `<VidBoard />` |
 
 ### Markdown 快捷自定义容器语法糖 (推荐替代 raw HTML)：
@@ -278,4 +279,4 @@ VS Code 中输入 `aivid` 生成整篇骨架，`vidround` 追加一轮对话。f
 * `cost: 38min20s + 13min21s`：多轮耗时用 `+` 连接。
 * `usage: ["5h: 24 → 38 → 50", "Week: 74 → 78"]`：纯数字按百分比画进度条，带货币/逗号的只显示文字。
 * `length: "5:01"`：**必须加引号**，否则 YAML 会把 `5:01` 解析成 301。
-* 成片：大文件优先传 B 站后填 `bvid`；小文件用 `video: /imgs/ai_vids/xxx.mp4`。
+* 成片：传 B 站后在 `## 内嵌查看` 里写 `<Bili bvid="..." p="N" />`（VS Code 输入 `bili`）；不要直接粘 iframe。

@@ -95,15 +95,7 @@
 
     <!-- 成片 -->
     <div v-if="bvid || video" class="vh-media">
-      <div v-if="bvid" class="vh-bili">
-        <iframe
-          :src="`https://player.bilibili.com/player.html?bvid=${bvid}&autoplay=0&high_quality=1`"
-          allowfullscreen
-          scrolling="no"
-          frameborder="0"
-          loading="lazy"
-        ></iframe>
-      </div>
+      <Bili v-if="bvid" :bvid="bvid" :p="biliP" />
       <Video v-else :content="video" :poster="poster" />
     </div>
   </section>
@@ -113,6 +105,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useData } from 'vitepress'
 import Video from './Video.vue'
+import Bili from './Bili.vue'
 import {
   formatBias,
   formatScore,
@@ -140,6 +133,7 @@ const props = defineProps<{
   video?: string
   poster?: string
   bvid?: string
+  biliP?: string | number
 }>()
 
 const { frontmatter } = useData()
@@ -163,6 +157,7 @@ const usage = computed(() => parseUsage(pick('usage')))
 const video = computed(() => pick('video') as string | undefined)
 const poster = computed(() => pick('poster') as string | undefined)
 const bvid = computed(() => pick('bvid') as string | undefined)
+const biliP = computed(() => pick('biliP') as string | number | undefined)
 
 const date = computed(() => {
   const d = frontmatter.value.date
@@ -562,24 +557,11 @@ onMounted(() => {
   margin-top: 16px;
 }
 
-.vh-media :deep(.vvid-box) {
+.vh-media :deep(.vvid-box),
+.vh-media :deep(.bili) {
   margin: 0;
 }
 
-.vh-bili {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #000;
-}
-
-.vh-bili iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
 
 @media (max-width: 640px) {
   .vh {

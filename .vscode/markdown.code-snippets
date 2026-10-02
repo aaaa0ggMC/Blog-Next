@@ -462,13 +462,15 @@
       "length: \"${9:5:00}\"",
       "stack: [${10:Remotion, Z-Image Turbo, ffmpeg}]",
       "usage: [\"5h: ${11:0 → 0}\", \"Week: ${12:0 → 0}\"]",
-      "# bvid: BV1xxxxxxxxx      # B 站嵌入（大文件优先用这个）",
       "# video: /imgs/ai_vids/xxx.mp4",
       "---",
       "",
       "# $2 <span class='ps'>$4</span>",
       "",
       "<VidHero />",
+      "",
+      "## 内嵌查看",
+      "<Bili bvid=\"${15:BV1cFH863Efs}\" p=\"${16:1}\" />",
       "",
       "## Prompt",
       "",
@@ -554,5 +556,15 @@
       "<VidBoard />$0"
     ],
     "description": "AI Videos 答卷看板（自动收集 ai_vids 分类文章）"
+  },
+  "Bilibili Embed": {
+    "prefix": [
+      "$bili",
+      "bili"
+    ],
+    "body": [
+      "<Bili bvid=\"${1:BV1xxxxxxxxx}\" p=\"${2:1}\" />$0"
+    ],
+    "description": "自适应 16:9 的 B 站嵌入（也可 src=\"粘贴整段 iframe 的 src\"）"
   }
 }

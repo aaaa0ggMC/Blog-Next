@@ -46,7 +46,6 @@ length: "5:01"                           # 成片时长，必须加引号！
 rounds: 2                                # 对话轮次，只有 ≥2 时才写
 stack: [Python + Cairo, Z-Image Turbo, IndexTTS, ffmpeg]   # 技术栈，从 AI 报告里提取工具名
 usage: ["5h: 24 → 38 → 50", "Week: 74 → 76 → 78"]         # 见 §2.3
-bvid: BV1xxxxxxxxx                       # 可选：B 站视频号
 video: /imgs/ai_vids/xxx.mp4             # 可选：站内小视频（bvid 优先）
 poster: /imgs/ai_vids/xxx.png            # 可选：video 的封面
 ---
@@ -110,6 +109,9 @@ usage: ["5h: 24 → 38 → 50", "Week: 74 → 76 → 78"]
 # <题目> <span class='ps'><模型名或作品名></span>
 
 <VidHero />
+
+## 内嵌查看
+<Bili bvid="BV1cFH863Efs" p="<分P序号>" />
 
 ## Prompt
 
@@ -182,6 +184,7 @@ usage: ["5h: 24 → 38 → 50", "Week: 74 → 76 → 78"]
 | 粗稿里的东西 | 放法 |
 | :--- | :--- |
 | 「Fun Facts」/ 有趣的发现 | `## Fun Facts` + `<PointList>`，每条一个 `<PointItem num="1" title="短标题" tag="可选">正文</PointItem>`。`title` 可由你起草（需告知用户） |
+| B 站视频（用户给了 iframe 代码） | 只取其中的 `bvid` 和 `p`，写成 `<Bili bvid="..." p="..." />`，放在 `## 内嵌查看` 里。**不要**粘原始 `<iframe>` |
 | 截图 | `<Img content="/imgs/ai_vids/xxx.png" title="说明" />`，图片放在 `docs/public/res/imgs/ai_vids/` |
 | 用户的旁白、小吐槽 | `::: ps` 容器 |
 | 用户说「问了几个问题，此处省略」 | 写进 `<VidPrompt note="之后还被问了几个问题，此处省略">` |

@@ -38,6 +38,7 @@ import RikkahubAIBlock from './components/RikkahubAIBlock.vue';
 import VidHero from './components/VidHero.vue';
 import VidPrompt from './components/VidPrompt.vue';
 import VidBoard from './components/VidBoard.vue';
+import Bili from './components/Bili.vue';
 
 // Exam Interactive Components
 import {
@@ -125,6 +126,7 @@ export default {
     app.component('VidHero', VidHero);
     app.component('VidPrompt', VidPrompt);
     app.component('VidBoard', VidBoard);
+    app.component('Bili', Bili);
 
     // Exam Components
     app.component('Exam', Exam);

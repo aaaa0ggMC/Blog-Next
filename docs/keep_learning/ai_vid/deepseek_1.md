@@ -19,6 +19,9 @@ usage: ["Balance: ¥85.68 → ¥84.17", "Tokens(30d): 2,224,044,213 → 2,255,29
 
 <VidHero />
 
+## 内嵌查看
+<Bili bvid="BV1cFH863Efs" p="3" />
+
 ## Prompt
 
 <VidPrompt round="1" note="之后还被问了几个问题，此处省略">

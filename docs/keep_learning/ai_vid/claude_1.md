@@ -18,6 +18,9 @@ usage: ["5h: 15 → 23", "Week: 73 → 74"]
 
 <VidHero />
 
+## 内嵌查看
+<Bili bvid="BV1cFH863Efs" p="1" />
+
 ## Prompt
 
 <VidPrompt round="1">

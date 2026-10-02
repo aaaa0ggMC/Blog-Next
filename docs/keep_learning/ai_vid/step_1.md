@@ -19,6 +19,9 @@ usage: ["Month: 66 → 64", "CreditUsage: 14.1M"]
 
 <VidHero />
 
+## 内嵌查看
+<Bili bvid="BV1cFH863Efs" p="4" />
+
 ## Prompt
 
 <VidPrompt round="1">
