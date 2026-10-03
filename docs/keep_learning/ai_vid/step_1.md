@@ -6,7 +6,7 @@ desc: 五分钟卡通自我介绍：代码画出的阶梯吉祥物，本地 TTS 
 model: Step 5 Preview
 vendor: stepfun
 task: Self Introduction
-rating: 3.8
+rating: 4
 verdict: 小巧思很多，整体略好
 cost: 22min + 61min
 length: "4:51"
