@@ -1,6 +1,6 @@
 # 博客全套操作与写作开发手册 (Blog Authoring & Development Guide)
 
-> **提示**：本文档为本地写作与开发维护手册，汇总了「如何写新文章」、「如何注册与配置新 Category」、「标签与归档运作机制」、「加密标签规范」以及「内置 UI 组件库」的完整规范。
+> **提示**：本文档为本地写作与开发维护手册，汇总了「如何写新文章」、「如何注册与配置新 Category」、「标签与归档运作机制」、「加密标签规范」、「参考文献引用与自动著录」以及「内置 UI 组件库」的完整规范。
 
 ---
 
@@ -215,7 +215,81 @@ Cheers! <br/>
 
 ---
 
-## 六、 VS Code 快捷代码片段 (Snippets 速查)
+## 六、 参考文献引用与自动著录 (`<ref />` + `<bib>`)
+
+正文用 `<ref k="..." />` 自动编号并生成可点击上标，文末用 `<bib>` 集中写条目，**自动按 GB/T 7714-2015 合成标准著录文字**（不用自己排版）。
+
+### 1. 最简用法
+
+```markdown
+体积雾的核心是 Beer-Lambert 定律<ref k="beer" />，后来 Lambert 也讨论过<ref k="lambert" />。
+同一篇文献可以反复引用<ref k="beer" />，编号会自动复用；连号会压缩成 <ref k="beer,lambert" /> → `[1-2]`。
+
+<bib>
+<item k="beer" type="article" authors="Beer, A." title="Bestimmung der Absorption des rothen Lichts in farbigen Flüssigkeiten" journal="Annalen der Physik und Chemie" year="1852" volume="86" pages="78-88" doi="10.1002/andp.18521620505"/>
+<item k="lambert" type="book" authors="Lambert, J. H." title="Photometria sive de mensura et gradibus luminis, colorum et umbrae" place="Augsburg" publisher="Detlefsen" year="1760"/>
+</bib>
+```
+
+渲染结果：
+
+```text
+体积雾的核心是 Beer-Lambert 定律[1]，后来 Lambert 也讨论过[2]。同一篇文献可以反复引用[1]…
+[1] BEER A. Bestimmung der Absorption des rothen Lichts in farbigen Flüssigkeiten[J]. Annalen der Physik und Chemie, 1852, 86: 78-88. DOI: 10.1002/andp.18521620505.
+[2] LAMBERT J H. Photometria sive de mensura et gradibus luminis, colorum et umbrae[M]. Augsburg: Detlefsen, 1760.
+```
+
+### 2. 行为约定
+
+* 编号顺序 = **正文首次出现的顺序**，不是 `<bib>` 里书写的顺序（文末列表会自动重排）。
+* `<bib>` 块会自己生成一个 `## 参考文献` 标题（`[[toc]]` 里可见）；要改就用 `<bib title="引用文献">`，去掉标题写 `<bib title="">`。
+* 正文引用了但没定义的 key → 渲染成红色 `[?]`，构建时在终端打印警告，不会让构建失败。
+* 定义了但正文没引用的条目 → 仍会列出，编号排在最后，且不显示「↩ 返回正文」。
+* 标签也可写作 `<bibliography>` / `<refs>`，条目也可写作 `<entry>`。行内代码里的 `<ref />` 不会被当成引用。
+* `type` 省略时（如 `<item k="x">已排好版的文字</item>`）原样输出，适合直接粘一条现成著录。
+
+### 3. `<item>` 字段表
+
+`type` 决定类型标识与模板，其余字段按需填写（同一含义的别名都接受）：
+
+| 字段 | 别名 | 说明 |
+| :--- | :--- | :--- |
+| `k` | `key` / `id` | **必填**，正文 `<ref k="…"/>` 用的 key |
+| `type` | `kind` | 文献类型，见下表 |
+| `authors` | `author` / `au` | 作者，分号分隔；`{机构名}` 表示整体保留不转换 |
+| `title` | | 题名 |
+| `journal` | `container` | 期刊名（`article`） |
+| `booktitle` | `proceedings` / `conference` | 论文集/会议录名（`inproceedings` / `chapter`） |
+| `year` | `y` | 出版年 |
+| `date` | `published` | 发布/更新日期（`web` 的 `(日期)`，缺省回退到 `year`） |
+| `volume` `number` `pages` | `vol` / `issue`,`no` / `pp` | 卷、期、页码 |
+| `place` `publisher` | `address` / `pub`,`press` | 出版地、出版者 |
+| `school` | `institution` | 学位授予单位（`thesis`） |
+| `edition` | `version` | 版本，原样输出（`第3版` / `3rd ed.` 都行） |
+| `url` | `link` | 链接，自动变成可点击的超链接 |
+| `doi` | | DOI，自动拼成 `https://doi.org/…` 链接 |
+| `access` | `urldate` | 引用日期 → `[2026-10-15]` |
+| `note` `lang` | `remark` / `language` | 附注；`lang=zh|en` 强制中/英式写法 |
+
+| `type` | 标识 | 模板（简） |
+| :--- | :--- | :--- |
+| `article`（`journal`） | `[J]` | 作者. 题名[J]. 刊名, 年, 卷(期): 页码. |
+| `book` | `[M]` | 作者. 书名[M]. 版本. 出版地: 出版者, 年: 页码. |
+| `inproceedings`（`conference`） | `[C]` | 作者. 题名[C]//论文集. 出版地: 出版者, 年: 页码. |
+| `chapter` | `[M]//` | 同上，用于专著析出文献 |
+| `thesis`（`phdthesis`） | `[D]` | 作者. 题名[D]. 出版地: 授予单位, 年. |
+| `web`（`online`） | `[EB/OL]` | 作者. 题名[EB/OL]. (发布日期)[引用日期]. URL. |
+| `newspaper` / `report` / `standard` / `patent` / `misc` | `[N]` `[R]` `[S]` `[P]` `[Z]` | 作者. 题名[标识]. 出版项, 年. |
+
+**作者写法**：`Beer, A.` → `BEER A`；`Kun Zhou` → `ZHOU K`；`张三` → `张三`；超过 3 位时中文文献加 `等`、英文加 `et al.`。用 `{}` 包裹则原样保留，适合机构名或想保留全名的场合：`authors="{NVIDIA}"`、`authors="{WANG Xiaoming}"`。作者之间用 `;`、`、` 或 ` and ` 分隔。
+
+> 实现见 `docs/.vitepress/scripts/citation.ts`，样式在 `docs/.vitepress/theme/custom.css`。
+>
+> VS Code 里输入 `ref` / `bibitem` / `bibweb` / `bib` 可直接展开模板（见下一节）。
+
+---
+
+## 七、 VS Code 快捷代码片段 (Snippets 速查)
 
 在编辑 `.md` 文件时，只需输入简短前缀并按 <kbd>Tab</kbd> 或 <kbd>Enter</kbd> 即可一键展开模板：
 
@@ -246,11 +320,16 @@ Cheers! <br/>
 | `rins` | `<span class="ins">...</span>` | 行内缩进文本 span |
 | `rtit` | `<span class="tit">...</span>` | 行内标题色文本 span |
 | `rspan` / `span` | `<span class="...">...</span>` | 自定义 class 行内 span |
+| `ref` | `<ref k="key" />` | 参考文献正文引用（自动编号、可点击跳转） |
+| `refm` | `<ref k="key1,key2" />` | 一次引用多条文献（连号压成 `[1-3]`） |
+| `bibitem` / `cite` | `<item k="..." type="article" .../>` | 参考文献条目（GB/T 7714 字段版） |
+| `bibweb` | `<item type="web" url="..." access="..."/>` | 网络资源条目 `[EB/OL]` |
+| `bib` | `<bib title="参考文献"> … </bib>` | 文末参考文献块 |
 
 
 ---
 
-## 七、 常用命令行指令 (CLI Commands)
+## 八、 常用命令行指令 (CLI Commands)
 
 ```bash
 # 启动本地实时开发预览服务器

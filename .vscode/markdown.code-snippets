@@ -566,5 +566,61 @@
       "<Bili bvid=\"${1:BV1xxxxxxxxx}\" p=\"${2:1}\" />$0"
     ],
     "description": "自适应 16:9 的 B 站嵌入（也可 src=\"粘贴整段 iframe 的 src\"）"
+  },
+  "Citation Ref (ref)": {
+    "prefix": [
+      "$ref",
+      "ref"
+    ],
+    "body": [
+      "<ref k=\"${1:key}\" />$0"
+    ],
+    "description": "正文参考文献引用（自动编号、可点击跳转，条目写在文末 <bib> 里）"
+  },
+  "Citation Ref Multi (refm)": {
+    "prefix": [
+      "$refm",
+      "refm"
+    ],
+    "body": [
+      "<ref k=\"${1:key1},${2:key2}\" />$0"
+    ],
+    "description": "一次引用多条文献（连号会自动压成 [1-3]）"
+  },
+  "Bibliography Item (bibitem)": {
+    "prefix": [
+      "$bibitem",
+      "bibitem",
+      "$cite",
+      "cite"
+    ],
+    "body": [
+      "<item k=\"${1:key}\" type=\"${2|article,book,inproceedings,chapter,thesis,web,misc|}\" authors=\"${3:Beer, A.}\" title=\"${4:题名}\" journal=\"${5:刊名}\" year=\"${6:1852}\" volume=\"${7:86}\" number=\"${8:2}\" pages=\"${9:78-88}\" doi=\"${10:10.1002/xxx}\"/>$0"
+    ],
+    "description": "参考文献条目（GB/T 7714-2015 字段版，按 type 自动合成著录文字）"
+  },
+  "Bibliography Item - Web (bibweb)": {
+    "prefix": [
+      "$bibweb",
+      "bibweb"
+    ],
+    "body": [
+      "<item k=\"${1:key}\" type=\"web\" authors=\"${2:NVIDIA}\" title=\"${3:标题}\" url=\"${4:https://example.com}\" date=\"${5:2026-01-01}\" access=\"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"/>$0"
+    ],
+    "description": "网络资源条目 [EB/OL]，自动生成 (发布日期)[引用日期]. URL"
+  },
+  "Bibliography Block (bib)": {
+    "prefix": [
+      "$bib",
+      "bib"
+    ],
+    "body": [
+      "<bib title=\"参考文献\">",
+      "<item k=\"${1:key1}\" type=\"${2:article}\" authors=\"${3:Beer, A.}\" title=\"${4:题名}\" journal=\"${5:刊名}\" year=\"${6:1852}\" volume=\"${7:86}\" pages=\"${8:78-88}\"/>",
+      "<item k=\"${9:key2}\" type=\"${10:book}\" authors=\"${11:Lambert, J. H.}\" title=\"${12:书名}\" place=\"${13:Augsburg}\" publisher=\"${14:Detlefsen}\" year=\"${15:1760}\"/>",
+      "</bib>",
+      "$0"
+    ],
+    "description": "文末参考文献块（自动编号 + 生成「参考文献」标题）"
   }
 }

@@ -40,6 +40,12 @@ import VidPrompt from './components/VidPrompt.vue';
 import VidBoard from './components/VidBoard.vue';
 import Bili from './components/Bili.vue';
 
+// Academic Theory Interactive Labs
+import {
+  BeerLambertLab,
+  VolumeRenderingLab,
+} from './components/presents/academic/index.ts';
+
 // Exam Interactive Components
 import {
   Exam,
@@ -127,6 +133,10 @@ export default {
     app.component('VidPrompt', VidPrompt);
     app.component('VidBoard', VidBoard);
     app.component('Bili', Bili);
+
+    // Academic Theory Interactive Labs
+    app.component('BeerLambertLab', BeerLambertLab);
+    app.component('VolumeRenderingLab', VolumeRenderingLab);
 
     // Exam Components
     app.component('Exam', Exam);

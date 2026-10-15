@@ -930,6 +930,123 @@ html {
   }
 }
 
+/* ==========================================================================
+   参考文献引用与著录（<ref /> + <bib>，见 .vitepress/scripts/citation.ts）
+   ========================================================================== */
+
+/* 正文中的上标引用标号 */
+.cite-ref {
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: super;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cite-ref a.cite-ref-link,
+.cite-ref .cite-ref-missing {
+  color: var(--vp-c-brand-1, var(--vp-c-brand));
+  text-decoration: none;
+  padding: 0 1px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cite-ref a.cite-ref-link:hover {
+  background-color: var(--vp-c-brand-soft, rgba(100, 108, 255, 0.14));
+  text-decoration: none;
+}
+
+.cite-ref .cite-ref-missing {
+  color: #e5484d;
+  cursor: help;
+}
+
+/* 被跳转定位到的条目高亮一下 */
+.cite-bib-item:target {
+  background-color: var(--vp-c-brand-soft, rgba(100, 108, 255, 0.08));
+}
+
+/* 文末著录 */
+.vp-doc .cite-bib {
+  margin: 8px 0 24px;
+}
+
+.vp-doc .cite-bib-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: cite-bib;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+.vp-doc .cite-bib-item {
+  counter-increment: cite-bib;
+  position: relative;
+  padding-left: 2.6em;
+  margin: 0 0 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.vp-doc .cite-bib-item::before {
+  content: '[' counter(cite-bib) ']';
+  position: absolute;
+  left: 0;
+  width: 2.3em;
+  text-align: right;
+  font-family: var(--vp-font-family-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--vp-c-text-3);
+}
+
+.vp-doc .cite-bib-item:hover {
+  background-color: var(--vp-c-bg-soft);
+}
+
+.cite-bib-text {
+  word-break: break-word;
+}
+
+.cite-bib-text .cite-link {
+  color: var(--vp-c-brand-1, var(--vp-c-brand));
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.cite-bib-text .cite-link:hover {
+  text-decoration: underline;
+}
+
+.cite-bib .cite-back {
+  margin-left: 6px;
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.cite-bib-item:hover .cite-back {
+  opacity: 1;
+}
+
+.cite-bib .cite-back:hover {
+  color: var(--vp-c-brand-1, var(--vp-c-brand));
+}
+
+.cite-note-inline {
+  color: var(--vp-c-text-3);
+  font-size: 0.95em;
+}
+
+@media (max-width: 640px) {
+  .vp-doc .cite-bib-item {
+    padding-left: 2.2em;
+  }
+}
+
 @media print {
   /* 目录：强制黑白高对比，不依赖深色模式变量 */
   .vp-doc nav.table-of-contents {
@@ -1068,5 +1185,25 @@ html {
     display: table;
     width: 100% !important;
     table-layout: auto;
+  }
+
+  /* 参考文献：打印时转为高对比黑蓝，去掉悬停交互残留 */
+  .cite-ref a.cite-ref-link,
+  .cite-bib-text .cite-link {
+    color: #1a3fa0 !important;
+    background: transparent !important;
+  }
+
+  .vp-doc .cite-bib-item::before {
+    color: #333 !important;
+  }
+
+  .vp-doc .cite-bib-item:hover {
+    background: transparent !important;
+  }
+
+  .vp-doc .cite-bib-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }

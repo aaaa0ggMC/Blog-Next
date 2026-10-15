@@ -1,6 +1,7 @@
 import { base } from './scripts/Data.ts';
 import { autoSidebar } from './scripts/sidebar.ts';
 import { registerMarkdownContainers } from './scripts/markdownContainers.ts';
+import { registerCitations } from './scripts/citation.ts';
 import { vitepressResTransformPlugin } from './scripts/resTransformPlugin.ts';
 import { generateRss } from './scripts/rss.ts';
 import { defineConfig } from 'vitepress';
@@ -18,6 +19,7 @@ export default defineConfig({
     lineNumbers: true,
     config(md) {
       registerMarkdownContainers(md);
+      registerCitations(md);
     },
   },base,
   title: "aaaa0ggmc's blog",
