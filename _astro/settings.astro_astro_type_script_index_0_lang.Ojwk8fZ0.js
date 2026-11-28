@@ -1,0 +1,1 @@
+import{t as e}from"./stats.CTkTYrUi.js";async function t(){let t=document.getElementById(`settings-site-pv`);if(!t)return;let n=await e();n&&typeof n.site_pv==`number`&&(t.textContent=n.site_pv.toLocaleString())}t(),document.addEventListener(`astro:page-load`,()=>{t()});

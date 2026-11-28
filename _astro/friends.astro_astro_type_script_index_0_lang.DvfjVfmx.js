@@ -1,0 +1,1 @@
+import{i as e}from"./popup.DXL7vvKM.js";function t(){let t=document.getElementById(`copy-site-yaml`);t&&!t.dataset.bound&&(t.dataset.bound=`1`,t.addEventListener(`click`,async()=>{let n=t.dataset.yaml??``;if(n)try{await navigator.clipboard.writeText(n),e(`已复制本站友链信息`,2600,`success`)}catch{e(`复制失败，请检查剪贴板权限`,2600,`error`)}}))}t(),document.addEventListener(`astro:page-load`,t);
